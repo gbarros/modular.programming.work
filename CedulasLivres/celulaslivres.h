@@ -28,6 +28,5 @@
 *******************************************************************************/
 public CLI_Coluna CLI_CriaColuna (void);
 public int CLI_ExcluirColuna( CLI_Coluna coluna );
-public int CLI_PopulaColuna(CLI_Coluna coluna);
 public int CLI_InserirCarta ( CLI_Coluna destino, Carta carta);
 public int CLI_ExcluirCarta (CLI_Coluna alvo, Carta carta);
