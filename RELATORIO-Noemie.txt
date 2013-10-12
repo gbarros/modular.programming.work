@@ -1,0 +1,14 @@
+----------------------------------------------------------------------------------------------------
+	RELATÓRIO: Noemie Nakamura
+----------------------------------------------------------------------------------------------------
+Data		Horas	Tipo Tarefa		Descrição da Tarefa Realizada
+----------------------------------------------------------------------------------------------------
+09/set/13	1	Projetar		Definição dos requisitos do jogo com Gabriel.
+10/set/13	2	Especificar módulos	Definição dos módulos e suas relações com Gabriel e Leonardo.
+21/set/13	1,5	Especificar módulos	(Re)Definição dos módulos, suas relações e quais funções
+			Especificar funções	cada módulo deveria apresentar. Definição da interface.
+25/set/13	2	Estudar			Estudo do módulo lista, conhecimento e compreensão de suas funções com Gabriel.
+			Codificar módulo 	Início da codificação do módulo de células livres com Gabriel.
+10/out/13	1	Estudar			Estudo do uso correto do arcabouço de testes.
+11/out/13 	6	Estudar			Continuação de estudo do uso correto do arcabouço de testes.
+			Codificar módulo	(Re)Estruturação básica de diretórios e código dos programas conforme critérios.
