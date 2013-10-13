@@ -1,11 +1,11 @@
-#if ! defined( EXTRA_ )
-#define EXTRA_
+#if ! defined( CEL_LIVRE_ )
+#define CEL_LIVRE_
 
 /*******************************************************************************
-*  $MCD Módulo de definição: EXT Célula Extra
+*  $MCD Módulo de definição: CLI Célula Livre
 *
-*  Arquivo gerado:              EXTRA.h
-*  Letras identificadoras:      EXT
+*  Arquivo gerado:              CEL_LIVRE.h
+*  Letras identificadoras:      CLI
 *
 *  Nome da base de software:    Jogo FreeCell
 *  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
@@ -16,6 +16,7 @@
 *
 *  $HA Histórico de evolução:
 *	Versão  Autor   Data			Observações
+*	4 	    lg		13/out/2013		Desenvolvimento
 *	3		nk		11/out/2013		Mudança nomenclatura, definição de restrição inicial
 *   2       gb      28/set/2013		Prosseguimento do desenvolvimento
 *   1       gb, nk	25/set/2013		Início desenvolvimento, definição de funções
@@ -31,13 +32,14 @@
 *   simples questão de conjuntos de cartas organizadas.
 *
 *******************************************************************************/
-#if defined( EXTRA_OWN )
-   #define EXTRA_EXT
+#if defined( CEL_LIVRE_OWN )
+   #define CEL_LIVRE_EXT
 #else
-   #define EXTRA_EXT extern
+   #define CEL_LIVRE_EXT extern
 #endif
 
-EXT_Coluna EXT_CriaColuna (void);
-int EXT_ExcluirColuna(EXT_Coluna coluna);
-int EXT_InserirCarta (EXT_Coluna destino, Carta carta);
-int EXT_ExcluirCarta (EXT_Coluna alvo, Carta carta);
+public CLI_Coluna CLI_CriaColuna (void);
+public int CLI_ExcluirColuna( CLI_Coluna coluna );
+public int CLI_InserirCarta ( CLI_Coluna destino, Carta carta);
+public int CLI_ExcluirCarta (CLI_Coluna alvo, Carta carta);
+static int ContarCartas (CLI_Coluna coluna);
