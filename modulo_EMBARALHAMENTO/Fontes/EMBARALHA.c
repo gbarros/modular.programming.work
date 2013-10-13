@@ -16,6 +16,8 @@
 *  $HA Histórico de evolução:
 *  Versão  Autor	Data			Observações
 *   1       gb		12/out/2013		Início desenvolvimento
+* 	2 		lg, gb  13/out/2013		Desenvolvimento
+*	3		gb 		13/out/2013		Teste do módulo
 *    
 ***************************************************************************/
 
@@ -30,6 +32,8 @@ int EBL_embaralha(char bar[53][4]){
  
 	char barAux[53][4];
 	int i,n;
+
+	srand(time(NULL));
 
 	for(i=0; i<53;i++)
 	{
