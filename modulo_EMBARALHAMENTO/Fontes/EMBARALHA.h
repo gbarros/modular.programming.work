@@ -19,7 +19,7 @@
 *   1       gb		12/out/2013		Início desenvolvimento, definição de funções
 *
 *	$ED Descrição do módulo
-*	Recebe uma sequência representando baralho ordenado e retornar esta sequência
+*	Recebe uma sequência representando baralho ordenado e retorna esta sequência
 *	embaralhada.
 *
 *******************************************************************************/
