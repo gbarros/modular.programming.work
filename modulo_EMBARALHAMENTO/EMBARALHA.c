@@ -21,40 +21,55 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <time.h>  
 
- int EBL_embaralha(char ** bar){
+static void EBL_CopiaMarca (char* a, char* b);
 
- 	char barAux[52][3];
- 	int i,n;
- 	if (bar==NULL){
+int EBL_embaralha(char bar[53][4]){
+ 
+	char barAux[53][4];
+	int i,n;
 
- 		return -1; 
- 	}
+	for(i=0; i<53;i++)
+	{
+		strcpy(barAux[i],"0");
+	}
 
- 	for (i=0; i<52; i++){
+	if (bar==NULL)
+	{
+ 		return -1;
+	}
 
- 		n= rand()%52;
- 	 	while(!strc('0', bar[n])){ //Se não encontrou carta		
- 	 		n++;
- 	 	}
- 	 	EBL_CopiaMarca(bar[n],barAux[i]);//copia e marca com 0 o elemento já copiado
- 	}
- 	for (i=0;i<52;i++){
+	for (i=0; i<52; i++)
+	{
+ 		n= rand()%51;
 
- 		strcpy(bar[i],barAux[i]);
- 	}
+		while( !strcmp(bar[n],"0"))
+		{
+			n++;
+			if( n>51)
+				n=0;
+		}
+		
+		EBL_CopiaMarca(bar[n],barAux[i]);
+	}
 
+	for (i=0;i<51;i++)
+	{
+		strcpy(bar[i],barAux[i]);
+	}
 
-	if ( bar == NULL){
+	if (bar==NULL)
+	{
+		return 1;
+	}
 
- 		return 1;
- 	}
- 	return 0;
-
+	return 0;
  }
- static void EBL_CopiaMarca (char a[], char b[]){
 
- 		char aux[3];
- 		strcpy(b,a);
- 		strcpy(a,'0');
- }
+ static void EBL_CopiaMarca (char* a, char* b)
+ {
+		strcpy(b,a);
+        strcpy(a,"0");
+ } 
