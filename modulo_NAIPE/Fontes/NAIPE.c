@@ -1,10 +1,10 @@
 /***************************************************************************
-*  $MCD Módulo de definição: CLI Célula Livre
+*  $MCI Módulo de implementação: NPE Naipe
 *
-*  Arquivo gerado:              CEL_LIVRE.c
-*  Letras identificadoras:      CLI
+*  Arquivo gerado:              NAIPE.c
+*  Letras identificadoras:      NPE
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
+*  Nome da base de software:    Jogo FreeCell
 *  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
 *
 *  Projeto: [INF 1301] Implementação do Jogo FreCell para fins educacionais
@@ -14,7 +14,7 @@
 *			   nk - Noemie Nakamura
 *
 *  $HA Histórico de evolução:
-*   Versão  Autor	Data			Observações
-*   1       gb, nk	12/out/2013		Início desenvolvimento, definição de funções
+*  Versão  Autor	Data			Observações
+*  1       nk		11/out/2013		Início desenvolvimento, Criação NAIPE
 *    
 ***************************************************************************/

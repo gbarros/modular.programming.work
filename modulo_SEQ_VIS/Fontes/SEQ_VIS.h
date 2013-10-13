@@ -1,11 +1,11 @@
-#if ! defined( COLUNA_ )
-#define COLUNA_
+#if ! defined( SEQ_VIS_ )
+#define SEQ_VIS_
 
 /*******************************************************************************
-*  $MCD Módulo de definição: COL Coluna
+*  $MCD Módulo de definição: SV Sequência Visível
 *
-*  Arquivo gerado:              COLUNA.h
-*  Letras identificadoras:      COL
+*  Arquivo gerado:              SEQ_VIS.c
+*  Letras identificadoras:      SV
 *
 *  Nome da base de software:    Jogo FreeCell
 *  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
@@ -19,12 +19,12 @@
 *	1		nk		11/out/2013		Criação do módulo com suas definições
 *
 *  $ED Descrição do módulo
-*	Implementa as regras e funções básicas às colunas de cartas.
+*	Implementa as regras e funções básicas às sequências visíveis de cartas.
 *
 *
 *******************************************************************************/
-#if defined( COLUNA_OWN )
-   #define COLUNA_EXT
+#if defined( SEQ_VIS_OWN )
+   #define SEQ_VIS_EXT
 #else
-   #define COLUNA_EXT extern
+   #define SEQ_VIS_EXT extern
 #endif

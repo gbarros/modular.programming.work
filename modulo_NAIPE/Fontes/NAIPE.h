@@ -19,13 +19,7 @@
 *	1		nk		11/out/2013		Criação do módulo com suas definições
 *
 *  $ED Descrição do módulo
-*     Implementa as Regras e Funções básicas às colunas de cartas do tipo que 
-*    contém uma única carta.
 *
-*	  Permite a criação de até 4 colunas, conforme a restrição do jogo. 
-*
-*     Implementa uma abstração da estrutura de dados, tornando o uso uma 
-*   simples questão de conjuntos de cartas organizadas.
 *
 *******************************************************************************/
 #if defined( NAIPE_OWN )

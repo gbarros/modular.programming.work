@@ -18,9 +18,9 @@
 *	Versão  Autor   Data			Observações
 *   1       gb		12/out/2013		Início desenvolvimento, definição de funções
 *
-*  $ED Descrição do módulo
-*	
-*
+*	$ED Descrição do módulo
+*	Recebe uma sequência representando baralho ordenado e retorna esta sequência
+*	embaralhada.
 *
 *******************************************************************************/
 #if defined( EMBARALHA_OWN )

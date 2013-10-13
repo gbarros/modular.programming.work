@@ -1,4 +1,4 @@
-Implementação do Jogo FreeCell Utilizando Listas Encadeadas em C
+﻿Implementação do Jogo FreeCell Utilizando Listas Encadeadas em C
 Arquivo LEIAME
 
 Gabriel Barros, Leonardo Giroto & Noemie Nakamura
@@ -7,16 +7,6 @@ PUC-Rio Outubro 2013
 ----------------------------------------------------------------------------------------------------
 	APRESENTAÇÃO
 ----------------------------------------------------------------------------------------------------
-	Este texto descreve, resumidamente, o conteúdo do arquivo ArcaboucoTeste-2-00.zip
-	que contém toda a documentação e todos os módulos fonte, exemplos e utilitários utilizados
-	pelo Arcabouço de Apoio à Automação dos Testes de Programas Redigidos em C: AutoTest.
-	Este documento fornece informações de utilização para 
-	o programa de teste dos modulos de Rede Social, Usuarios, Grafo e Listas.
-	
-	O programa desenvolvido é uma rede social que utiliza grafo como estrutura de dados.
-	O objetivo dos construtos aqui referenciados é testar a implementação de uma rede social 
-	que utiliza um modulo de estrutura de dados grafo genérico feito delistas genéricas.
-	
 	Aqui é brevemente descrito o programa desenvolvido com informações de instalação e utilização 
 	de seus módulos. O programa é a implementação do Jogo FreeCell por meio da estrutura de dados
 	lista, construído sob linguagem C.
@@ -28,32 +18,61 @@ PUC-Rio Outubro 2013
 	Faça o download do arquivo INF1301-Trab01-GBLGNK.zip e crie uma pasta para descompactá-lo.
 	Verifique que as seguintes pastas e deverão estar presentes:
 
-	NOME		DESCRIÇÃO
+	NOME			DESCRIÇÃO
 	doc			Contém a documentação do programa, descrita no próximo tópico.
-	ferramnt	Contém a ferramenta GMake, é utilizado para, a partir de um arquivo que descreve a 
+	modulo_EMBARALHAMENTO	Contém os arquivos para execução e teste do módulo embaralhamento.
+	modulo_EXTRA		Contém os arquivos para execução e teste do módulo extra.
+	modulo_LISTA		Contém os arquivos para execução e teste do módulo lista.
+	modulo_NAIPE		Contém os arquivos para execução e teste do módulo naipe.
+	modulo_SEQ_VIS		Contém os arquivos para execução e teste do módulo sequências visíveis.
+
+	Todas as pastas do tipo modulo_X devem conter as seguintes subpastas:
+	
+	NOME			DESCRIÇÃO
+	batches			Contém todos os arquivos .batch necessários para automatizar as execuções
+				no prompt de comando.
+	composicao		Contém o arquivo Gmake.parm, necessário para o uso do arcabouço de testes.
+	fontes			Contém os módulos de definição necessários para o uso do arcabouço de testes.
+	ferramnt		Contém a ferramenta GMake, é utilizado para, a partir de um arquivo que descreve a 
 				composição de um construto, gerar as diretivas .make e .build usadas para compilar 
 				este construto. O GMake permite criar scripts de make que envolvem uma variedade de
-				ferramentas criadas pelo usuário, além das ferramentas que compõem o compilador.
-	fontes		Contém os módulos de definição necessários para o uso do arcabouço de testes.
-	obj			Contém a biblioteca ArcaboucoTeste.lib, necessária para o uso do arcabouço de testes.
+				ferramentas criadas pelo usuário, além das ferramentas que compõem o compilador.	
+	objetos			Contém a biblioteca ArcaboucoTeste.lib, necessária para o uso do arcabouço de testes.
+	produto			Contém as saídas de compilação.
+	scripts			Contém os scripts de teste do módulo, que representa os casos de teste necessários
+				para testar o módulo.
 	
 ----------------------------------------------------------------------------------------------------
 	DOCUMENTAÇÃO
 ----------------------------------------------------------------------------------------------------
-	NOME							DESCRIÇÃO
-	leiame.txt						Versão eletrônica deste documento
+	NOME				DESCRIÇÃO
+	leiame.txt			Versão eletrônica deste documento
 	especificacao_requisitos.pdf	Apresenta a modelagem do problema, ou seja, a especificação de
-									requisitos do programa. Inclui uma descrição detalhada do
-									funcionamento e exemplos.
-	arquitetura.pdf					Apresenta modelagem da solução, com diagrama dos módulos e suas
-									relações, além das interfaces.
-	modelo_estrutural.pdf			Apresenta a modelagem física do programa e exemplos.
+					requisitos do programa. Inclui uma descrição detalhada do
+					funcionamento e exemplos.
+	arquitetura.pdf			Apresenta modelagem da solução, com diagrama dos módulos e suas
+					relações, além das interfaces.
+	modelo_estrutural.pdf		Apresenta a modelagem física do programa e exemplos.
 	
 ----------------------------------------------------------------------------------------------------
 	ARQUIVOS DE CÓDIGO FONTE
 ----------------------------------------------------------------------------------------------------
-	NOME	DESCRIÇÃO
-	...		...
+	NOME				DESCRIÇÃO
+	LISTA.h, LISTA.c		Módulos de implementação e de definição do módulo que manipula a
+					estrutura de dados tipo lista.
+	EMBARALHA.h, EMBARALHA.c	Módulos de implementação e de definição do módulo responsável
+					por embaralhar as cartas do baralho.
+	EXTRA.h, EXTRA.c		Módulos de implementação e de definição do módulo que manipula as
+					colunas extra (freecells).
+	NAIPE.h, NAIPE.c		Módulos de implementação e de definição do módulo que manipula as
+					colunas de naipe.
+	SEQ_VIS.h, SEQ_VIS.c		Módulos de implementação e de definição do módulo que manipula as
+					sequências visíveis.
+	TEST_LIS.c			Módulo de teste específico do módulo LISTA.
+	TEST_EMB.c			Módulo de teste específico do módulo EMBARALHA.
+	TEST_EXT.c			Módulo de teste específico do módulo EXTRA.
+	TEST_NPE.c			Módulo de teste específico do módulo NPE.
+	TEST_SV.c			Módulo de teste específico do módulo SEQ_VIS.
 ----------------------------------------------------------------------------------------------------
 	CONTATO
 ----------------------------------------------------------------------------------------------------

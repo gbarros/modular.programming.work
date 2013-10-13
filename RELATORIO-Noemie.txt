@@ -12,3 +12,7 @@ Data		Horas	Tipo Tarefa		Descrição da Tarefa Realizada
 10/out/13	1	Estudar			Estudo do uso correto do arcabouço de testes.
 11/out/13 	6	Estudar			Continuação de estudo do uso correto do arcabouço de testes.
 			Codificar módulo	(Re)Estruturação básica de diretórios e código dos programas conforme critérios.
+						Criação do arquivo LEIAME.
+12/out/13 	6	Projetar		Comunicação com membros, compartilhamento de desenvolvimento, atualização de diretórios.
+			Codificar módulo	Montagem de pseudo-código do jogo. Início desenvolvimento módulo extra/células livres.
+13/out/13	

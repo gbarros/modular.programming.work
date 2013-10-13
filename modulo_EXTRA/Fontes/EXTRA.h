@@ -1,11 +1,11 @@
-#if ! defined( CEL_LIVRE_ )
-#define CEL_LIVRE_
+#if ! defined( EXTRA_ )
+#define EXTRA_
 
 /*******************************************************************************
-*  $MCD Módulo de definição: CLI Célula Livre
+*  $MCD Módulo de definição: EXT Célula Extra
 *
-*  Arquivo gerado:              CEL_LIVRE.h
-*  Letras identificadoras:      CLI
+*  Arquivo gerado:              EXTRA.h
+*  Letras identificadoras:      EXT
 *
 *  Nome da base de software:    Jogo FreeCell
 *  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
@@ -31,13 +31,13 @@
 *   simples questão de conjuntos de cartas organizadas.
 *
 *******************************************************************************/
-#if defined( CEL_LIVRE_OWN )
-   #define CEL_LIVRE_EXT
+#if defined( EXTRA_OWN )
+   #define EXTRA_EXT
 #else
-   #define CEL_LIVRE_EXT extern
+   #define EXTRA_EXT extern
 #endif
 
-public CLI_Coluna CLI_CriaColuna (void);
-public int CLI_ExcluirColuna( CLI_Coluna coluna );
-public int CLI_InserirCarta ( CLI_Coluna destino, Carta carta);
-public int CLI_ExcluirCarta (CLI_Coluna alvo, Carta carta);
+EXT_Coluna EXT_CriaColuna (void);
+int EXT_ExcluirColuna(EXT_Coluna coluna);
+int EXT_InserirCarta (EXT_Coluna destino, Carta carta);
+int EXT_ExcluirCarta (EXT_Coluna alvo, Carta carta);

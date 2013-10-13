@@ -1,8 +1,8 @@
 /***************************************************************************
-*  $MCD Módulo de definição: CLI Célula Livre
+*  $MCD Módulo de definição: EXT Extra
 *
-*  Arquivo gerado:              CEL_LIVRE.c
-*  Letras identificadoras:      CLI
+*  Arquivo gerado:              EXTRA.c
+*  Letras identificadoras:      EXT
 *
 *  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
 *  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
@@ -20,31 +20,31 @@
 ***************************************************************************/
 #include <LISTA.H>
 
-typedef LIS_tppLista CLI_Coluna;
+typedef LIS_tppLista EXT_Coluna;
 typedef char* Carta;
 
 
-public CLI_Coluna CLI_CriaColuna (void){
+public EXT_Coluna EXT_CriaColuna (void){
 
 	return LIS_CriarLista( NULL ) ;
 
 }
 
-public int CLI_ExcluirColuna( CLI_Coluna coluna ){
+public int EXT_ExcluirColuna( EXT_Coluna coluna ){
  	
  	 LIS_DestruirLista( coluna ) ;
 
 }
 
 
-public int CLI_InserirCarta ( CLI_Coluna destino, Carta carta){
+public int EXT_InserirCarta ( EXT_Coluna destino, Carta carta){
 
 	/*Regras de inserção*/ 
 	 IrFinalLista(destino) ; //torna elemento corrente o ultimo elemento
 	 int deuCerto= LIS_InserirElementoApos( destino , carta ); // insere após o elemento corrente
 }
 
-public int CLI_ExcluirCarta (CLI_Coluna alvo, Carta carta){
+public int EXT_ExcluirCarta (EXT_Coluna alvo, Carta carta){
 
 	/*Deve-se analizar os retornos de procurar valor e talvez de ExcluirElemento*/
 	LIS_ProcurarValor (alvo, carta);
@@ -53,7 +53,7 @@ public int CLI_ExcluirCarta (CLI_Coluna alvo, Carta carta){
 
 
 
-int ContarCartas (CLI_Coluna coluna){
+int ContarCartas (EXT_Coluna coluna){
 	/* implementar contador de cartas, dica: se for um inicio=fim, senão tem que ir do 
 	inicio ao fim iterando*/
 }
