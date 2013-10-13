@@ -16,5 +16,37 @@
 *  $HA Histórico de evolução:
 *  Versão  Autor	Data			Observações
 *  1       nk		11/out/2013		Início desenvolvimento, Criação NAIPE
+*  2 	   lg		13/out/2013		Desenvolvimento
 *    
 ***************************************************************************/
+
+#include <LISTA.H>
+
+typedef LIS_tppLista NPE_Coluna;
+typedef char* Carta;
+
+public NPE_Coluna NPE_CriaColuna (void)
+{
+	return LIS_CriarLista(NULL);
+}
+
+public int NPE_ExcluirColuna(NPE_Coluna coluna)
+{
+	LIS_DestruirLista(coluna);
+	return 0;
+}
+
+static int ContarCartas (NPE_Coluna coluna)
+{
+	// conta o numero de cartas para saber qual o valor que deve vir a proxima
+}
+
+public int NPE_InserirCartaEmNaipe(NPE_Coluna destino, Carta carta)
+{
+	// ver se o naipe é o equivalente ao da coluna destino
+	// ver o numero retornado pelo contar cartas e se é ele+1
+
+}
+
+
+

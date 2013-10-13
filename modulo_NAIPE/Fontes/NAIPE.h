@@ -17,6 +17,7 @@
 *  $HA Histórico de evolução:
 *	Versão  Autor   Data			Observações
 *	1		nk		11/out/2013		Criação do módulo com suas definições
+*	2 		lg		13/out/2013		Desenvolvimento
 *
 *  $ED Descrição do módulo
 *
@@ -27,3 +28,8 @@
 #else
    #define NAIPE_EXT extern
 #endif
+
+public NPE_Coluna NPE_CriarColunaNaipe(void);
+public int NPE_DestruirColunaNaipe(NPE_Coluna coluna);
+static int ContarCartas (NPE_Coluna coluna);
+public int NPE_InserirCartaEmNaipe(NPE_Coluna coluna, Carta carta);
