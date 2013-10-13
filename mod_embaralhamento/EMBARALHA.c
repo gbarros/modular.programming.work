@@ -15,7 +15,7 @@
  	for (i=0; i<52; i++){
 
  		n= rand()%52;
- 	 	while(!strc('0', bar[n])){ //Se não encontrou carta		
+ 	 	while(!strcmp('0', bar[n])){ //Se não encontrou carta		
  	 		n++;
  	 	}
  	 	EBL_CopiaMarca(bar[n],barAux[i]);//copia e marca com 0 o elemento já copiado
