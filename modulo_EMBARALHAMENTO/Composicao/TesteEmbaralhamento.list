@@ -21,10 +21,20 @@ Módulos do construto: TesteEmbaralhamento.comp
 Estatísticas do construto
 
    Estatísticas do arquivo: embaralha.c
-      Total linhas:              79
-      Linhas de código:          43
+      Total linhas:              80
+      Linhas de código:          44
       Linhas de comentário:      22
       Linhas em branco:          14
+   Arquivos de inclusão de que necessita
+      embaralha.h
+
+   Estatísticas do arquivo: embaralha.h
+      Total linhas:              77
+      Linhas de código:          15
+      Linhas de comentário:      52
+      Linhas em branco:          10
+   Arquivos em que é incluído
+      embaralha.c
 
    Estatísticas do arquivo: test_emb.c
       Total linhas:               0
@@ -35,11 +45,11 @@ Estatísticas do construto
 Totais por tipo de arquivo
 
   Tipo: h        Path: ..\Fontes
-         Total linhas do tipo:         0
-         Linhas de código:             0
-         Linhas de comentário:         0
-         Linhas em branco:             0
-         Arquivos deste tipo:          0
+         Total linhas do tipo:        77
+         Linhas de código:            15
+         Linhas de comentário:        52
+         Linhas em branco:            10
+         Arquivos deste tipo:          1
 
   Tipo: obj      Path: ..\Objetos
          Total linhas do tipo:         0
@@ -55,7 +65,7 @@ Totais por tipo de arquivo
          Linhas em branco:             0
          Arquivos deste tipo:          0
 
-  Tipo: err      Path: ..\Produto
+  Tipo: err      Path: ..\Produtos
          Total linhas do tipo:         0
          Linhas de código:             0
          Linhas de comentário:         0
@@ -70,17 +80,17 @@ Totais por tipo de arquivo
          Arquivos deste tipo:          0
 
   Tipo: c        Path: ..\Fontes
-         Total linhas do tipo:        79
-         Linhas de código:            43
+         Total linhas do tipo:        80
+         Linhas de código:            44
          Linhas de comentário:        22
          Linhas em branco:            14
          Arquivos deste tipo:          2
 
 Totais para todo o construto TesteEmbaralhamento
 
-   Total linhas:                79
-   Linhas de código:            43
-   Linhas de comentário:        22
-   Linhas em branco:            14
-   Arquivos processados:         2
+   Total linhas:               157
+   Linhas de código:            59
+   Linhas de comentário:        74
+   Linhas em branco:            24
+   Arquivos processados:         3
 

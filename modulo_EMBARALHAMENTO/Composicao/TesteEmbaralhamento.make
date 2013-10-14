@@ -17,7 +17,7 @@ NOME            = TesteEmbaralhamento
 Ph                   = ..\Fontes
 Pobj                 = ..\Objetos
 Plib                 = ..\Objetos
-Perr                 = ..\Produto
+Perr                 = ..\Produtos
 PDEFAULT             = ..\Fontes
 Pc                   = ..\Fontes
 
@@ -26,7 +26,7 @@ Pc                   = ..\Fontes
 Fh                   = ..\Fontes
 Fobj                 = ..\Objetos
 Flib                 = ..\Objetos
-Ferr                 = ..\Produto
+Ferr                 = ..\Produtos
 FDEFAULT             = ..\Fontes
 Fc                   = ..\Fontes
 
@@ -60,7 +60,8 @@ limpa :
 
 ### Dependências de módulos objeto a compilar
 
-$(Fobj)\embaralha.obj :  {$(Pc)}\embaralha.c
+$(Fobj)\embaralha.obj :  {$(Pc)}\embaralha.c \
+    {$(Ph)}embaralha.h         
    cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
 
 $(Fobj)\test_emb.obj :  {$(Pc)}\test_emb.c

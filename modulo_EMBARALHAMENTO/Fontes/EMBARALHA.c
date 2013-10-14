@@ -25,6 +25,8 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>  
+#define EMBARALHA_OWN
+#include "EMBARALHA.h"
 
 static void EMB_CopiaMarca (char* a, char* b)
 {
@@ -32,7 +34,7 @@ static void EMB_CopiaMarca (char* a, char* b)
         strcpy(a,"0");
 } 
 
-EMB_CondRet EMB_embaralha(char bar[53][4]){
+EMB_tpCondRet EMB_embaralha(char bar[53][4]){
  
 	char barAux[53][4];
 	int i,n;

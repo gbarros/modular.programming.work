@@ -4,7 +4,7 @@
 
 Nome        =  TesteEmbaralhamento
 PathDefault =  ..\Fontes
-err         =  ..\Produto
+err         =  ..\Produtos
 lib         =  ..\Objetos
 obj         =  ..\Objetos
 c           =  ..\Fontes
@@ -15,8 +15,8 @@ EMBARALHA
 TEST_EMB
 
 [BuildInicio]
- ArcaboucoTeste.lib
-/OUT:..\produto\TesteEmbaralhamento.exe
+ArcaboucoTeste.lib
+/OUT:..\Produtos\TesteEmbaralhamento.exe
 /INCREMENTAL:NO
 /MACHINE:IX86
 

@@ -42,7 +42,7 @@
 ***********************************************************************/
 
 typedef enum {
-	EMB_CondRetOK
+	EMB_CondRetOK,
 	// Concluiu corretamente
 	EMB_CondRetBaralhoInvalido
 	// Recebeu um baralho inválido
@@ -69,7 +69,7 @@ typedef enum {
 *	ordem distinta da ordem natural.
 ***********************************************************************/
 
-EMB_CondRet EMB_embaralha(char bar[53][4]);
+EMB_tpCondRet EMB_embaralha(char bar[53][4]);
 
 /********** Fim do módulo de definição: EMB Embaralhamento **********/
 
