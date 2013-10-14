@@ -45,10 +45,10 @@
 typedef enum {
 	EMB_CondRetOK,
 	// Concluiu corretamente
-	EMB_CondRetBaralhoInvalidoEntrada
-	// Recebeu um baralho inválido na entrada
-	EMB_CondRetBaralhoInvalidoSaida
-	// Após o embaralhamento, ele ficou inválido
+	EMB_CondRetBaralhoInvalido,
+	// Recebeu um baralho inválido
+	EMB_CondRetErroNoEmbaralhamento
+	// Erro na função de embaralhamento 
 
 } EMB_tpCondRet ;
 
