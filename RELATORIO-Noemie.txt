@@ -18,4 +18,7 @@ Data		Horas	Tipo Tarefa		Descrição da Tarefa Realizada
 13/out/13	11	Revisar projetos	Revisão dos módulos e seus relacionamentos. Compreensão da estrutura de todo jogo.
 			Projetar		Definição de modelo físico e exemplo.
 			Estudar			Estudo de arquivos .comp e como funciona o Gmake.
-			Codificar módulo	Codificação 
+			Codificar módulo	Codificação de módulos .h e .c
+14/out/13   	10  	Revisar projetos    	Revisão do movimento das cartas (remove, insere) e das interfaces.
+			Estudar			Estudo de como fazer módulos de teste, como gerar os executáveis
+			Codificar módulo	Continuação da codificação de módulos .h e .c
