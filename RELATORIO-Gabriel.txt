@@ -7,9 +7,8 @@ Data		Horas	Tipo Tarefa		Descrição da Tarefa Realizada
 
 10/set/13	2	Especificar módulos		Definição dos módulos e suas relações
 
-21/set/13	1,5	Especificar módulos		Os 3 se reuniram para definir a estrutura dos modulos de colunas e o desenho da interface 
-
-				Especificar funções			(por meio de protótipo no bloco de notas). Foi utilizado meio misto de comunicação: Eu por Skype, 
+21/set/13	1,5	Especificar módulos/	Os 3 se reuniram para definir a estrutura dos modulos de colunas e o desenho da interface 
+				Especificar funções		(por meio de protótipo no bloco de notas). Foi utilizado meio misto de comunicação: Eu por Skype, 
 										Noemie e Leonardo juntos presencialmente.
 
 25/set/13	4	Estudar					Inicio de coding básico do programa, em cima do modulo CEDULASLIVRES.Leitura e compreensao do
@@ -23,7 +22,12 @@ Data		Horas	Tipo Tarefa		Descrição da Tarefa Realizada
 12/set/13  4    Estudar/				Comecei a montagem do modulo EMBARALHAMENTO, para que apartir de sua simplicidade enquanto módulo, pudesse aprender
 				Codificar módulos		a usar o arcabouço com todos os casos de teste necessários.
 
-13/out/13	11	Revisar projetos		Revisão dos módulos e seus relacionamentos. Compreensão da estrutura de todo jogo.
-			 		Projetar			Definição de modelo físico e exemplo.
-					Estudar				Estudo de arquivos .comp e como funciona o Gmake.
+13/out/13	11	Revisar projetos/		Revisão dos módulos e seus relacionamentos. Compreensão da estrutura de todo jogo.
+			 		Projetar/			Definição de modelo físico e exemplo.
+					Estudar	/			Estudo de arquivos .comp e como funciona o Gmake.
 				Codificar módulo		Codificação 
+
+14/out/13   10  Revisar projetos /    	Revisão da transação de movimento de carta(s)
+					Projetar/			Apartir da revisão fizemos mudanças nas interfaces
+					Estudar				Analise dos exemplos de Controlador de Teste e o uso de .Scripts
+				Códificar módulo        Construção de todos os modulos. (.c e .h)
