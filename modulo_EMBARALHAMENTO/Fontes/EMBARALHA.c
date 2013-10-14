@@ -32,7 +32,7 @@ static void EMB_CopiaMarca (char* a, char* b)
         strcpy(a,"0");
 } 
 
-int EMB_embaralha(char bar[53][4]){
+EMB_CondRet EMB_embaralha(char bar[53][4]){
  
 	char barAux[53][4];
 	int i,n;

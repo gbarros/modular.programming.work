@@ -44,6 +44,8 @@
 typedef enum {
 	EMB_CondRetOK
 	// Concluiu corretamente
+	EMB_CondRetBaralhoInvalido
+	// Recebeu um baralho inválido
 
 } EMB_tpCondRet ;
 
@@ -51,20 +53,23 @@ typedef enum {
 *	$FC Função: EMB
 *
 *	$ED Descrição da função
-*
+*	Recebe um baralho completo (52 cartas, 4 naipes) ordenado e o embaralha.
 *
 *	$EP Parâmetros
-*                    
+*   bar - Baralho a ser embaralhado.                 
 *
 *	$FV Valor retornado
-*
+*	EMB_CondRetOK - Conseguiu embaralhar.
+*	EMB_CondRetBaralhoInvalido - Recebeu um baralho inválido e não embaralhou.
 *
 *	Assertivas
-*	Entrada - 
-*
-*	Saída - 
-*
+*	Entrada - O baralho deve ser um baralho válido, isto é, completo e
+*	com todas as cartas distintas.
+*	Saída - Se executado corretamente, as cartas do baralho devem estar numa
+*	ordem distinta da ordem natural.
 ***********************************************************************/
+
+EMB_CondRet EMB_embaralha(char bar[53][4]);
 
 /********** Fim do módulo de definição: EMB Embaralhamento **********/
 
