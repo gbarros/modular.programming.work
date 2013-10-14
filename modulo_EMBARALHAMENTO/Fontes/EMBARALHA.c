@@ -1,24 +1,24 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: NPE Naipe
+*	$MCD Módulo de definição: EMB Embaralhamento
 *
-*  Arquivo gerado:              NAIPE.c
-*  Letras identificadoras:      NPE
+*	Arquivo gerado:              EMBARALHA.h
+*	Letras identificadoras:      EMB
 *
-*  Nome da base de software:    Jogo FreeCell
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
+*	Nome da base de software:    Jogo FreeCell
+*	Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
 *
-*  Projeto: [INF 1301] Implementação do Jogo FreCell para fins educacionais
-*  Gestor:  LES/DI/PUC-Rio
-*  Autores:    gb -	Gabriel Barros
-*			   lg - Leonardo Giroto 
-*			   nk - Noemie Nakamura
+*	Projeto: [INF 1301] Implementação do Jogo FreCell para fins educacionais
+*	Gestor:  LES/DI/PUC-Rio
+*	Autores: gb - Gabriel Barros
+*			 lg - Leonardo Giroto 
+*			 nk - Noemie Nakamura
 *
-*  $HA Histórico de evolução:
-*  Versão  Autor	Data			Observações
-*   1       gb		12/out/2013		Início desenvolvimento
-* 	2 		lg, gb  13/out/2013		Desenvolvimento
+*	$HA Histórico de evolução:
+*	Versão  Autor	Data			Observações
+*   4		nk		14/out/2013		Mudança de nomenclatura, correções 
 *	3		gb 		13/out/2013		Teste do módulo
-*    
+* 	2 		lg, gb  13/out/2013		Desenvolvimento
+*   1       gb		12/out/2013		Início desenvolvimento
 ***************************************************************************/
 
 #include <stdio.h>
@@ -26,9 +26,13 @@
 #include <stdlib.h>
 #include <time.h>  
 
-static void EBL_CopiaMarca (char* a, char* b);
+static void EMB_CopiaMarca (char* a, char* b)
+{
+		strcpy(b,a);
+        strcpy(a,"0");
+} 
 
-int EBL_embaralha(char bar[53][4]){
+int EMB_embaralha(char bar[53][4]){
  
 	char barAux[53][4];
 	int i,n;
@@ -56,7 +60,7 @@ int EBL_embaralha(char bar[53][4]){
 				n=0;
 		}
 		
-		EBL_CopiaMarca(bar[n],barAux[i]);
+		EMB_CopiaMarca(bar[n],barAux[i]);
 	}
 
 	for (i=0;i<51;i++)
@@ -72,8 +76,3 @@ int EBL_embaralha(char bar[53][4]){
 	return 0;
  }
 
- static void EBL_CopiaMarca (char* a, char* b)
- {
-		strcpy(b,a);
-        strcpy(a,"0");
- } 
