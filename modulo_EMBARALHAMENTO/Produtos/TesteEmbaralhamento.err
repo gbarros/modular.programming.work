@@ -1,3 +1,9 @@
+test_emb.c
+..\Fontes\test_emb.c(73) : warning C4189: 'baralho2' : local variable is initialized but not referenced
+..\Fontes\test_emb.c(84) : warning C4189: 'CondRetObtido' : local variable is initialized but not referenced
+..\Fontes\test_emb.c(80) : warning C4189: 'ValorObtido' : local variable is initialized but not referenced
+..\Fontes\test_emb.c(79) : warning C4189: 'ValorEsperado' : local variable is initialized but not referenced
+c:\users\media\documents\github\modular.programming.work\modulo_embaralhamento\fontes\test_emb.c(104) : warning C4715: 'TST_EfetuarComando' : not all control paths return a value
 Microsoft (R) Incremental Linker Version 10.00.30319.01
 Copyright (C) Microsoft Corporation.  All rights reserved.
 
@@ -6,5 +12,3 @@ ArcaboucoTeste.lib
 /INCREMENTAL:NO 
 /MACHINE:IX86 
 embaralha.obj test_emb.obj 
-ArcaboucoTeste.lib(generico.obj) : error LNK2019: unresolved external symbol _TST_EfetuarComando referenced in function _InterpretarComandos
-..\Produtos\TesteEmbaralhamento.exe : fatal error LNK1120: 1 unresolved externals

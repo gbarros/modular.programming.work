@@ -12,4 +12,6 @@ Data		Horas	Tipo Tarefa		Descrição da Tarefa Realizada
 						modulo lista. Eu e Noemie.
 			Codificar módulo	Após o termino da atividade acima, continuei a escrever o modulo CEDULASLIVRES e a definir 
 						mudanças na arquitetura.
-				
+(((entradas a por)))
+
+13/out/13  11				
