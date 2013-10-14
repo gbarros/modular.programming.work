@@ -15,6 +15,7 @@
 *
 *	$HA Histórico de evolução:
 *	Versão  Autor	Data			Observações
+*	5 		lg		14/out/2013		Ajuste condições de retorno
 *   4		nk		14/out/2013		Mudança de nomenclatura, correções 
 *	3		gb 		13/out/2013		Teste do módulo
 * 	2 		lg, gb  13/out/2013		Desenvolvimento
@@ -48,7 +49,7 @@ EMB_tpCondRet EMB_embaralha(char bar[53][4]){
 
 	if (bar==NULL)
 	{
- 		return -1;
+ 		return EMB_CondRetBaralhoInvalidoEntrada;
 	}
 
 	for (i=0; i<52; i++)
@@ -72,9 +73,9 @@ EMB_tpCondRet EMB_embaralha(char bar[53][4]){
 
 	if (bar==NULL)
 	{
-		return 1;
+		return EMB_CondRetBaralhoInvalidoSaida;
 	}
 
-	return 0;
+	return EMB_CondRetOK;
  }
 
