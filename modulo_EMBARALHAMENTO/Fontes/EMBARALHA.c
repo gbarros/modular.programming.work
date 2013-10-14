@@ -49,7 +49,7 @@ EMB_tpCondRet EMB_embaralha(char bar[53][4]){
 
 	if (bar==NULL)
 	{
- 		return EMB_CondRetBaralhoInvalidoEntrada;
+ 		return EMB_CondRetBaralhoInvalido;
 	}
 
 	for (i=0; i<52; i++)
@@ -73,7 +73,7 @@ EMB_tpCondRet EMB_embaralha(char bar[53][4]){
 
 	if (bar==NULL)
 	{
-		return EMB_CondRetBaralhoInvalidoSaida;
+		return EMB_CondRetErroNoEmbaralhamento;
 	}
 
 	return EMB_CondRetOK;
