@@ -29,16 +29,17 @@
 #include    <string.h>
 #include    <stdio.h>
 
-#include    "TST_ESPC.H"
+#include    "TST_Espc.h"
 
-#include    "generico.h"
-#include    "lerparm.h"
+#include    "Generico.h"
+#include    "LerParm.h"
 
 #include    "EMBARALHA.h"
 
 /* Tabela dos nomes dos comandos de teste específicos */
 
-#define     EMBRALHAR_BAR_CMD       "=criar"
+#define     EMBARALHAR_BAR_CMD       "=criar"
+#define     VALIDAR_BAR_CMD         "=validar"
 
 
 /*****  Código das funções exportadas pelo módulo  *****/
@@ -63,19 +64,21 @@
 
 
 
+
    TST_tpCondRet TST_EfetuarComando( char * ComandoTeste ){
 
-         char baralho [53][4]={"A","2", "3","4","5","6","7","8","10","J","Q","K",
-         "A","2", "3","4","5","6","7","8","10","J","Q","K",
-         "A","2", "3","4","5","6","7","8","10","J","Q","K",
-         "A","2", "3","4","5","6","7","8","10","J","Q","K","0"};
+         char baralho [53][4]={"AC","2C", "3C","4C","5C","6C","7C","8C","9C","10C","JC","QC","KC",
+         "AP","2P", "3P","4P","5P","6P","7P","8P","9P","10P","JP","QP","KP",
+         "AO","2O", "3O","4O","5O","6O","7O","8O","9O","10O","JO","QO","KO",
+         "AE","2E", "3E","4E","5E","6E","7E","8E","9E","10E","JE","QE","KE","0"};
 
-         char baralho2 [53][4]={"A","2", "3","4","5","6","7","8","10","J","Q","K",
-         "A","2", "3","4","5","6","7","8","10","J","Q","K",
-         "A","2", "3","4","5","6","7","8","10","J","Q","K",
-         "A","2", "3","4","5","6","7","8","10","J","Q","K","0"};
+       /*  char baralho2 [53][4]={"AC","2C", "3C","4C","5C","6C","7C","8C","9C","10C","JC","QC","KC",
+         "AP","2P", "3P","4P","5P","6P","7P","8P","9P","10P","JP","QP","KP",
+         "AO","2O", "3O","4O","5O","6O","7O","8O","9O","10O","JO","QO","KO",
+         "AE","2E", "3E","4E","5E","6E","7E","8E","9E","10E","JE","QE","KE","0"};*/
 
-
+         char baralhoDado[53][4];
+         char StringDada[200];
          char ValorEsperado = '?'  ;
          char ValorObtido   = '!'  ;
          char ValorDado     = '\0' ;
@@ -83,14 +86,17 @@
          TST_tpCondRet CondRet;
          int CondRetObtido   = 0 ;
         int CondRetEsperada = 0 ;
-         if (strcmp(ComandoTeste, EMBRALHAR_BAR_CMD)){
+
+
+
+         if (strcmp(ComandoTeste, EMBARALHAR_BAR_CMD)==0){
             
-            numLidos = LER_lerParametros("ii",&CondRetEsperada, &ValorDado);
+            numLidos = LER_LerParametros("ii",&CondRetEsperada, &ValorDado);
             if (numLidos!=2){
                return TST_CondRetParm;
             }
 
-            CondRet= EBL_embaralha(baralho);
+            CondRet= EMB_embaralha(baralho);
 
             if (CondRet!=CondRetEsperada){
                return TST_CondRetErro;
@@ -99,10 +105,60 @@
 
 
          }
+         else if ( strcmp(ComandoTeste,VALIDAR_BAR_CMD)==0){
 
+            numLidos=LER_LerParametros("is",&CondRetEsperada,&StringDada);
+
+            if (numLidos!=2){
+
+               return TST_CondRetParm;
+            }
+
+            converteBaralhoStringChar(StringDada,baralhoDado);
+
+            //Se é válida a entrada
+            //Se embaralhou  
+            //Se é valido na saida
+
+            CondRet =EMB_embaralha(baralhoDado);
+
+            if (CondRetEsperada==CondRet)
+               return TST_CondRetOK;
+            else {
+
+               return TST_CondRetErro;
+            }
+
+            
+
+
+
+
+
+         }
 
    }
-   static TST_CompararInt(int a, int b){
 
-      return a-b;
+   static void converteBaralhoStringChar(char String[], char baralho[53][4]){
+
+      int i=0, 
+          n=0,
+          j=0;
+      for (i=0; i<200; i++){
+
+         if (String[i]==","){
+
+            char[n][j]="\0";
+               n++;
+               j=0;
+         }
+
+         else
+            char[n][j]=String[i];
+            j++;
+
+
+      }
+
+
    }
