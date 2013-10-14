@@ -3,15 +3,27 @@
 ----------------------------------------------------------------------------------------------------
 Data		Horas	Tipo Tarefa		Descrição da Tarefa Realizada
 ----------------------------------------------------------------------------------------------------
-09/set/13	1	Projetar		Definição dos Requisitos do Jogo (requirido para a aula seguinte)
-10/set/13	2	Especificar módulos	Definição dos módulos e suas relações
-21/set/13	1,5	Especificar módulos	Os 3 se reuniram para definir a estrutura dos modulos de colunas e o desenho da interface 
-			Especificar funções	(por meio de protótipo no bloco de notas). Foi utilizado meio misto de comunicação: Eu por Skype, 
-						Noemie e Leonardo juntos presencialmente.
-25/set/13	4	Estudar			Inicio de coding básico do programa, em cima do modulo CEDULASLIVRES.Leitura e compreensao do
-						modulo lista. Eu e Noemie.
-			Codificar módulo	Após o termino da atividade acima, continuei a escrever o modulo CEDULASLIVRES e a definir 
-						mudanças na arquitetura.
-(((entradas a por)))
+09/set/13	1	Projetar				Definição dos Requisitos do Jogo (requirido para a aula seguinte)
 
-13/out/13  11				
+10/set/13	2	Especificar módulos		Definição dos módulos e suas relações
+
+21/set/13	1,5	Especificar módulos		Os 3 se reuniram para definir a estrutura dos modulos de colunas e o desenho da interface 
+
+				Especificar funções			(por meio de protótipo no bloco de notas). Foi utilizado meio misto de comunicação: Eu por Skype, 
+										Noemie e Leonardo juntos presencialmente.
+
+25/set/13	4	Estudar					Inicio de coding básico do programa, em cima do modulo CEDULASLIVRES.Leitura e compreensao do
+										modulo lista. Eu e Noemie.
+
+				Codificar módulo		Após o termino da atividade acima, continuei a escrever o modulo CEDULASLIVRES e a definir 
+										mudanças na arquitetura.
+28/set/13  4    Codificar módulo        Com o trabalho em desenvolvimento, foi percebido novos requisitos e mudanças na estrutura básica foram feitas,
+										a exemplo CEDULASLIVRES passou a se chamar EXTRA.
+
+12/set/13  4    Estudar/				Comecei a montagem do modulo EMBARALHAMENTO, para que apartir de sua simplicidade enquanto módulo, pudesse aprender
+				Codificar módulos		a usar o arcabouço com todos os casos de teste necessários.
+
+13/out/13	11	Revisar projetos		Revisão dos módulos e seus relacionamentos. Compreensão da estrutura de todo jogo.
+			 		Projetar			Definição de modelo físico e exemplo.
+					Estudar				Estudo de arquivos .comp e como funciona o Gmake.
+				Codificar módulo		Codificação 
