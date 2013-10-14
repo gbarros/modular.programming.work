@@ -3,3 +3,13 @@
 ----------------------------------------------------------------------------------------------------
 Data		Horas	Tipo Tarefa		Descrição da Tarefa Realizada
 ----------------------------------------------------------------------------------------------------
+10/set/13	1,5	Estudar			Estudo do jogo Freecel e suas regras e de Especificação de Requistos e Arquitetura.
+
+10/set/13	2	Especificar módulos	Início da definição dos módulos e suas relações com os outros membros do grupo.
+
+21/set/13	1,5	Especificar módulos	Definir a estrutura dos módulos e o desenho da interface.
+			Especificar funções	Realizado em conjunto com os outros membros do grupo.
+
+02/out/13	2	Estudar			Estudar a realização de testes por meio do arcabouço de testes.
+
+ ~~ 13/out/13	X	Implementação		Implementação dos módulos
