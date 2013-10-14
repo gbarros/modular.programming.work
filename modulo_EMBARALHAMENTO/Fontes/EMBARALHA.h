@@ -19,7 +19,8 @@
 *	$HA Histórico de evolução:
 *	Versão  Autor   Data			Observações
 *   1       gb		12/out/2013		Início desenvolvimento
-*	2		nk		14/out/2013		Inclusão de funções, cabeçalhos, correções	
+*	2		nk		14/out/2013		Inclusão de funções, cabeçalhos, correções
+*	3		lg		14/out/2013		Ajuste condições de retorno
 *
 *	$ED Descrição do módulo
 *	Recebe uma sequência representando baralho ordenado e retorna esta sequência
@@ -44,8 +45,10 @@
 typedef enum {
 	EMB_CondRetOK,
 	// Concluiu corretamente
-	EMB_CondRetBaralhoInvalido
-	// Recebeu um baralho inválido
+	EMB_CondRetBaralhoInvalidoEntrada
+	// Recebeu um baralho inválido na entrada
+	EMB_CondRetBaralhoInvalidoSaida
+	// Após o embaralhamento, ele ficou inválido
 
 } EMB_tpCondRet ;
 
