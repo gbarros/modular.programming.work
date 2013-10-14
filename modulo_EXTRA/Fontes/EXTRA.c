@@ -38,56 +38,61 @@ public int CLI_ExcluirColuna( CLI_Coluna coluna )
 
 public int CLI_InserirCarta ( CLI_Coluna destino, Carta carta)
 {
-	if(strcmp(destino,"0")!=0)
+	int i;
+
+	for(i=0; i<4; i++)
 	{
-		int deuCerto = -1;
-	}
-	else
-	{
-		IrFinalLista(destino); //torna elemento corrente o ultimo elemento
-		int deuCerto = LIS_InserirElementoApos(destino,carta); // insere após o elemento corrente
+		if(LIS_ObterValor(destino)==NULL) //vê se há elemento na posição
+		{
+			IrFinalLista(destino); //torna elemento corrente o ultimo elemento
+			int deuCerto = LIS_InserirElementoApos(destino,carta); // insere após o elemento corrente
+			return deuCerto;
+		}
+
+		LIS_AvancarElementoCorrente(destino,1); //vê próximo elemento da lista
 	}
 
-	return deuCerto;
+	return -1;
 }
 
 public int CLI_ExcluirCarta (CLI_Coluna alvo, Carta carta)
 {
-
 	/*Deve-se analizar os retornos de procurar valor e talvez de ExcluirElemento*/
+
 	if(LIS_ProcurarValor(alvo, carta) == LIS_CondRetNaoEncontrou || LIS_ProcurarValor(alvo, carta) == LIS_CondRetListaVazia))
 	{
 		return -1;
 	}
 	else
 	{
-		strcpy(alvo,"0");
+		int deuCerto = LIS_ExcluirElemento(alvo);
 	}
 
-	return 0;
+	return deuCerto;
 }
 
 static int ContarCartas (CLI_Coluna coluna)
 {
-	CLI_Coluna a, b;
+	char a, b;
 
 	IrInicioLista(coluna);
-	
-	a = coluna;
+
+	a = LIS_ObterValor(coluna);
 
 	IrFinalLista(coluna);
 
-	b = coluna;
+	b = LIS_ObterValor(coluna);
 
 	if(a == b)
 	{
 		return 1;
 	}
+
 	else
 	{
 		IrInicioLista(coluna);
 		LIS_AvancarElementoCorrente(coluna,1);
-		return ContarCartas(coluna)+1;
+		return ContarCartas(&coluna)+1;
 	}
 
 	/* implementar contador de cartas, dica: se for um inicio=fim, senão tem que ir do 

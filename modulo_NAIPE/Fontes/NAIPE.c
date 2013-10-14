@@ -38,14 +38,19 @@ public int NPE_ExcluirColuna(NPE_Coluna coluna)
 
 static int ContarCartas (NPE_Coluna coluna)
 {
-	// conta o numero de cartas para saber qual o valor que deve vir a proxima
+	if(LIS_ObterValor(coluna)!=NULL) //vê se há elemento na posição
+	{
+		LIS_AvancarElementoCorrente(destino,1); //vê próximo elemento da lista
+		return ContarCartas(&coluna)+1;
+	}
+
+	return 0;
 }
 
 public int NPE_InserirCartaEmNaipe(NPE_Coluna destino, Carta carta)
 {
 	// ver se o naipe é o equivalente ao da coluna destino
 	// ver o numero retornado pelo contar cartas e se é ele+1
-
 }
 
 
