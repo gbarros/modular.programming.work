@@ -1,0 +1,23 @@
+# Modulo testado: Conta
+
+[Diretorios]
+
+Nome        =  TesteEmbaralhamento
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+lib         =  ..\Objetos
+obj         =  ..\Objetos
+c           =  ..\Fontes
+h           =  ..\Fontes
+
+[Modulos]
+EMBARALHA
+TEST_EMB
+
+[BuildInicio]
+ ArcaboucoTeste.lib
+/OUT:..\produto\TesteEmbaralhamento.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[Fim]
