@@ -7,7 +7,7 @@ pushd  .
 if ""=="%1" goto erro
 
 cd ..\composicao
-gmake /c%1 /b..\composicao\TesteEmbaralhamento.comp
+gmake /c%1 /b..\composicao
 goto sai
 
 :erro

@@ -4,7 +4,7 @@ GERADOR DE SCRIPT DE DIRETIVAS PARA MAKE
 Composição do construto: TesteEmbaralhamento.comp
 
    Nome do Construto:           TesteEmbaralhamento
-   Diretório base:              c:\Users\Media\Documents\GitHub\modular.programming.work\modulo_EMBARALHAMENTO\composicao
+   Diretório base:              C:\Users\Media\Documents\GitHub\modular.programming.work\modulo_EMBARALHAMENTO\composicao
 
    Arquivo composição:          TesteEmbaralhamento.comp
    Arquivo plataforma:          gmake.parm
