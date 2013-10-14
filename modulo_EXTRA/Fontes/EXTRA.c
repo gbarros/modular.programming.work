@@ -1,22 +1,23 @@
 /***************************************************************************
-*  $MCD Módulo de definição: EXT Extra
+*	$MCD Módulo de definição: EXT Extra
 *
-*  Arquivo gerado:              EXTRA.c
-*  Letras identificadoras:      EXT
+*	Arquivo gerado:              EXTRA.c
+*	Letras identificadoras:      EXT
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
+*	Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
+*	Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
 *
-*  Projeto: [INF 1301] Implementação do Jogo FreCell para fins educacionais
-*  Gestor:  LES/DI/PUC-Rio
-*  Autores:    gb -	Gabriel Barros
-*			   lg - Leonardo Giroto 
-*			   nk - Noemie Nakamura
+*	Projeto: [INF 1301] Implementação do Jogo FreCell para fins educacionais
+*	Gestor:  LES/DI/PUC-Rio
+*	Autores: gb - Gabriel Barros
+*			 lg - Leonardo Giroto 
+*			 nk - Noemie Nakamura
 *
-*  $HA Histórico de evolução:
-*  Versão  Autor	Data			Observações
-*  1       gb, nk	25/set/2013		Início desenvolvimento, definição de funções
-*  2 	   lg		13/out/2013		Desenvolvimento
+*	$HA Histórico de evolução:
+*	Versão  Autor	Data			Observações
+*	1       gb, nk	25/set/2013		Início desenvolvimento, definição de funções
+*	2 		lg		13/out/2013		Desenvolvimento
+*	3		nk		14/out/2013		Correção de nomenclatura
 *    
 ***************************************************************************/
 #include <LISTA.H>
@@ -25,18 +26,18 @@ typedef LIS_tppLista EXT_Coluna;
 typedef char* Carta;
 
 
-public CLI_Coluna CLI_CriaColuna (void)
+EXT_Coluna EXT_CriarColuna (void)
 {
 	return LIS_CriarLista(NULL);
 }
 
-public int CLI_ExcluirColuna( CLI_Coluna coluna )
+EXT_tpCondRet EXT_ExcluirColuna(EXT_Coluna coluna)
 {
 	LIS_DestruirLista(coluna);
 	return 0;
 }
 
-public int CLI_InserirCarta ( CLI_Coluna destino, Carta carta)
+EXT_tpCondRet EXT_InserirCarta (EXT_Coluna destino, Carta carta)
 {
 	int i;
 
@@ -55,7 +56,7 @@ public int CLI_InserirCarta ( CLI_Coluna destino, Carta carta)
 	return -1;
 }
 
-public int CLI_ExcluirCarta (CLI_Coluna alvo, Carta carta)
+EXT_tpCondRet EXT_ExcluirCarta (EXT_Coluna alvo, Carta carta)
 {
 	/*Deve-se analizar os retornos de procurar valor e talvez de ExcluirElemento*/
 
@@ -71,30 +72,16 @@ public int CLI_ExcluirCarta (CLI_Coluna alvo, Carta carta)
 	return deuCerto;
 }
 
-static int ContarCartas (CLI_Coluna coluna)
-{
-	char a, b;
+EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta){
 
-	IrInicioLista(coluna);
+//here goes the code
 
-	a = LIS_ObterValor(coluna);
-
-	IrFinalLista(coluna);
-
-	b = LIS_ObterValor(coluna);
-
-	if(a == b)
-	{
-		return 1;
-	}
-
-	else
-	{
-		IrInicioLista(coluna);
-		LIS_AvancarElementoCorrente(coluna,1);
-		return ContarCartas(&coluna)+1;
-	}
-
-	/* implementar contador de cartas, dica: se for um inicio=fim, senão tem que ir do 
-	inicio ao fim iterando*/
 }
+
+EXT_tpCondRet EXT_VerificarRemoverCarta(EXT_Coluna origem, Carta carta){
+//here goes the code
+
+}
+
+void EXT_ExibirCartas(EXT_Coluna coluna){}
+
