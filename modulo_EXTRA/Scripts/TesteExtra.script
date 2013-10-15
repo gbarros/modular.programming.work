@@ -3,131 +3,143 @@
 // Data:	15/out/2013
 // Propósito: 	Testar o módulo Extra
 
-== Declarar condições de retorno
-=declararparm	EXT_Coluna 							int 0
-=declararparm	EXT_CondRetOK						int 1
-=declararparm	EXT_CondRetColunaNaoFoiDestruida	int 2
-=declararparm	EXT_CondRetColunaInexistente		int 3
-=declararparm	EXT_CondRetNaoPodeInserir			int 4
-=declararparm	EXT_CondRetNaoPodeRemover			int 5
-=declararparm	EXT_CondRetCartaInvalida			int 6
-=declararparm	EXT_CondRetColunaVazia				int 7
-=declararparm	EXT_CondRetErroInserção				int 8
-=declararparm	EXT_CondRetErroRemocao				int 9
+== Inicializa Valores
+=declararparm	coluna0		int 0
+=declararparm	coluna1		int 1
+=declararparm	coluna2		int 2
+=declararparm	coluna3		int 3
+=declararparm	coluna4		int 4
 
-==Teste de Extra Para Criar Coluna Normal
-=criar  	EXT_Coluna
-
-== Teste de Extra para Criar Coluna com Erro	
-=criar 		NULL
+=declararparm	carta0		string	"AP"
+=declararparm	carta1		string	"2O"
+=declararparm	carta2		string	"3E"
+=declararparm	carta3		string	"5P"
+=declararparm	carta4		string	"8E"
+=declararparm	carta5		string	"7F"
+=declararparm	carta6		NULL
 
 
-== Teste de Extra Para Excluir Coluna Normal
-=excluir	EXT_CondRetOK		AP,2O,3E,5P
-
-== Teste de Extra Para Excluir Coluna Normal
-=excluir	EXT_CondRetOK		AP,2O,3E,0
-
-== Teste de Extra Para Excluir Coluna Normal
-=excluir	EXT_CondRetOK		AP,2O,0,0
-
-== Teste de Extra Para Excluir Coluna Normal
-=excluir	EXT_CondRetOK		AP,0,0,0
-
-== Teste de Extra Para Excluir Coluna Normal
-=excluir	EXT_CondRetOK		0,0,0,0
-
-== Teste de Extra Para Excluir Coluna Inexistente
-=excluir	EXT_CondRetColunaInexistente	NULL
+==Teste de Extra Para Criar Coluna
+=criar  	coluna0
+=criar 		coluna1
+=criar 		coluna2
+=criar 		coluna3
+=criar 		coluna4
 
 
-== Teste de Extra para Verificar Inserir
-=verificarinserir	EXT_CondRetNaoPodeInserir	AP,2O,3E,5P		AC
-
-== Teste de Extra para Verificar Inserir
-=verificarinserir	EXT_CondRetOK	AP,2O,3E,0		AC
-
-== Teste de Extra para Verificar Inserir
-=verificarinserir	EXT_CondRetOK	AP,2O,0,0		AC
-
-== Teste de Extra para Verificar Inserir
-=verificarinserir	EXT_CondRetOK	AP,0,0,0		AC
-
-== Teste de Extra para Verificar Inserir
-=verificarinserir	EXT_CondRetOK	0,0,0,0		AC
-
-== Teste de Extra para Verificar Inserir
-=verificarinserir	EXT_CondRetColunaInexistente	NULL	AC
-
-== Teste de Extra para Verificar Inserir
-=verificarinserir	EXT_CondRetCartaInvalida	AP,2O,3E,5P		NULL
-
-
-== Teste de Extra para Verificar Remover
-=verificarremover	EXT_CondRetOK	AP,2O,3E,5P		AP
-
-== Teste de Extra para Verificar Remover
-=verificarremover	EXT_CondRetCartaInvalida	AP,2O,3E,5P		AC
-
-== Teste de Extra para Verificar Remover
-=verificarremover	EXT_CondRetOK	AP,0,0,0		AP
-
-== Teste de Extra para Verificar Remover
-=verificarremover	EXT_CondRetCartaInvalida	AP,0,0,0		AC
-
-== Teste de Extra para Verificar Remover
-=verificarremover	EXT_CondRetColunaInexistente	NULL	AC
-
-== Teste de Extra para Verificar Remover
-=verificarremover	EXT_CondRetCartaInvalida	AP,2O,3E,5P		NULL
-
-
-== Teste de Extra ao Inserir Normal
-=inserir	EXT_CondRetErroInserção	AP,2O,3E,5P		AC
-
-== Teste de Extra ao Inserir Normal
-=inserir	EXT_CondRetOK	AP,2O,3E,0		AC
-
-== Teste de Extra ao Inserir Normal
-=inserir	EXT_CondRetOK	AP,2O,0,0	AC
-
-== Teste de Extra ao Inserir Normal
-=inserir	EXT_CondRetOK	AP,0,0,0		AC
-
-== Teste de Extra ao Inserir Normal
-=inserir	EXT_CondRetOK	0,0,0,0		AC
-
-== Teste de Extra ao Inserir com Coluna Inválida
-=inserir 	EXT_CondRetColunaInexistente	NULL 	AC
+== Teste de Extra ao Inserir em Coluna Inválida
+=inserir 	coluna5		carta0 		EXT_CondRetColunaInexistente
 
 == Teste de Extra ao Inserir Carta Inválida
-=Inserir 	EXT_CondRetCartaInvalida	AP,2O,3E,5P		NULL
+=Inserir 	coluna0 	carta6 		EXT_CondRetCartaInvalida
+
+== Teste de Extra ao Inserir Coluna Completa (4)
+=inserir	coluna0		carta0		EXT_CondRetOK
+=inserir 	coluna0		carta1		EXT_CondRetOK
+=inserir 	coluna0		carta2		EXT_CondRetOK
+=inserir 	coluna0		carta3		EXT_CondRetOK
+=inserir 	coluna0		carta4		EXT_CondRetNaoPodeInserir
+
+== Teste de Extra ao Inserir Coluna com 3 cartas
+=inserir	coluna1		carta0		EXT_CondRetOK
+=inserir 	coluna1		carta1		EXT_CondRetOK
+=inserir 	coluna1		carta2		EXT_CondRetOK
+
+== Teste de Extra ao Inserir Coluna com 2 cartas
+=inserir	coluna2		carta0		EXT_CondRetOK
+=inserir 	coluna2		carta1		EXT_CondRetOK
+
+== Teste de Extra ao Inserir Coluna com 1 carta
+=inserir	coluna3		carta0		EXT_CondRetOK
 
 
-== Teste de Extra para Remover
-=remover	EXT_CondRetOK	AP,2O,3E,5P		AP
+== Teste de Extra para Verificar Inserir; Coluna com 4 cartas
+=verificarinserir	coluna0 	carta0 		EXT_CondRetNaoPodeInserir
 
-== Teste de Extra para Remover
-=remover	EXT_CondRetErroRemocao	AP,2O,3E,5P		AC
+== Teste de Extre para Verificar Inserir; Coluna com 3 cartas
+=verificarinserir	coluna1 	carta0 		EXT_CondRetOK
 
-== Teste de Extra para Remover
-=remover	EXT_CondRetOK	AP,0,0,0		AP
+== Teste de Extre para Verificar Inserir; Coluna com 2 cartas
+=verificarinserir	coluna2 	carta0 		EXT_CondRetOK
 
-== Teste de Extra para Remover
-=remover	EXT_CondRetErroRemocao	AP,0,0,0		AC
+== Teste de Extre para Verificar Inserir; Coluna com 1 carta
+=verificarinserir	coluna3 	carta0 		EXT_CondRetOK
 
-== Teste de Extra para Remover
-=remover	EXT_CondRetColunaInexistente	NULL	AC
+== Teste de Extre para Verificar Inserir; Coluna com 0 cartas
+=verificarinserir	coluna4 	carta0 		EXT_CondRetOK
 
-== Teste de Extra para Remover
-=remover	EXT_CondRetCartaInvalida	AP,2O,3E,5P		NULL
+== Teste de Extra para Verificar Inserir em Coluna Inexistente
+=verificarinserir	coluna5		carta0		EXT_CondRetColunaInexistente
+
+== Teste de Extra para Verificar Inserir
+=verificarinserir	coluna4		carta6 		EXT_CondRetCartaInvalida
 
 
-== Teste de Exibição dos Valores Normal
-=exibir		EXT_CondRetOK	AP,2O,3E,5P
+== Teste de Extra para Verificar Remover; Coluna com 4 cartas
+=verificarremover	coluna0 	carta0		EXT_CondRetOK
+=verificarremover	coluna0 	carta4 		EXT_CondRetCartaInvalida
 
-== Teste de Exibição dos Valores Normal
-=exibir		EXT_CondRetOK	AP,0,0,0
+== Teste de Extra para Verificar Remover; Coluna com 3 cartas
+=verificarremover	coluna1 	carta0		EXT_CondRetOK
+=verificarremover	coluna1 	carta4 		EXT_CondRetCartaInvalida
 
-== Teste de Exibição de Valores com Destino Inválido
-=exibir		EXT_CondRetColunaInexistente	NULL
+== Teste de Extra para Verificar Remover; Coluna com 2 cartas
+=verificarremover	coluna2 	carta0		EXT_CondRetOK
+=verificarremover	coluna2 	carta4 		EXT_CondRetCartaInvalida
+
+== Teste de Extra para Verificar Remover; Coluna com 1 carta
+=verificarremover	coluna3 	carta0		EXT_CondRetOK
+=verificarremover	coluna3 	carta4 		EXT_CondRetCartaInvalida
+
+== Teste de Extra para Verificar Remover; Coluna com 0 cartas
+=verificarremover	coluna4 	carta0		EXT_CondRetCartaInvalida
+
+== Teste de Extra para Verificar Remover de Coluna Inexistente
+=verificarremover	coluna5 	carta0 		EXT_CondRetColunaInexistente
+
+== Teste de Extra para Verificar Remover Carta Inválida
+=verificarremover	coluna0 	carta6		EXT_CondRetCartaInvalida
+
+
+== Teste de Extra para Remover; Coluna com 4 cartas
+=remover	coluna0 	carta0		EXT_CondRetOK
+=remover	coluna0 	carta4		EXT_CondRetErroRemocao
+
+== Teste de Extra para Remover; Coluna com 3 cartas
+=remover	coluna1 	carta0		EXT_CondRetOK
+=remover	coluna1 	carta3		EXT_CondRetErroRemocao
+
+== Teste de Extra para Remover; Coluna com 2 cartas
+=remover	coluna2 	carta0		EXT_CondRetOK
+=remover	coluna2 	carta2		EXT_CondRetErroRemocao
+
+== Teste de Extra para Remover; Coluna com 1 carta
+=remover	coluna3 	carta0		EXT_CondRetOK
+=remover	coluna3 	carta1		EXT_CondRetErroRemocao
+
+== Teste de Extra para Remover; Coluna com 0 cartas
+=remover	coluna4 	carta0		EXT_CondRetErroRemocao
+
+== Teste de Extra para Remover de Coluna Inexistente
+=remover	coluna5		carta0 		EXT_CondRetColunaInexistente
+
+== Teste de Extra para Remover Carta Invalida
+=remover	coluna0 	carta6		EXT_CondRetCartaInvalida
+
+
+== Teste de Exibição dos Valores
+=exibir		coluna0		EXT_CondRetOK
+=exibir		coluna1		EXT_CondRetOK
+=exibir		coluna2		EXT_CondRetOK
+=exibir		coluna3		EXT_CondRetOK
+=exibir		coluna4		EXT_CondRetOK
+=exibir		coluna5 	EXT_CondRetColunaInexistente
+
+
+== Teste de Extra Para Excluir Coluna
+=excluir	coluna0 	EXT_CondRetOK
+=excluir 	coluna1		EXT_CondRetOK
+=excluir 	coluna2		EXT_CondRetOK
+=excluir 	coluna3		EXT_CondRetOK
+=excluir 	coluna4		EXT_CondRetOK
+=excluir 	coluna5		EXT_CondRetColunaInexistente
