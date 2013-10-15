@@ -30,16 +30,16 @@
 *******************************************************************************/
 
 #if defined( SEQ_VIS_OWN )
-   #define SEQ_VIS_SV
+   #define SEQ_VIS_EXT
 #else
-   #define SEQ_VIS_SV SVern
+   #define SEQ_VIS_EXT extern
 #endif
 
 #include "LISTA.H"
 
 /***** Declarações exportadas pelo módulo *****/
 
-/* Tipo referência para um Grafo */
+/* Tipo referência para uma sequência visível */
 typedef LIS_tppLista SV_Coluna;
 
 /***********************************************************************
@@ -64,8 +64,7 @@ typedef enum {
 *	Cria uma coluna (cabeça de lista) vazia.
 *               
 *	$FV Valor retornado
-*	Se executou corretamente, retorna um ponteiro para a coluna criada.
-*	Se ocorrer algum erro retorna NULL.
+*	SV_Coluna - Ponteiro para coluna criada.
 *
 *	Assertivas
 *	Entrada - Não existem. 
@@ -74,7 +73,7 @@ typedef enum {
 *			Se não, retorna NULL.
 ***********************************************************************/
 
-SV_Coluna SV_CriarColuna(void); 
+SV_Coluna SV_CriarColunaSeqVis(void); 
 
 /***********************************************************************
 *	$FC Função: SV &Excluir Coluna
@@ -96,7 +95,7 @@ SV_Coluna SV_CriarColuna(void);
 *	Saída - Se executou corretamente, destrói a coluna fornecida.
 ***********************************************************************/
 
-SV_tpCondRet SV_ExcluirColuna(SV_Coluna coluna);
+SV_tpCondRet SV_ExcluirColunaSeqVis(SV_Coluna coluna);
 
 /***********************************************************************
 *	$FC Função: SV &Verificar Inserir Carta
@@ -124,8 +123,6 @@ SV_tpCondRet SV_VerificarInserirCarta(SV_Coluna destino, Carta carta);
 
 /***********************************************************************
 *	$FC Função: SV &Verificar Remover Carta
-*
-*	$ED Descrição da função
 *
 *	$ED Descrição da função
 *	Valida ou não remoção de uma carta do baralho em determinada coluna.
@@ -159,7 +156,7 @@ SV_tpCondRet SV_VerificarRemoverCarta(SV_Coluna origem, Carta carta);
 *	carta - Carta a qual se quer inserir.
 *
 *	$FV Valor retornado
-*
+*	???
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro, assim
@@ -172,7 +169,7 @@ SV_tpCondRet SV_VerificarRemoverCarta(SV_Coluna origem, Carta carta);
 SV_tpCondRet SV_InserirCartaEmSeqVis(SV_Coluna destino, Carta carta);
 
 /***********************************************************************
-*	$FC Função: SV &Remover Cartas De Extra
+*	$FC Função: SV &Remover Cartas De Sequência Visível
 *
 *	$ED Descrição da função
 *	Remove uma carta de determinada coluna.
@@ -182,7 +179,7 @@ SV_tpCondRet SV_InserirCartaEmSeqVis(SV_Coluna destino, Carta carta);
 *	carta - Carta a qual se quer inserir.
 *
 *	$FV Valor retornado
-*
+*	???
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro, assim
@@ -205,7 +202,7 @@ SV_tpCondRet SV_RemoverCartaDeSeqVis(SV_Coluna alvo, Carta carta);
 *   coluna - Coluna cujas cartas serão exibidas.                 
 *
 *	$FV Valor retornado
-*
+*	???
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro. 
