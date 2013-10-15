@@ -19,22 +19,24 @@
 *	2 		lg		13/out/2013		Continuação do desenvolvimento
 *	3		nk		14/out/2013		Correção de nomenclatura, novas funções
 *	4		lg		14/out/2013		Desenvolvimento
+*	5		lg		15/out/2013		Desenvolvimento
 *    
 ***************************************************************************/
 #define EXTRA_OWN
 #include "EXTRA.h"
+#include <stdio.h>
+#include <string.h>
 #undef EXTRA_OWN
-
-typedef char* Carta;
 
 /***************************************************************************
 *  Função: EXT  &Criar Coluna
 ***************************************************************************/
 
-EXT_Coluna EXT_CriarColunaExtra(Carta carta)
+EXT_Coluna EXT_CriarColunaExtra(void)
 {
 	LIS_tppLista extraHead;
 	LIS_tpCondRet retornoCriaLista;
+	int i;
 
 	extraHead = LIS_CriarLista(NULL);
 
@@ -45,7 +47,7 @@ EXT_Coluna EXT_CriarColunaExtra(Carta carta)
 
 	for(i=0;i<4;i++)
 	{
-		retornoCriaLista = LIS_InserirElementoApos(extraHead,carta);
+		retornoCriaLista = LIS_InserirElementoApos(extraHead,NULL);
 		if(retornoCriaLista != LIS_CondRetOK)
 			return NULL;
 	}
@@ -60,14 +62,12 @@ EXT_Coluna EXT_CriarColunaExtra(Carta carta)
 
 EXT_tpCondRet EXT_ExcluirColunaExtra(EXT_Coluna coluna)
 {
-	LIS_tpCondRet retornoDestroiLista;
-
 	if(LIS_ObterValor(coluna)==NULL)
-		return EXT_CondRetColunaNaoExiste;
+		return EXT_CondRetColunaInexistente;
 
-	retornoDestroiLista = LIS_DestruirLista(coluna);
+	LIS_DestruirLista(coluna);
 
-	if(retornoDestroiLista != LIS_CondRetOK)
+	if(coluna != NULL)
 		return EXT_CondRetColunaNaoFoiDestruida;
 
 	return EXT_CondRetOK;
@@ -83,7 +83,7 @@ EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta)
 	int i;
 
 	if(LIS_ObterValor(destino) == NULL)
-		return EXT_CondRetColunaNaoExiste;
+		return EXT_CondRetColunaInexistente;
 
 	if(carta == NULL)
 		return EXT_CondRetCartaInvalida;
@@ -109,14 +109,14 @@ EXT_tpCondRet EXT_VerificarRemoverCarta(EXT_Coluna origem, Carta carta)
 	int i;
 
 	if(LIS_ObterValor(origem) == NULL)
-		return EXT_CondRetColunaNaoExiste; // verifica se a coluna existe
+		return EXT_CondRetColunaInexistente; // verifica se a coluna existe
 
 	if(carta == NULL)
 		return EXT_CondRetCartaInvalida; // verifica se a carta é válida
 
 	retornoVerificaRemover = LIS_ProcurarValor(origem,carta); // procura a carta na coluna
 
-	if(retornoVerificaRemover == LIS_CondRetNaoEncontrou)
+	if(retornoVerificaRemover == LIS_CondRetNaoAchou)
 		return EXT_CondRetCartaInvalida; // se a carta não estiver na coluna
 	else if(retornoVerificaRemover == LIS_CondRetListaVazia)
 		return EXT_CondRetColunaVazia; // se a coluna estiver vazia
@@ -135,7 +135,7 @@ EXT_tpCondRet EXT_InserirCartaEmExtra(EXT_Coluna destino, Carta carta)
 	EXT_tpCondRet possivelInserir;
 
 	if(LIS_ObterValor(destino) == NULL)
-		return EXT_CondRetColunaNaoExiste; // verifica se a coluna existe
+		return EXT_CondRetColunaInexistente; // verifica se a coluna existe
 
 	if(carta == NULL)
 		return EXT_CondRetCartaInvalida; // verifica se a carta é válida
@@ -164,7 +164,7 @@ EXT_tpCondRet EXT_RemoverCartaDeExtra(EXT_Coluna origem, Carta carta)
 	EXT_tpCondRet possivelRemover;
 
 	if(LIS_ObterValor(origem) == NULL)
-		return EXT_CondRetColunaNaoExiste; // verifica se a coluna existe
+		return EXT_CondRetColunaInexistente; // verifica se a coluna existe
 
 	if(carta == NULL)
 		return EXT_CondRetCartaInvalida; // verifica se a carta é válida
@@ -175,7 +175,11 @@ EXT_tpCondRet EXT_RemoverCartaDeExtra(EXT_Coluna origem, Carta carta)
 		retornoRemover = LIS_ExcluirElemento(origem); // se estiver, exclui a carta da coluna
 
 	if(retornoRemover == LIS_CondRetOK)
-		return EXT_CondRetOK;
+	{
+		retornoRemover = LIS_InserirElementoApos(origem,NULL);
+		if(retornoRemover == LIS_CondRetOK)
+			return EXT_CondRetOK;
+	}
 
 	return EXT_CondRetErroRemoção;
 
@@ -185,13 +189,14 @@ EXT_tpCondRet EXT_RemoverCartaDeExtra(EXT_Coluna origem, Carta carta)
 *  Função: EXT  &Exibir Carta
 ***************************************************************************/
 
-void EXT_ExibirCartas(EXT_Coluna coluna)
+EXT_tpCondRet EXT_ExibirCartas(EXT_Coluna coluna)
 {
 	int i;
-	LIS_tpCondRet andar, valor;
+	LIS_tpCondRet andar;
+	char *valor;
 
 	if(LIS_ObterValor(coluna) == NULL)
-		return EXT_CondRetColunaNaoExiste; // verifica se a coluna existe
+		return EXT_CondRetColunaInexistente; // verifica se a coluna existe
 
 	IrInicioLista(coluna); // garantir que pegaremos os valores desde o início
 
@@ -211,5 +216,12 @@ void EXT_ExibirCartas(EXT_Coluna coluna)
 	}
 
 	printf("\n");
+
+	return EXT_CondRetOK;
+}
+
+int main()
+{
+	return 0;
 }
 

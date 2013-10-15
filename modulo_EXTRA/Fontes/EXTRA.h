@@ -44,6 +44,9 @@
 
 /***** Declarações exportadas pelo módulo *****/
 
+/* Tipo referência para a carta */
+typedef char* Carta;
+
 /* Tipo referência para uma coluna extra */
 typedef LIS_tppLista EXT_Coluna;
 
@@ -52,8 +55,6 @@ typedef LIS_tppLista EXT_Coluna;
 ***********************************************************************/
 
 typedef enum {
-	EXT_Coluna,
-	// Ponteiro para coluna
 	EXT_CondRetOK,
 	// Concluiu corretamente
 	EXT_CondRetColunaNaoFoiDestruida,
@@ -66,6 +67,8 @@ typedef enum {
 	// Movimento de remoção não válido
 	EXT_CondRetCartaInvalida,
 	// A carta recebida não pertence ao conjunto domínio de um baralho
+	EXT_CondRetColunaVazia,
+	// A coluna a ser removida a carta não possui carta
 	EXT_CondRetErroInserção,
 	// Erro ao inserir carta na coluna 
 	EXT_CondRetErroRemoção,
