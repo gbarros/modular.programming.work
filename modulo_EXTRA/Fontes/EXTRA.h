@@ -85,7 +85,7 @@ typedef enum {
 *	EXT_Coluna - Ponteiro para a coluna criada.
 *
 *	Assertivas
-*	Entrada - Não existem. 
+*	Entrada - Não existem entradas. 
 *
 *	Saída - Deve retornar um ponteiro para a nova coluna. 
 *			Se não, retorna NULL.
@@ -103,7 +103,7 @@ EXT_Coluna EXT_CriarColuna(void);
 *   coluna - Um ponteiro para a coluna que se quer destruir.                 
 *
 *	$FV Valor retornado
-*	EXT_CondRet OK - Conseguiu destruir a coluna.
+*	EXT_CondRetOK - Conseguiu destruir a coluna.
 *	EXT_CondRetColunaInexistente - A coluna passada como parâmentro não existe
 *   e, portanto não é excluída.
 *	EXT_CondRetColunaNaoFoiDestruida - A coluna não foi destruída devido a
@@ -159,17 +159,16 @@ EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta);
 *
 *	$FV Valor retornado
 *	EXT_CondRetOK - É possível.
-*	EXT_CondRetColunaNaoExiste - A coluna passada como parâmentro não existe.
-*	EXT_CondRetCartaInvalida - A carta recebida não pertence ao baralho.
-*	EXT_CondRetNaoPodeRemover - Não é uma remoção válida.
+*	EXT_CondRetColunaNaoExiste - A coluna passada como parâmetro não existe.
+*	EXT_CondRetCartaInvalida - A carta recebida não é válida ou não está
+*	entre as cartas de Extra.
+*	EXT_CondRetColunaVazia - A coluna passada como parâmetro está vazia.
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro, assim como
 *	uma carta que pertença ao baralho.
 *
 *	Saída - Se executou corretamente, valida a remoção.
-*   		Caso contrário, retorna a impossibilidade de remoção da carta
-*	da coluna.
 ***********************************************************************/
 
 EXT_tpCondRet EXT_VerificarRemoverCarta(EXT_Coluna origem, Carta carta);
