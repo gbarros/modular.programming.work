@@ -17,6 +17,7 @@
 *
 *	$HA Histórico de evolução:
 *	Versão  Autor   Data			Observações
+*	4		lg		14/10/2013		Atualização de condições de retorno e ajustes
 *	3		nk		14/out/2013		Inclusão de cabeçalhos, assertivas, novas funções
 *	2  		lg		13/out/2013		Realização das definições
 *	1		nk		11/out/2013		Criação do módulo com suas definições
@@ -49,12 +50,20 @@ typedef LIS_tppLista SV_Coluna;
 typedef enum {
 	SV_CondRetOK,
 	// Concluiu corretamente
-	SV_CondRetColunaNaoExiste,
+	SV_CondRetColunaInexistente,
 	// Coluna inexistente
 	SV_CondRetNaoInsere,
 	// Movimento de inserção não válido
-	SV_CondRetNaoRemove
+	SV_CondRetNaoRemove,
 	// Movimento de remoção não válido
+	SV_CondRetCartaInvalida,
+	// A carta recebida não pertence ao conjunto domínio de um baralho
+	SV_CondRetErroInserção,
+	// Erro ao inserir carta na coluna 
+	SV_CondRetErroRemoção,
+	// Erro ao remover carta da coluna
+	SV_CondRetErroNaExibição
+	// Erro ao exibir as cartas das colunas de Sequência Visual
 } SV_tpCondRet;
 
 /***********************************************************************
@@ -67,7 +76,7 @@ typedef enum {
 *	SV_Coluna - Ponteiro para coluna criada.
 *
 *	Assertivas
-*	Entrada - Não existem. 
+*	Entrada - Não existem entradas. 
 *
 *	Saída - Deve retornar um ponteiro para a nova coluna. 
 *			Se não, retorna NULL.
@@ -85,9 +94,10 @@ SV_Coluna SV_CriarColunaSeqVis(void);
 *   coluna - Um ponteiro para a coluna que se quer destruir.                 
 *
 *	$FV Valor retornado
-*	SV_CondRet OK - Conseguiu destruir.
-*	SV_CondRetColunaNaoExiste - A coluna passada como parâmentro não existe e
-*	não é excluída.
+*	SV_CondRetOK - Conseguiu destruir.
+*	SV_CondRetColunaInexistente - A coluna passada como parâmentro não existe
+*	e, portanto, não é excluída.
+*	SV_CondRetColunaNaoFoiDestruida - Erro ao destruir a coluna.
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro.
@@ -109,7 +119,7 @@ SV_tpCondRet SV_ExcluirColunaSeqVis(SV_Coluna coluna);
 *
 *	$FV Valor retornado
 *	SV_CondRetOK - É possível.
-*	SV_CondRetColunaNaoExiste - A coluna passada como parâmentro não existe.
+*	SV_CondRetColunaInexistente - A coluna passada como parâmentro não existe.
 *	SV_CondRetNaoInsere - Não é uma inserção válida.
 *
 *	Assertivas
@@ -133,7 +143,7 @@ SV_tpCondRet SV_VerificarInserirCarta(SV_Coluna destino, Carta carta);
 *
 *	$FV Valor retornado
 *	SV_CondRetOK - É possível.
-*	SV_CondRetColunaNaoExiste - A coluna passada como parâmentro não existe.
+*	SV_CondRetColunaInexistente - A coluna passada como parâmentro não existe.
 *	SV_CondRetNaoInsere - Não é uma remoção válida.
 *
 *	Assertivas

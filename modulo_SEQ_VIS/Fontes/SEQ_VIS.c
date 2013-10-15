@@ -15,6 +15,7 @@
 *
 *  $HA Histórico de evolução:
 *   Versão  Autor	Data			Observações
+*	3		lg		14/out/2013		Continuação do desenvolvimento
 *	2		nk		14/out/2013		Correção de nomenclatura, novas funções
 *	1 		lg		13/out/2013		Criação e início do desenvolvimento do módulo
 *    
@@ -29,9 +30,24 @@ typedef char* Carta;
 *  Função: SV  &Criar Coluna
 ***************************************************************************/
 
-SV_Coluna SV_CriarColunaSeqVis(void)
+SV_Coluna SV_CriarColunaSeqVis(Carta carta)
 {
-	return LIS_CriarLista(NULL);
+	LIS_tppLista seqVisHead;
+	LIS_tpCondRet retornoCriaLista;
+
+	seqVisHead = LIS_CriarLista(NULL);
+
+	if(seqVisHead == NULL)
+		return NULL;
+
+	for(i=0;i<4;i++)
+	{
+		retornoCriaLista = LIS_InserirElementoApos(seqVisHead,carta);
+		if(retornoCriaLista != LIS_CondRetOK)
+			return NULL;
+	}
+
+	return seqVisHead;
 }
 
 /***************************************************************************
@@ -40,15 +56,25 @@ SV_Coluna SV_CriarColunaSeqVis(void)
 
 SV_tpCondRet SV_ExcluirColunaSeqVis(SV_Coluna coluna)
 {
-	LIS_DestruirLista(coluna);
-	return 0;
+	LIS_tpCondRet retornoDestroiLista;
+
+	if(LIS_ObterValor(coluna)==NULL)
+		return SV_CondRetColunaNaoExiste;
+
+	retornoDestroiLista = LIS_DestruirLista(coluna);
+
+	if(retornoDestroiLista != LIS_CondRetOK)
+		return SV_CondRetColunaNaoFoiDestruida;
+
+	return SV_CondRetOK;
 }
 
 /***************************************************************************
 *  Função: SV  &Verificar Inserir Carta
 ***************************************************************************/
 
-SV_tpCondRet SV_VerificarInserirCarta(SVColuna destino, Carta carta){
+SV_tpCondRet SV_VerificarInserirCarta(SVColuna destino, Carta carta)
+{
 
 //here goes the code
 
@@ -95,4 +121,7 @@ SV_tpCondRet SV_RemoverCartaDeSeqVis(SV_Coluna origem, Carta carta){
 *  Função: SV  &Exibir Carta
 ***************************************************************************/
 
-void SVExibirCartas(SVColuna coluna){}
+void SVExibirCartas(SVColuna coluna)
+{
+	// codigo
+}
