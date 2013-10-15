@@ -18,6 +18,17 @@
 =declararparm	carta5		string	"7F"
 =declararparm	carta6		NULL
 
+== Declarar condições de retorno
+=declararparm	EXT_Coluna 							int 0
+=declararparm	EXT_CondRetOK						int 1
+=declararparm	EXT_CondRetColunaNaoFoiDestruida	int 2
+=declararparm	EXT_CondRetColunaInexistente		int 3
+=declararparm	EXT_CondRetNaoPodeInserir			int 4
+=declararparm	EXT_CondRetNaoPodeRemover			int 5
+=declararparm	EXT_CondRetCartaInvalida			int 6
+=declararparm	EXT_CondRetColunaVazia				int 7
+=declararparm	EXT_CondRetErroInserção				int 8
+=declararparm	EXT_CondRetErroRemocao				int 9
 
 ==Teste de Extra Para Criar Coluna
 =criar  	coluna0

@@ -131,7 +131,7 @@ EXT_tpCondRet EXT_ExcluirColuna(EXT_Coluna coluna);
 *
 *	$FV Valor retornado
 *	EXT_CondRetOK - É possível inserir a carta.
-*	EXT_CondRetColunaNaoExiste - A coluna passada como parâmentro não existe.
+*	EXT_CondRetColunaInexistente - A coluna passada como parâmentro não existe.
 *	EXT_CondRetCartaInvalida - A carta recebida não pertence ao baralho.
 *	EXT_CondRetNaoPodeInserir - Não é uma inserção válida.
 *
@@ -160,7 +160,7 @@ EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta);
 *
 *	$FV Valor retornado
 *	EXT_CondRetOK - É possível.
-*	EXT_CondRetColunaNaoExiste - A coluna passada como parâmetro não existe.
+*	EXT_CondRetColunaInexistente - A coluna passada como parâmetro não existe.
 *	EXT_CondRetCartaInvalida - A carta recebida não é válida ou não está
 *	entre as cartas de Extra.
 *	EXT_CondRetColunaVazia - A coluna passada como parâmetro está vazia.
@@ -186,7 +186,7 @@ EXT_tpCondRet EXT_VerificarRemoverCarta(EXT_Coluna origem, Carta carta);
 *
 *	$FV Valor retornado
 *	EXT_CondRetOK - Inserção Realizada.
-*	EXT_CondRetColunaNaoExiste - A coluna passada como parâmentro não existe.
+*	EXT_CondRetColunaInexistente - A coluna passada como parâmentro não existe.
 *	EXT_CondRetCartaInvalida - A carta recebida não pertence ao baralho.
 *	EXT_CondRetErroInserção - Erro na função que insere.
 *
@@ -213,7 +213,7 @@ EXT_tpCondRet EXT_InserirCartaEmExtra(EXT_Coluna destino, Carta carta);
 *
 *	$FV Valor retornado
 *	EXT_CondRetOK - Remocao Realizada.
-*	EXT_CondRetColunaNaoExiste - A coluna passada como parâmentro não existe.
+*	EXT_CondRetColunaInexistente - A coluna passada como parâmentro não existe.
 *	EXT_CondRetCartaInvalida - A carta recebida não pertence ao baralho.
 *	EXT_CondRetErroRemocao - Erro na função que remove.
 *
@@ -240,7 +240,7 @@ EXT_tpCondRet EXT_RemoverCartaEmExtra(EXT_Coluna destino, Carta carta);
 *
 *	$FV Valor retornado
 *	EXT_CondRetOK - Exibiu as cartas.
-*	EXT_CondRetColunaNaoExiste - A coluna passada como parâmentro não existe.            
+*	EXT_CondRetColunaInexistente - A coluna passada como parâmentro não existe.            
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro. 

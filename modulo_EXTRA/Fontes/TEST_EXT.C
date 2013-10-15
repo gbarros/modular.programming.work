@@ -1,22 +1,33 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: TLIS Teste lista de símbolos
+*  $MCI Módulo de implementação: Módulo de teste específico
 *
-*  Arquivo gerado:              TestLIS.c
-*  Letras identificadoras:      TLIS
+*  Arquivo gerado:              TEST_EXT.C
+*  Letras identificadoras:      TEXT
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
+*  Nome da base de software:    Teste automatizado do módulo Extra
+*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\SIMPLES.BSW
 *
-*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
-*  Gestor:  LES/DI/PUC-Rio
-*  Autores: avs
-*
+*  Projeto: FreeCell (INF1301)
+*  Gestor:  DI/PUC-Rio
+*  Autores: Gabriel Barros, Noemie Nakamura e Leonardo Giroto
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*     4       avs   01/fev/2006 criar linguagem script simbólica
-*     3       avs   08/dez/2004 uniformização dos exemplos
-*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
-*     1       avs   16/abr/2003 início desenvolvimento
+*       1      LG   15/10/2013  Início do desenvolvimento
+*
+*  $ED Descrição do módulo
+*     Este módulo contém as funções específicas para o teste do
+*     módulo Extra.
+*
+*  $EIU Interface com o usuário pessoa
+*     Comandos de teste específicos para testar o módulo Extra:
+*
+*     =criar              - chama a função EXT_CriarColuna
+*     =excluir            - chama a função EXT_ExcluirColuna
+*     =verificarinserir   - chama a função EXT_VerificarInserirCarta
+*     =verificarremover   - chama a função EXT_VerificarRemoverCarta
+*     =inserir            - chama a função EXT_InserirCartaEmExtra
+*     =remover            - chama a função EXT_RemoverCartaEmExtra
+*     =exibir             - chama a função EXT_ExibirCartas
 *
 ***************************************************************************/
 
@@ -32,69 +43,124 @@
 
 /* Tabela dos nomes dos comandos de teste específicos */
 
-#define     CRIAR_BAR_CMD       "=criar"
-#define     EXCLUIR_BAR_CMD     "=excluir"
+#define     CRIAR_BAR_CMD                 "=criar"
+#define     EXCLUIR_BAR_CMD               "=excluir"
+#define     VERIFICARINSERIR_BAR_CMD      "=verificarinserir"
+#define     VERIFICARREMOVER_BAR_CMD      "=verificarremover"
+#define     INSERIR_BAR_CMD               "=inserir"
+#define     REMOVER_BAR_CMD               "=remover"
+#define     EXIBIR_BAR_CMD                "=exibir"
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: TLIS &Testar lista
-*
-*  $ED Descrição da função
-*     Podem ser criadas até 10 listas, identificadas pelos índices 0 a 10
-*
-*     Comandos disponíveis:
-*
-*     =resetteste
-*           - anula o vetor de listas. Provoca vazamento de memória
-*     =criarlista                   inxLista
-*     =destruirlista                inxLista
-*     =esvaziarlista                inxLista
-*     =inselemantes                 inxLista  string  CondRetEsp
-*     =inselemapos                  inxLista  string  CondRetEsp
-*     =obtervalorelem               inxLista  string  CondretPonteiro
-*     =excluirelem                  inxLista  CondRetEsp
-*     =irinicio                     inxLista
-*     =irfinal                      inxLista
-*     =avancarelem                  inxLista  numElem CondRetEsp
+ // Something goes here...
 *
 ***********************************************************************/
 
    TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
    {
-      char carta = 0;
       int  numLidos = 0;
-      TST_tpCondRet CondRet;
+      TST_tpCondRet condRet;
+      LIS_tppLista coluna;
+      int ColunaEnviada;
+      char* StringDada;
+      int CondRetEsperada;
+
 
       if (strcmp(ComandoTeste,CRIAR_BAR_CMD)==0)
       {     
-        numLidos = LER_LerParametros("ii",&CondRetEsperada,&ValorDado); // -q
+        // numLidos = LER_LerParametros("ii",&CondRetEsperada,&ValorDado); // -q
 
-        if (numLidos!=2)
-           return TST_CondRetParm;
+        // if (numLidos!=2)
+           // return TST_CondRetParm;
 
-        CondRet = EXT_CriarColunaExtra(carta);
+        coluna = EXT_CriarColuna();
 
-        if (CondRet != CondRetOK)
+        if (condRet != CondRetOK)
            return TST_CondRetErro;
 
         return TST_CondRetOK;
+      }
+      else if(strcmp(ComandoTeste,INSERIR_BAR_CMD)==0)
+      {
+        // numLidos = LER_LerParametros("is",&CondRetEsperada,&StringDada); // -q²
+
+        // if (numLidos!=2)
+          // return TST_CondRetParm;
+
+        condRet = EXT_InserirCartaEmExtra(coluna,carta1);
+
+        if (condRet != CondRetOK)
+           return TST_CondRetErro;
+
+        condRet = EXT_InserirCartaEmExtra(coluna,NULL);
+
+        if (condRet != CondRetCartaInvalida)
+           return TST_CondRetErro;
+
+        condRet = EXT_InserirCartaEmExtra(NULL,carta1);
+
+        if (condRet != CondRetColunaInexistente)
+           return TST_CondRetErro;
+
+        return TST_CondRetOK;
+
+      }
+      else if(strcmp(ComandoTeste,VERIFICARINSERIR_BAR_CMD)==0)
+      {
+         numLidos = LER_LerParametros("isi",&ColunaEnviada,&StringDada,&CondRetEsperada);
+
+         if (numLidos!=3)
+           return TST_CondRetParm;
+
+        condRet = EXT_VerificarInserirCarta(ColunaEnviada,StringDada);
+
+        if (condRet != CondRetEsperada)
+           return TST_CondRetErro;
+
+        return TST_CondRetOK;
+
+      }
+      else if(strcmp(ComandoTeste,VERIFICARREMOVER_BAR_CMD)==0)
+      {
+        // numLidos = LER_LerParametros("is",&CondRetEsperada,&StringDada); // -q²
+
+        // if (numLidos!=2)
+          // return TST_CondRetParm;
+      }
+      else if(strcmp(ComandoTeste,REMOVER_BAR_CMD)==0)
+      {
+        // numLidos = LER_LerParametros("is",&CondRetEsperada,&StringDada); // -q²
+
+        // if (numLidos!=2)
+          // return TST_CondRetParm;
+      }
+      else if(strcmp(ComandoTeste,EXIBIR_BAR_CMD)==0)
+      {
+        // numLidos = LER_LerParametros("is",&CondRetEsperada,&StringDada); // -q²
+
+        // if (numLidos!=2)
+          // return TST_CondRetParm;
       }
       else if(strcmp(ComandoTeste,EXCLUIR_BAR_CMD)==0)
       {
-        numLidos = LER_LerParametros("is",&CondRetEsperada,&StringDada); // -q²
+        // numLidos = LER_LerParametros("is",&CondRetEsperada,&StringDada); // -q²
 
-        if (numLidos!=2)
-          return TST_CondRetParm;
+        // if (numLidos!=2)
+          // return TST_CondRetParm;
 
-        CondRet = EXT_ExcluirColunaExtra(XXX); // -q³
+        //condRet = EXT_ExcluirColunaExtra(coluna);
 
-        if (CondRet != CondRetOK)
-           return TST_CondRetErro;
+        // if (condRet != CondRetOK)
+           //return TST_CondRetErro;
 
-        return TST_CondRetOK;
+        // return TST_CondRetOK;
       }
-
+      else
+      {
+        return TST_CondRetErro;
+      }
    }
