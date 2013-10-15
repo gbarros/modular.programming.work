@@ -64,17 +64,15 @@ typedef enum {
 	EXT_CondRetNaoPodeInserir,
 	// Movimento de inserção não válido
 	EXT_CondRetNaoPodeRemover,
-	// Movimento de remoção não válido
+	// Movimento de Remocao não válido
 	EXT_CondRetCartaInvalida,
 	// A carta recebida não pertence ao conjunto domínio de um baralho
 	EXT_CondRetColunaVazia,
 	// A coluna a ser removida a carta não possui carta
 	EXT_CondRetErroInserção,
 	// Erro ao inserir carta na coluna 
-	EXT_CondRetErroRemoção,
+	EXT_CondRetErroRemocao,
 	// Erro ao remover carta da coluna
-	EXT_CondRetErroNaExibição
-	// Erro ao exibir as cartas das colunas de Extra
 
 } EXT_tpCondRet ;
 
@@ -154,7 +152,7 @@ EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta);
 *	$ED Descrição da função
 *
 *	$ED Descrição da função
-*	Valida ou não remoção de uma carta do baralho em determinada coluna.
+*	Valida ou não Remocao de uma carta do baralho em determinada coluna.
 *
 *	$EP Parâmetros
 *   origem - Ponteiro para a coluna a ter carta removida.
@@ -171,7 +169,7 @@ EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta);
 *	Entrada - Deve-se passar uma coluna existente como parâmetro, assim como
 *	uma carta que pertença ao baralho.
 *
-*	Saída - Se executou corretamente, valida a remoção.
+*	Saída - Se executou corretamente, valida a Remocao.
 ***********************************************************************/
 
 EXT_tpCondRet EXT_VerificarRemoverCarta(EXT_Coluna origem, Carta carta);
@@ -214,10 +212,10 @@ EXT_tpCondRet EXT_InserirCartaEmExtra(EXT_Coluna destino, Carta carta);
 *	carta - Carta a qual se quer inserir.
 *
 *	$FV Valor retornado
-*	EXT_CondRetOK - Remoção Realizada.
+*	EXT_CondRetOK - Remocao Realizada.
 *	EXT_CondRetColunaNaoExiste - A coluna passada como parâmentro não existe.
 *	EXT_CondRetCartaInvalida - A carta recebida não pertence ao baralho.
-*	EXT_CondRetErroRemoção - Erro na função que remove.
+*	EXT_CondRetErroRemocao - Erro na função que remove.
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro, assim
@@ -226,7 +224,7 @@ EXT_tpCondRet EXT_InserirCartaEmExtra(EXT_Coluna destino, Carta carta);
 *	Saída - Se executou corretamente, irá remover a carta desejada da
 *	coluna desejada. A coluna da qual foi removida passará a ter uma
 *	"carta nula" (0).
-			Caso contrário, retorna erro na remoção.
+			Caso contrário, retorna erro na Remocao.
 ***********************************************************************/
 
 EXT_tpCondRet EXT_RemoverCartaEmExtra(EXT_Coluna destino, Carta carta);
@@ -242,8 +240,7 @@ EXT_tpCondRet EXT_RemoverCartaEmExtra(EXT_Coluna destino, Carta carta);
 *
 *	$FV Valor retornado
 *	EXT_CondRetOK - Exibiu as cartas.
-*	EXT_CondRetColunaNaoExiste - A coluna passada como parâmentro não existe.
-*	EXT_CondRetErroNaExibição - Erro na exibição.             
+*	EXT_CondRetColunaNaoExiste - A coluna passada como parâmentro não existe.            
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro. 

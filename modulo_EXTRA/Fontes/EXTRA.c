@@ -88,9 +88,11 @@ EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta)
 	if(carta == NULL)
 		return EXT_CondRetCartaInvalida;
 
+	IrInicioLista(destino);
+
 	for(i=0;i<4;i++)
 	{
-		if(LIS_ObterValor(destino)==NULL) //vê se há elemento na posição
+		if(LIS_ObterValor(destino)=0) //vê se há elemento na posição
 			return EXT_CondRetOK;
 		else
 			LIS_AvancarElementoCorrente(destino,1); //vê próximo elemento da lista
@@ -171,7 +173,7 @@ EXT_tpCondRet EXT_RemoverCartaDeExtra(EXT_Coluna origem, Carta carta)
 
 	possivelRemover = EXT_VerificarRemoverCarta(origem,carta); // chama função que vê se é possível remover
 
-	if(possivelRemover == EXT_CondRetOK) // se a remoção for possível
+	if(possivelRemover == EXT_CondRetOK) // se a Remocao for possível
 		retornoRemover = LIS_ExcluirElemento(origem); // se estiver, exclui a carta da coluna
 
 	if(retornoRemover == LIS_CondRetOK)
@@ -181,7 +183,7 @@ EXT_tpCondRet EXT_RemoverCartaDeExtra(EXT_Coluna origem, Carta carta)
 			return EXT_CondRetOK;
 	}
 
-	return EXT_CondRetErroRemoção;
+	return EXT_CondRetErroRemocao;
 
 }
 
@@ -210,9 +212,6 @@ EXT_tpCondRet EXT_ExibirCartas(EXT_Coluna coluna)
 		printf("%s ",valor);
 
 		andar = LIS_AvancarElementoCorrente(coluna,1);
-
-		if(andar != LIS_CondRetOK)
-			return EXT_CondRetErroNaExibição;
 	}
 
 	printf("\n");

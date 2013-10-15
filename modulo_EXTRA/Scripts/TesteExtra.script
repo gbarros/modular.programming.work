@@ -1,4 +1,121 @@
-==Teste de Extra
-=criar  	EXT_CondRetOK		0
+// Script:	TesteExtra.script
+// Autor:	Leonardo Giroto, Gabriel Barros e Noemie Nakamura
+// Data:	15/out/2013
+// Propósito: 	Testar o módulo Extra
 
-=excluir	EXT_CondRetOK				
+==Teste de Extra Para Criar Coluna Normal
+=criar  	EXT_CondRetOK	
+
+== Teste de Extra para Criar Coluna com Erro	
+=criar 		NULL
+
+
+== Teste de Extra Para Excluir Coluna Normal
+=excluir	EXT_CondRetOK		AP,2O,3E,5P
+
+== Teste de Extra Para Excluir Coluna Normal
+=excluir	EXT_CondRetOK		AP,2O,3E,0
+
+== Teste de Extra Para Excluir Coluna Normal
+=excluir	EXT_CondRetOK		AP,2O,0,0
+
+== Teste de Extra Para Excluir Coluna Normal
+=excluir	EXT_CondRetOK		AP,0,0,0
+
+== Teste de Extra Para Excluir Coluna Normal
+=excluir	EXT_CondRetOK		0,0,0,0
+
+== Teste de Extra Para Excluir Coluna Inexistente
+=excluir	EXT_CondRetColunaInexistente	NULL
+
+
+== Teste de Extra para Verificar Inserir
+=verificarinserir	EXT_CondRetNaoPodeInserir	AP,2O,3E,5P		AC
+
+== Teste de Extra para Verificar Inserir
+=verificarinserir	EXT_CondRetOK	AP,2O,3E,0		AC
+
+== Teste de Extra para Verificar Inserir
+=verificarinserir	EXT_CondRetOK	AP,2O,0,0		AC
+
+== Teste de Extra para Verificar Inserir
+=verificarinserir	EXT_CondRetOK	AP,0,0,0		AC
+
+== Teste de Extra para Verificar Inserir
+=verificarinserir	EXT_CondRetOK	0,0,0,0		AC
+
+== Teste de Extra para Verificar Inserir
+=verificarinserir	EXT_CondRetColunaInexistente	NULL	AC
+
+== Teste de Extra para Verificar Inserir
+=verificarinserir	EXT_CondRetCartaInvalida	AP,2O,3E,5P		NULL
+
+
+== Teste de Extra para Verificar Remover
+=verificarremover	EXT_CondRetOK	AP,2O,3E,5P		AP
+
+== Teste de Extra para Verificar Remover
+=verificarremover	EXT_CondRetCartaInvalida	AP,2O,3E,5P		AC
+
+== Teste de Extra para Verificar Remover
+=verificarremover	EXT_CondRetOK	AP,0,0,0		AP
+
+== Teste de Extra para Verificar Remover
+=verificarremover	EXT_CondRetCartaInvalida	AP,0,0,0		AC
+
+== Teste de Extra para Verificar Remover
+=verificarremover	EXT_CondRetColunaInexistente	NULL	AC
+
+== Teste de Extra para Verificar Remover
+=verificarremover	EXT_CondRetCartaInvalida	AP,2O,3E,5P		NULL
+
+
+== Teste de Extra ao Inserir Normal
+=inserir	EXT_CondRetErroInserção	AP,2O,3E,5P		AC
+
+== Teste de Extra ao Inserir Normal
+=inserir	EXT_CondRetOK	AP,2O,3E,0		AC
+
+== Teste de Extra ao Inserir Normal
+=inserir	EXT_CondRetOK	AP,2O,0,0	AC
+
+== Teste de Extra ao Inserir Normal
+=inserir	EXT_CondRetOK	AP,0,0,0		AC
+
+== Teste de Extra ao Inserir Normal
+=inserir	EXT_CondRetOK	0,0,0,0		AC
+
+== Teste de Extra ao Inserir com Coluna Inválida
+=inserir 	EXT_CondRetColunaInexistente	NULL 	AC
+
+== Teste de Extra ao Inserir Carta Inválida
+=Inserir 	EXT_CondRetCartaInvalida	AP,2O,3E,5P		NULL
+
+
+== Teste de Extra para Remover
+=remover	EXT_CondRetOK	AP,2O,3E,5P		AP
+
+== Teste de Extra para Remover
+=remover	EXT_CondRetErroRemocao	AP,2O,3E,5P		AC
+
+== Teste de Extra para Remover
+=remover	EXT_CondRetOK	AP,0,0,0		AP
+
+== Teste de Extra para Remover
+=remover	EXT_CondRetErroRemocao	AP,0,0,0		AC
+
+== Teste de Extra para Remover
+=remover	EXT_CondRetColunaInexistente	NULL	AC
+
+== Teste de Extra para Remover
+=remover	EXT_CondRetCartaInvalida	AP,2O,3E,5P		NULL
+
+
+== Teste de Exibição dos Valores Normal
+=exibir		EXT_CondRetOK	AP,2O,3E,5P
+
+== Teste de Exibição dos Valores Normal
+=exibir		EXT_CondRetOK	AP,0,0,0
+
+== Teste de Exibição de Valores com Destino Inválido
+=exibir		EXT_CondRetColunaInexistente	NULL
