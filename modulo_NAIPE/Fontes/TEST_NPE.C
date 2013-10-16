@@ -89,9 +89,8 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
     int  indexColuna = -1 ;
 	static NPE_Coluna colunas[DIM_VT_NPE] ;
 
-	Carta cartaDada = NULL;
-	char * givenCard=NULL;
-	
+	char cartaDada[4];
+
 	TST_tpCondRet CondRet;
 
 	// Teste de NPE Criar Coluna
@@ -108,7 +107,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 
 	// Teste de NPE Verificar Inserir Carta Em Coluna Vazia
 	else if(strcmp(ComandoTeste, VERIFICAR_INSVAZ_CMD) == 0){
-		numLidos = LER_LerParametros("isi", &indexColuna, givenCard, &CondRetEsperada);
+		numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
 		if((numLidos != 3) || !VerificarIndex(indexColuna))
 			return TST_CondRetParm;
 
