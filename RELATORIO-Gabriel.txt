@@ -30,4 +30,5 @@ Data		Horas	Tipo Tarefa		Descrição da Tarefa Realizada
 14/out/13   10  Revisar projetos /    	Revisão da transação de movimento de carta(s)
 					Projetar/			Apartir da revisão fizemos mudanças nas interfaces
 					Estudar				Analise dos exemplos de Controlador de Teste e o uso de .Scripts
-				Códificar módulo        Construção de todos os modulos. (.c e .h)
+				Códificar módulo        Construção de todos os modulos. (.c e .h) (todo o grupo)
+15/out/13   10  Códificar módulo        Embaralhamento.c e Test_EMB.c 
