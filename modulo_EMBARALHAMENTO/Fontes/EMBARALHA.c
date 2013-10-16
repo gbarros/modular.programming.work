@@ -37,6 +37,9 @@
 #define TAMANHO 4
 #define TAMANHOSTRING 180
 
+
+//EMB_tpCondRet EMB_embaralha(char bar[53][4]);
+
 static void EMB_ConverteBaralhoStringChar (char String[], char baralho[QTD][TAMANHO]){
    int i=0;
    char *pnome;
@@ -57,42 +60,53 @@ static void EMB_CopiaMarca (char* a, char* b)
 
 static EMB_tpCondRet EMB_BarReferencia (char baralho [QTD][TAMANHO]){
 
-	FILE * pFile;
-	char barRef [TAMANHOSTRING];
-	pFile = fopen ("BaralhoReferencia.txt" , "r");
+        FILE * pFile;
+        char barRef [TAMANHOSTRING];
+        pFile = fopen ("BarRef.txt" , "r");
 
-	if (pFile == NULL) 
-			return EMB_CondRetErroNaReferencia;
-	else {
-	 if ( fgets (barRef , TAMANHOSTRING , pFile) != NULL ){
-	 	fclose (pFile);
-	 }
-	 else
-	 	return EMB_CondRetErroNaReferencia;
+        if (pFile == NULL){ //Procura em outra pasta
+        	pFile = fopen ("..\\Fontes\\BarRef.txt" , "r");
+        	if (pFile==NULL)
+            return EMB_CondRetErroNaReferencia;
+        }
+
+         if ( fgets (barRef , TAMANHOSTRING , pFile) != NULL ){
+	        EMB_ConverteBaralhoStringChar(barRef, baralho);
+	        fclose (pFile);
+	        return EMB_CondRetOK;
+
+         }
+         else{
+     		fclose (pFile);
+             return EMB_CondRetErroNaReferencia;
+        }
+
+
+
 	}
-	EMB_ConverteBaralhoStringChar(barRef, baralho);
-
-	return EMB_CondRetOK;
-}
-
 
 EMB_tpCondRet EMB_Embaralha(char bar[QTD][TAMANHO]){
  
 	char barAux[QTD][TAMANHO],
-		 barRef [QTD][TAMANHO],
-		 A[]="AC";
-	int i,n,embEmbaralhou=0;
+		 barRef [QTD][TAMANHO];
+	int i,n,ref,embEmbaralhou=0;
+	static int m=0;
 
    //Altera a seed da função random (rand)
-	srand(time(NULL));
+	srand((int)time(NULL));
 
 	//Carrega o Baralho Referencia e testa para erros
-	EMB_BarReferencia(barRef);
+      ref=EMB_BarReferencia(barRef);
+        if (ref==EMB_CondRetErroNaReferencia){
+       
+        	return EMB_CondRetErroNoEmbaralhamento;
+		}
 
 	//Seta o baralho auxiliar 
 	for(i=0; i<QTD;i++){
 		strcpy(barAux[i],"0");
 	}
+
     //Testa o parametro de entrada para invalidade
 	if (bar==NULL){	
 
@@ -100,6 +114,7 @@ EMB_tpCondRet EMB_Embaralha(char bar[QTD][TAMANHO]){
 	}
 	//Se não condiz com o Baralho Referencia
 	for (i=0;i<QTD;i++){
+
 		if(strcmp(bar[i],barRef[i])){
 
 			return EMB_CondRetBaralhoInvalido;
@@ -109,22 +124,21 @@ EMB_tpCondRet EMB_Embaralha(char bar[QTD][TAMANHO]){
 
 	//Inicia a operação de embaralhamento
 	for (i=0; i<QTD; i++){
- 		n= rand()%51;
+ 		n= rand()%(QTD-1);
 
 		while( !strcmp(bar[n],"0"))
 		{
 			n++;
-			if( n>51)
+			if( n>(QTD-1))
 				n=0;
 		}
 		
 		EMB_CopiaMarca(bar[n],barAux[i]);
 	}
 
-
 	// Copia o baralho embaralhado para a variavel de saida e verifica
 	//se houve pelo menos uma mudança
-	for (i=0;i<51;i++)
+	for (i=0;i<(QTD-1);i++)
 	{
 		if (strcmp(barAux[i], barRef[i])){
 				embEmbaralhou++;

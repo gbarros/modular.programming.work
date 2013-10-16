@@ -21,6 +21,7 @@
 *   1       gb		12/out/2013		Início desenvolvimento
 *	2		nk		14/out/2013		Inclusão de funções, cabeçalhos, correções
 *	3		lg		14/out/2013		Ajuste condições de retorno
+*	4		gb		15/out/2013     Implementação do código
 *
 *	$ED Descrição do módulo
 *	Recebe uma sequência representando baralho ordenado e retorna esta sequência
@@ -35,6 +36,8 @@
 
 #undef EMBARALHA_EXT
 
+#define QTD 52
+#define TAMANHO 4
 /***********************************************************************
 *	$TC Tipo de dados: EMB Condições de retorno
 *
@@ -47,9 +50,9 @@ typedef enum {
 	// Concluiu corretamente
 	EMB_CondRetBaralhoInvalido,
 	// Recebeu um baralho inválido
-	EMB_CondRetErroNoEmbaralhamento
+	EMB_CondRetErroNoEmbaralhamento,
 	// Erro na função de embaralhamento 
-
+	EMB_CondRetErroNaReferencia,
 } EMB_tpCondRet ;
 
 /***********************************************************************
@@ -72,7 +75,7 @@ typedef enum {
 *	ordem distinta da ordem natural.
 ***********************************************************************/
 
-EMB_tpCondRet EMB_embaralha(char bar[53][4]);
+EMB_tpCondRet EMB_Embaralha(char bar[QTD][TAMANHO]);
 
 /********** Fim do módulo de definição: EMB Embaralhamento **********/
 

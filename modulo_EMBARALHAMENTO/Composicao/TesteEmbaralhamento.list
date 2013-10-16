@@ -21,35 +21,68 @@ Módulos do construto: TesteEmbaralhamento.comp
 Estatísticas do construto
 
    Estatísticas do arquivo: embaralha.c
-      Total linhas:              80
-      Linhas de código:          44
-      Linhas de comentário:      22
-      Linhas em branco:          14
+      Total linhas:             145
+      Linhas de código:          80
+      Linhas de comentário:      34
+      Linhas em branco:          31
    Arquivos de inclusão de que necessita
       embaralha.h
 
    Estatísticas do arquivo: embaralha.h
-      Total linhas:              77
-      Linhas de código:          15
-      Linhas de comentário:      52
-      Linhas em branco:          10
+      Total linhas:              83
+      Linhas de código:          19
+      Linhas de comentário:      55
+      Linhas em branco:           9
    Arquivos em que é incluído
       embaralha.c
+      test_emb.c
+
+   Estatísticas do arquivo: generico.h
+      Total linhas:             561
+      Linhas de código:          58
+      Linhas de comentário:     433
+      Linhas em branco:          70
+   Arquivos de inclusão de que necessita
+      tst_espc.h
+   Arquivos em que é incluído
+      test_emb.c
+
+   Estatísticas do arquivo: lerparm.h
+      Total linhas:             306
+      Linhas de código:          36
+      Linhas de comentário:     203
+      Linhas em branco:          67
+   Arquivos em que é incluído
+      test_emb.c
 
    Estatísticas do arquivo: test_emb.c
-      Total linhas:               0
-      Linhas de código:           0
-      Linhas de comentário:       0
-      Linhas em branco:           0
+      Total linhas:             169
+      Linhas de código:          63
+      Linhas de comentário:      78
+      Linhas em branco:          28
+   Arquivos de inclusão de que necessita
+      embaralha.h
+      generico.h
+      lerparm.h
+      tst_espc.h
+
+   Estatísticas do arquivo: tst_espc.h
+      Total linhas:             320
+      Linhas de código:          23
+      Linhas de comentário:     277
+      Linhas em branco:          20
+   Arquivos em que é incluído
+      generico.h
+      test_emb.c
 
 Totais por tipo de arquivo
 
   Tipo: h        Path: ..\Fontes
-         Total linhas do tipo:        77
-         Linhas de código:            15
-         Linhas de comentário:        52
-         Linhas em branco:            10
-         Arquivos deste tipo:          1
+         Total linhas do tipo:      1270
+         Linhas de código:           136
+         Linhas de comentário:       968
+         Linhas em branco:           166
+         Arquivos deste tipo:          4
 
   Tipo: obj      Path: ..\Objetos
          Total linhas do tipo:         0
@@ -65,7 +98,7 @@ Totais por tipo de arquivo
          Linhas em branco:             0
          Arquivos deste tipo:          0
 
-  Tipo: err      Path: ..\Produtos
+  Tipo: err      Path: ..\Produto
          Total linhas do tipo:         0
          Linhas de código:             0
          Linhas de comentário:         0
@@ -80,17 +113,17 @@ Totais por tipo de arquivo
          Arquivos deste tipo:          0
 
   Tipo: c        Path: ..\Fontes
-         Total linhas do tipo:        80
-         Linhas de código:            44
-         Linhas de comentário:        22
-         Linhas em branco:            14
+         Total linhas do tipo:       314
+         Linhas de código:           143
+         Linhas de comentário:       112
+         Linhas em branco:            59
          Arquivos deste tipo:          2
 
 Totais para todo o construto TesteEmbaralhamento
 
-   Total linhas:               157
-   Linhas de código:            59
-   Linhas de comentário:        74
-   Linhas em branco:            24
-   Arquivos processados:         3
+   Total linhas:              1584
+   Linhas de código:           279
+   Linhas de comentário:      1080
+   Linhas em branco:           225
+   Arquivos processados:         6
 

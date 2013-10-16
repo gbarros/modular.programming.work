@@ -4,7 +4,7 @@ GERADOR DE SCRIPT DE DIRETIVAS PARA MAKE
 Composição do construto: TesteNaipe.comp
 
    Nome do Construto:           TesteNaipe
-   Diretório base:              C:\Users\Noemie\Documents\GitHub\modular.programming.work\modulo_NAIPE\composicao
+   Diretório base:              C:\Users\Media\Documents\GitHub\modular.programming.work\modulo_NAIPE\composicao
 
    Arquivo composição:          TesteNaipe.comp
    Arquivo plataforma:          gmake.parm
@@ -58,10 +58,10 @@ Estatísticas do construto
       naipe.h
 
    Estatísticas do arquivo: naipe.c
-      Total linhas:             208
-      Linhas de código:         130
-      Linhas de comentário:      46
-      Linhas em branco:          32
+      Total linhas:             193
+      Linhas de código:         122
+      Linhas de comentário:      44
+      Linhas em branco:          27
    Arquivos de inclusão de que necessita
       lista.h
       naipe.h
@@ -77,10 +77,10 @@ Estatísticas do construto
       naipe.c
 
    Estatísticas do arquivo: test_npe.c
-      Total linhas:             199
+      Total linhas:             201
       Linhas de código:          80
       Linhas de comentário:      73
-      Linhas em branco:          46
+      Linhas em branco:          48
    Arquivos de inclusão de que necessita
       generico.h
       lerparm.h
@@ -133,17 +133,17 @@ Totais por tipo de arquivo
          Arquivos deste tipo:          0
 
   Tipo: c        Path: ..\Fontes
-         Total linhas do tipo:       967
-         Linhas de código:           498
-         Linhas de comentário:       255
-         Linhas em branco:           232
+         Total linhas do tipo:       954
+         Linhas de código:           490
+         Linhas de comentário:       253
+         Linhas em branco:           229
          Arquivos deste tipo:          3
 
 Totais para todo o construto TesteNaipe
 
-   Total linhas:              2683
-   Linhas de código:           670
-   Linhas de comentário:      1576
-   Linhas em branco:           455
+   Total linhas:              2670
+   Linhas de código:           662
+   Linhas de comentário:      1574
+   Linhas em branco:           452
    Arquivos processados:         8
 

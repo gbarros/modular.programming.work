@@ -21,37 +21,37 @@
 *  $EIU Interface com o usuário pessoa
 *     Comandos de teste específicos para testar o módulo Embaralhamento:
 *
-*     =criar        - chama a função EBL_embaralha()
+*     =criar        - chama a função EMB_Embaralha()
 *    
 *
 ***************************************************************************/
-
 #include    <string.h>
 #include    <stdio.h>
-
 #include    "TST_Espc.h"
-
 #include    "Generico.h"
 #include    "LerParm.h"
+#include    "embaralha.h"
 
-#include    "EMBARALHA.h"
+
 
 /* Tabela dos nomes dos comandos de teste específicos */
+static const char EMBARALHAR_BAR_CMD     [ ] = "=embaralhar";
 
-#define     EMBARALHAR_BAR_CMD       "=criar"
-#define     VALIDAR_BAR_CMD         "=validar"
-
+/* Constantes usadas na definição do projeto*/
+#define  QTD 52
+#define  TAMANHO 4
+#define  TAMANHOSTRING 180
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
 
 /***********************************************************************
 *
-*  $FC Função: TARV Efetuar operações de teste específicas para árvore
+*  $FC Função: TEMB Efetuar operações de teste específicas para o Embaralhamento
 *
 *  $ED Descrição da função
-*     Efetua os diversos comandos de teste específicos para o módulo
-*     árvore sendo testado.
+*     Efetua o comandos de teste específico para o módulo
+*     embaralhamento sendo testado.
 *
 *  $EP Parâmetros
 *     $P ComandoTeste - String contendo o comando
@@ -60,25 +60,55 @@
 *     Ver TST_tpCondRet definido em TST_ESPC.H
 *
 ***********************************************************************/
- 
+
+
+ static void TE_ConverteBaralhoStringChar(char String[], char baralho[QTD][TAMANHO]){
+
+   int i=0;
+   char *pnome;
+   pnome= strtok (String, ",");
+   while(pnome!=NULL){
+      strcpy (baralho[i],pnome);
+      pnome= strtok (NULL, ",");
+      i++;
+   }
+
+}
+/* Inclue através de arquivo um modelo de baralho para possível embaralhamento
+ Retorna 0 se executou perfeitamente ou -2 em caso de arquivo inexistente e -1 para arquivo vazio*/
+ static int TE_BarRefEscolhida (char baralho [QTD][TAMANHO], char caminhoArquivo[]){
+
+   FILE * pFile;
+   char barRef [TAMANHOSTRING];
+   pFile = fopen (caminhoArquivo , "r");
+
+   if (TST_CompararPonteiroNulo(1,pFile, "Arquivo Nao Encontrado")== TST_CondRetErro) 
+         return -2;
+
+   else {
+
+       if ( fgets (barRef , TAMANHOSTRING , pFile) != NULL ){
+       }
+       else{
+         fclose (pFile);
+         return -1;
+      }
+   }
+   TE_ConverteBaralhoStringChar(barRef, baralho);
+   fclose (pFile);
+
+   return 0;
+}
+
+
 
 
 
 
    TST_tpCondRet TST_EfetuarComando( char * ComandoTeste ){
 
-         char baralho [53][4]={"AC","2C", "3C","4C","5C","6C","7C","8C","9C","10C","JC","QC","KC",
-         "AP","2P", "3P","4P","5P","6P","7P","8P","9P","10P","JP","QP","KP",
-         "AO","2O", "3O","4O","5O","6O","7O","8O","9O","10O","JO","QO","KO",
-         "AE","2E", "3E","4E","5E","6E","7E","8E","9E","10E","JE","QE","KE","0"};
-
-       /*  char baralho2 [53][4]={"AC","2C", "3C","4C","5C","6C","7C","8C","9C","10C","JC","QC","KC",
-         "AP","2P", "3P","4P","5P","6P","7P","8P","9P","10P","JP","QP","KP",
-         "AO","2O", "3O","4O","5O","6O","7O","8O","9O","10O","JO","QO","KO",
-         "AE","2E", "3E","4E","5E","6E","7E","8E","9E","10E","JE","QE","KE","0"};*/
-
-         char baralhoDado[53][4];
-         char StringDada[200];
+         char baralhoDado[QTD][TAMANHO];
+         char StringDada[30];
          char ValorEsperado = '?'  ;
          char ValorObtido   = '!'  ;
          char ValorDado     = '\0' ;
@@ -91,21 +121,38 @@
 
          if (strcmp(ComandoTeste, EMBARALHAR_BAR_CMD)==0){
             
-            numLidos = LER_LerParametros("ii",&CondRetEsperada, &ValorDado);
+            numLidos = LER_LerParametros("is",&CondRetEsperada, StringDada);
             if (numLidos!=2){
                return TST_CondRetParm;
             }
+        //    printf(" \n\n\n\n\n STRING DADA: %s\n", StringDada);
+            //Se for 0 o baralho a ser usado é o referencia
+           if (!strcmp (StringDada, "0")){
+              strcpy(StringDada, "..\\Scripts\\BarRef.txt");
+            }
+ //           printf(" \n\n\n\n\n STRING DADA: %s\n", StringDada);
+          //  printf("Farei o teste para : %s\n",StringDada );
+            CondRet=TE_BarRefEscolhida(baralhoDado,StringDada);
+            if ( TST_CompararInt(0, CondRet, "Encontrei um arquivo vazio") ==TST_CondRetErro){
+               return TST_CondRetParm;
+            }
+      
 
-            CondRet= EMB_embaralha(baralho);
 
-            if (CondRet!=CondRetEsperada){
+            CondRet= EMB_Embaralha(baralhoDado);
+           /// CondRet=0;
+            if (TST_CompararInt(CondRetEsperada, CondRet, "Erro de execução!")==TST_CondRetErro){
                return TST_CondRetErro;
             }
+            else
+               return TST_CondRetOK;    
+
             return TST_CondRetOK;
-
-
          }
-         else if ( strcmp(ComandoTeste,VALIDAR_BAR_CMD)==0){
+         else
+            return TST_CondRetNaoConhec;
+
+        /* else if ( strcmp(ComandoTeste,VALIDAR_BAR_CMD)==0){
 
             numLidos=LER_LerParametros("is",&CondRetEsperada,&StringDada);
 
@@ -135,30 +182,6 @@
 
 
 
-         }
-
-   }
-
-   static void converteBaralhoStringChar(char String[], char baralho[53][4]){
-
-      int i=0, 
-          n=0,
-          j=0;
-      for (i=0; i<200; i++){
-
-         if (String[i]==","){
-
-            char[n][j]="\0";
-               n++;
-               j=0;
-         }
-
-         else
-            char[n][j]=String[i];
-            j++;
-
-
-      }
-
+         }*/
 
    }

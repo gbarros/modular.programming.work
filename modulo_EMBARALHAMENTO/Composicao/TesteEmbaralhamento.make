@@ -17,7 +17,7 @@ NOME            = TesteEmbaralhamento
 Ph                   = ..\Fontes
 Pobj                 = ..\Objetos
 Plib                 = ..\Objetos
-Perr                 = ..\Produtos
+Perr                 = ..\Produto
 PDEFAULT             = ..\Fontes
 Pc                   = ..\Fontes
 
@@ -26,7 +26,7 @@ Pc                   = ..\Fontes
 Fh                   = ..\Fontes
 Fobj                 = ..\Objetos
 Flib                 = ..\Objetos
-Ferr                 = ..\Produtos
+Ferr                 = ..\Produto
 FDEFAULT             = ..\Fontes
 Fc                   = ..\Fontes
 
@@ -64,7 +64,9 @@ $(Fobj)\embaralha.obj :  {$(Pc)}\embaralha.c \
     {$(Ph)}embaralha.h         
    cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
 
-$(Fobj)\test_emb.obj :  {$(Pc)}\test_emb.c
+$(Fobj)\test_emb.obj :  {$(Pc)}\test_emb.c \
+    {$(Ph)}embaralha.h          {$(Ph)}generico.h           {$(Ph)}lerparm.h            \
+    {$(Ph)}tst_espc.h          
    cl $(O) $(OPT) /Fo$(Fobj)\ $(Fc)\$(@B).c >> $(Ferr)\$(NOME).err
 
 

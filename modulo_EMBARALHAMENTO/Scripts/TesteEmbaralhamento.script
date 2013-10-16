@@ -1,18 +1,18 @@
 // Script:    TesteNaipe.script
 // Autor:     Gabriel Barros, Leonardo Giroto, Noemie Nakamura
 // Data:      12/out/2013
-// Propósito: Testar modulo Embaralhamento com os casos possíveis de entrada
+// Propósito: Testar modulo Embaralhamento com casos possiveis de entrada
 
+== Inicialização de valores
+=declararparm	EMB_CondRetOK				int 0
+=declararparm	EMB_CondRetBaralhoInvalido  int 1
 
 ==Teste simples de embaralhamento, com uma entrada certamente correta
-=embaralhar  	EMB_CondRetOK 	  0
-
+=embaralhar		EMB_CondRetOK	"0"
 
 == Teste para casos de erro de origens diferentes
-=embaralhar    EMB_CondRetOK     "..\BaralhoTeste01.txt"
-
-==embaralhar   EMB_CondRetBaralhoInvalido  "..\BaralhoTeste02"
-
-==embaralhar   EMB_CondRetBaralhoInvalido  "..\BaralhoTeste03"
+=embaralhar		EMB_CondRetOK     			"..\\Scripts\\BaralhoTeste01.txt"
+=embaralhar		EMB_CondRetBaralhoInvalido  "..\\Scripts\\BaralhoTeste02.txt"
+=embaralhar		EMB_CondRetBaralhoInvalido  "..\\Scripts\\BaralhoTeste03.txt"
 
 
