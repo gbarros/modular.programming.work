@@ -92,7 +92,7 @@ EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta)
 
 	for(i=0;i<4;i++)
 	{
-		if(LIS_ObterValor(destino)=0) //vê se há elemento na posição
+		if(LIS_ObterValor(destino)==0) //vê se há elemento na posição
 			return EXT_CondRetOK;
 		else
 			LIS_AvancarElementoCorrente(destino,1); //vê próximo elemento da lista

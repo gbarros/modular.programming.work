@@ -1,0 +1,153 @@
+GERADOR DE SCRIPT DE DIRETIVAS PARA MAKE
+   LES / Informática / PUC-Rio    Versão 6.00 (c) 2005
+
+Composição do construto: TesteExtra.comp
+
+   Nome do Construto:           TesteExtra
+   Diretório base:              C:\Users\User\Documents\GitHub\modular.programming.work\modulo_EXTRA\composicao
+
+   Arquivo composição:          TesteExtra.comp
+   Arquivo plataforma:          gmake.parm
+
+   Arquivo diretivas MAKE:      TesteExtra.make
+   Arquivo diretivas LINK:      TesteExtra.build
+   Arquivo listagem:            TesteExtra.list
+
+Módulos do construto: TesteExtra.comp
+
+   lista.c
+   extra.c
+   test_ext.c
+
+Estatísticas do construto
+
+   Estatísticas do arquivo: extra.c
+      Total linhas:             226
+      Linhas de código:         126
+      Linhas de comentário:      65
+      Linhas em branco:          55
+   Arquivos de inclusão de que necessita
+      extra.h
+      lista.h
+
+   Estatísticas do arquivo: extra.h
+      Total linhas:             259
+      Linhas de código:          31
+      Linhas de comentário:     203
+      Linhas em branco:          25
+   Arquivos de inclusão de que necessita
+      lista.h
+   Arquivos em que é incluído
+      extra.c
+      test_ext.c
+
+   Estatísticas do arquivo: generico.h
+      Total linhas:             561
+      Linhas de código:          58
+      Linhas de comentário:     433
+      Linhas em branco:          70
+   Arquivos de inclusão de que necessita
+      tst_espc.h
+   Arquivos em que é incluído
+      test_ext.c
+
+   Estatísticas do arquivo: lerparm.h
+      Total linhas:             306
+      Linhas de código:          36
+      Linhas de comentário:     203
+      Linhas em branco:          67
+   Arquivos em que é incluído
+      test_ext.c
+
+   Estatísticas do arquivo: lista.c
+      Total linhas:             560
+      Linhas de código:         288
+      Linhas de comentário:     136
+      Linhas em branco:         154
+   Arquivos de inclusão de que necessita
+      lista.h
+
+   Estatísticas do arquivo: lista.h
+      Total linhas:             346
+      Linhas de código:          35
+      Linhas de comentário:     262
+      Linhas em branco:          49
+   Arquivos em que é incluído
+      extra.c
+      extra.h
+      lista.c
+      test_ext.c
+
+   Estatísticas do arquivo: test_ext.c
+      Total linhas:             203
+      Linhas de código:          96
+      Linhas de comentário:      63
+      Linhas em branco:          44
+   Arquivos de inclusão de que necessita
+      extra.h
+      generico.h
+      lerparm.h
+      lista.h
+      tst_espc.h
+
+   Estatísticas do arquivo: tst_espc.h
+      Total linhas:             320
+      Linhas de código:          23
+      Linhas de comentário:     277
+      Linhas em branco:          20
+   Arquivos em que é incluído
+      generico.h
+      test_ext.c
+
+Totais por tipo de arquivo
+
+  Tipo: h        Path: ..\Fontes
+         Total linhas do tipo:      1792
+         Linhas de código:           183
+         Linhas de comentário:      1378
+         Linhas em branco:           231
+         Arquivos deste tipo:          5
+
+  Tipo: obj      Path: ..\Objetos
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: lib      Path: ..\Objetos
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: err      Path: ..\Produto
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: DEFAULT  Path: ..\Fontes
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: c        Path: ..\Fontes
+         Total linhas do tipo:       989
+         Linhas de código:           510
+         Linhas de comentário:       264
+         Linhas em branco:           253
+         Arquivos deste tipo:          3
+
+Totais para todo o construto TesteExtra
+
+   Total linhas:              2781
+   Linhas de código:           693
+   Linhas de comentário:      1642
+   Linhas em branco:           484
+   Arquivos processados:         8
+

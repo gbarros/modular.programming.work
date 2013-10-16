@@ -1,0 +1,3 @@
+lista.c
+extra.c
+..\Fontes\extra.c(95) : error C2106: '=' : left operand must be l-value
