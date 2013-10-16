@@ -43,6 +43,7 @@
 
 /* Tipo referência para uma coluna naipe */
 typedef LIS_tppLista NPE_Coluna;
+typedef char* Carta;
 
 /***********************************************************************
 *	$TC Tipo de dados: EXT Condições de retorno
@@ -120,21 +121,20 @@ NPE_tpCondRet NPE_DestruirColunaNaipe(NPE_Coluna coluna);
 *	$FV Valor retornado
 *	NPE_CondRetOK - É possível inserir a carta.
 *	NPE_CondRetColunaNaoExiste - A coluna passada como parâmentro não existe.
-*	NPE_CondRetCartaInvalida - A carta recebida não pertence ao baralho.
+*	NPE_CondRetCartaNaoExiste - A carta recebida não pertence ao baralho.
 *	NPE_CondRetNaoPodeInserir - Não é uma inserção válida.
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro, assim como
 *	uma carta que pertença ao baralho.
 *
-*	Saída - Se executou corretamente, valida a inserção.
-*			Caso contrário, retorna  a impossibilidade de inserção da
-*	carta na coluna.
+*	Saída - Se executou corretamente, valida a inserção. Caso contrário, 
+*	retorna  a impossibilidade de inserção da carta na coluna.
 ***********************************************************************/
 NPE_tpCondRet NPE_VerificarInserirCarta(NPE_Coluna destino, Carta carta);
 
 /***********************************************************************
-*	$FC Função: NPE &Inserir Cartas Em Extra
+*	$FC Função: NPE &Inserir Carta
 *
 *	$ED Descrição da função
 *	Insere uma carta em determinada coluna tipo naipe.

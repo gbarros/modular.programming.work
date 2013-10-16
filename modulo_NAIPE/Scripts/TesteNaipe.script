@@ -1,0 +1,59 @@
+// Script:    TesteNaipe.script
+// Autor:     Gabriel Barros, Leonardo Giroto, Noemie Nakamura
+// Data:      15/out/2013
+// Propósito: Ilustrar arquivo de script, testar módulo naipe
+
+== Declarar condições de retorno
+=declararparm   NPE_CondRetOK				int 0
+=declararparm   NPE_CondRetColunaNaoExiste	int 1
+=declararparm   NPE_CondRetCartaNaoExiste	int 2
+=declararparm   NPE_CondRetNaoPodeInserir	int 3
+=declararparm	NPE_CondRetErroAoInserir	int	4
+=declararparm	NPE_CondRetErroAoExibir		int	5
+
+== Inicializar valores
+=declararparm	coluna0		int	0
+=declararparm	coluna1		int	1
+
+=declararparm	carta0		string	"AP"
+=declararparm	carta1		string	"2P"
+=declararparm	carta2		string	"3P"
+=declararparm	carta3		string	"8P"
+=declararparm	carta4		string	"3C"
+=declararparm	carta5		string	"4C"
+
+== Criar coluna tipo naipe
+=criar		coluna0
+
+== Verificar inserção de carta em coluna vazia
+=vervaz		coluna0		"8P"		NPE_CondRetNaoPodeInserir
+=vervaz		coluna0		carta0		NPE_CondRetOK
+=vervaz		coluna1		carta0		NPE_CondRetColunaNaoExiste	
+=vervaz		coluna0		"???"		NPE_CondRetCartaNaoExiste	
+
+== Inserir carta em coluna vazia
+=insvaz		coluna0		carta3		NPE_CondRetErroAoInserir
+=insvaz		coluna0		carta0		NPE_CondRetOK
+=insvaz		coluna1		carta0		NPE_CondRetColunaNaoExiste	
+=insvaz		coluna0		"???"		NPE_CondRetCartaNaoExiste	
+
+== Verificar inserção de carta em coluna com carta
+=vercom		coluna0		carta1		NPE_CondRetOK
+=vercom		coluna0		carta3		NPE_CondRetNaoPodeInserir
+=vercom		coluna1		carta0		NPE_CondRetColunaNaoExiste	
+=vercom		coluna0		"???"		NPE_CondRetCartaNaoExiste
+
+== Inserir carta em coluna com carta
+=inscom		coluna0		carta3		NPE_CondRetErroAoInserir
+=inscom		coluna0		carta0		NPE_CondRetOK
+=inscom		coluna1		carta0		NPE_CondRetColunaNaoExiste	
+=inscom		coluna0		"???"		NPE_CondRetCartaNaoExiste
+
+== Exibição de carta
+=exibir		coluna0		NPE_CondRetOK
+=exibir		coluna1		NPE_CondRetColunaNaoExiste
+
+== Destruir coluna
+=destruir	coluna0		NPE_CondRetOK
+=destruir	coluna1		NPE_CondRetColunaNaoExiste
+

@@ -1,32 +1,33 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: NPE Naipe
+*	$MCI Módulo de implementação: NPE Naipe
 *
-*  Arquivo gerado:              NAIPE.c
-*  Letras identificadoras:      NPE
+*	Arquivo gerado:              NAIPE.c
+*	Letras identificadoras:      NPE
 *
-*  Nome da base de software:    Jogo FreeCell
+*	Nome da base de software:    Jogo FreeCell
 *	Arquivo da base de software: D:\AUTOTEST\PROJETOS\MODULO_NAIPE.BSW
 *
-*  Projeto: [INF 1301] Implementação do Jogo FreCell para fins educacionais
-*  Gestor:  LES/DI/PUC-Rio
-*  Autores:    gb -	Gabriel Barros
+*	Projeto: [INF 1301] Implementação do Jogo FreCell para fins educacionais
+*	Gestor:  LES/DI/PUC-Rio
+*	Autores:   gb -	Gabriel Barros
 *			   lg - Leonardo Giroto 
 *			   nk - Noemie Nakamura
 *
-*  $HA Histórico de evolução:
-*  Versão  Autor	Data			Observações
-*  1       nk		11/out/2013		Início desenvolvimento, Criação NAIPE
-*  2 	   lg		13/out/2013		Desenvolvimento
-*    
+*	$HA Histórico de evolução:
+*	Versão	Autor	Data			Observações
+*	3		nk		15/out/2013		Finalização do desenvolvimento
+*	2 		lg		13/out/2013		Desenvolvimento
+*	1       nk		11/out/2013		Início desenvolvimento, Criação   
 ***************************************************************************/
+#include <stdio.h>
+#include <string.h>
+
 #define NAIPE_OWN
 #include "NAIPE.h"
 #undef NAIPE_OWN
 
-#include <stdio.h>
-#include <string.h>
-
-typedef char* Carta;
+static int ObterValor(Carta carta);
+static char ObterNaipe(Carta carta);
 
 /***********************************************************************
 *	$FC Função: NPE &Criar Coluna
@@ -63,7 +64,7 @@ NPE_tpCondRet NPE_VerificarInserirCarta(NPE_Coluna destino, Carta carta){
 
 	// Verifica se a coluna recebida existe
 	if(destino == NULL)
-		return NPE_ColunaNaoExiste;
+		return NPE_CondRetColunaNaoExiste;
 	
 	// Comparar carta a inserir com carta da "base" da coluna (a de cima do bolo)
 	IrFinalLista(destino);
@@ -114,7 +115,7 @@ NPE_tpCondRet NPE_InserirCartaEmNaipe(NPE_Coluna destino, Carta carta){
 
 	// Verifica se a coluna existe
 	if(destino == NULL)
-		return NPE_ColunaNaoExiste;
+		return NPE_CondRetColunaNaoExiste;
 
 	if(NPE_VerificarInserirCarta(destino, carta) == NPE_CondRetOK){
 		LIS_InserirElementoApos(destino, carta);
@@ -127,13 +128,12 @@ NPE_tpCondRet NPE_InserirCartaEmNaipe(NPE_Coluna destino, Carta carta){
 /***********************************************************************
 *	$FC Função: NPE &Exibir Cartas
 ***********************************************************************/
-
-NPE_tpCondeRet NPE_ExibirCartas(NPE_Coluna coluna){
+NPE_tpCondRet NPE_ExibirCarta(NPE_Coluna coluna){
 	Carta carta;
 	
 	// Verifica se a coluna existe
 	if(coluna == NULL)
-		return NPE_ColunaNaoExiste;
+		return NPE_CondRetColunaNaoExiste;
 
 	IrFinalLista(coluna);
 	carta = (Carta)LIS_ObterValor(coluna);

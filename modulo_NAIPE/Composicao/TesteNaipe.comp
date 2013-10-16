@@ -1,0 +1,24 @@
+# Modulo testado: Conta
+
+[Diretorios]
+
+Nome        =  TesteNaipe
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+lib         =  ..\Objetos
+obj         =  ..\Objetos
+c           =  ..\Fontes
+h           =  ..\Fontes
+
+[Modulos]
+LISTA
+NAIPE
+TEST_NPE
+
+[BuildInicio]
+ArcaboucoTeste.lib
+/OUT:..\Produto\TesteNaipe.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[Fim]
