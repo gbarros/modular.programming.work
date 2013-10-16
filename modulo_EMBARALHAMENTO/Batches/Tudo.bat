@@ -10,8 +10,8 @@ cls
 
 Call LimpaTudo
 Call CriaLib
-Call GeraTudo
+Call GeraMake
 Call CompilaTudo
-Call TestaTudo
+Call Testa
 
 :sai
