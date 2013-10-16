@@ -1,7 +1,7 @@
 // Script:    TesteNaipe.script
 // Autor:     Gabriel Barros, Leonardo Giroto, Noemie Nakamura
 // Data:      15/out/2013
-// Propósito: Ilustrar arquivo de script, testar módulo naipe
+// Propósito: Testar módulo naipe
 
 == Declarar condições de retorno
 =declararparm   NPE_CondRetOK				int 0
@@ -19,35 +19,34 @@
 =declararparm	carta1		string	"2P"
 =declararparm	carta2		string	"3P"
 =declararparm	carta3		string	"8P"
-=declararparm	carta4		string	"3C"
-=declararparm	carta5		string	"4C"
+=declararparm	carta4		string	"7C"
 
 == Criar coluna tipo naipe
 =criar		coluna0
 
 == Verificar inserção de carta em coluna vazia
-=vervaz		coluna0		"8P"		NPE_CondRetNaoPodeInserir
+=vervaz		coluna0		carta3		NPE_CondRetNaoPodeInserir
 =vervaz		coluna0		carta0		NPE_CondRetOK
 =vervaz		coluna1		carta0		NPE_CondRetColunaNaoExiste	
-=vervaz		coluna0		"???"		NPE_CondRetCartaNaoExiste	
+=vervaz		coluna0		"8F"		NPE_CondRetCartaNaoExiste	
 
 == Inserir carta em coluna vazia
 =insvaz		coluna0		carta3		NPE_CondRetErroAoInserir
 =insvaz		coluna0		carta0		NPE_CondRetOK
-=insvaz		coluna1		carta0		NPE_CondRetColunaNaoExiste	
-=insvaz		coluna0		"???"		NPE_CondRetCartaNaoExiste	
+=insvaz		coluna1		carta0		NPE_CondRetErroAoInserir
+=insvaz		coluna0		"8F"		NPE_CondRetErroAoInserir	
 
 == Verificar inserção de carta em coluna com carta
-=vercom		coluna0		carta1		NPE_CondRetOK
-=vercom		coluna0		carta3		NPE_CondRetNaoPodeInserir
+=vercom		coluna0		carta4		NPE_CondRetNaoPodeInserir
 =vercom		coluna1		carta0		NPE_CondRetColunaNaoExiste	
-=vercom		coluna0		"???"		NPE_CondRetCartaNaoExiste
+=vercom		coluna0		"8F"		NPE_CondRetCartaNaoExiste
+=vercom		coluna0		carta1		NPE_CondRetOK
 
 == Inserir carta em coluna com carta
 =inscom		coluna0		carta3		NPE_CondRetErroAoInserir
-=inscom		coluna0		carta0		NPE_CondRetOK
-=inscom		coluna1		carta0		NPE_CondRetColunaNaoExiste	
-=inscom		coluna0		"???"		NPE_CondRetCartaNaoExiste
+=inscom		coluna1		carta0		NPE_CondRetErroAoInserir	
+=inscom		coluna0		"8F"		NPE_CondRetErroAoInserir
+=inscom		coluna0		carta1		NPE_CondRetOK
 
 == Exibição de carta
 =exibir		coluna0		NPE_CondRetOK

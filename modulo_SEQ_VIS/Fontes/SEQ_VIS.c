@@ -30,43 +30,21 @@ typedef char* Carta;
 *  Função: SV  &Criar Coluna
 ***************************************************************************/
 
-SV_Coluna SV_CriarColunaSeqVis(Carta carta)
-{
-	LIS_tppLista seqVisHead;
-	LIS_tpCondRet retornoCriaLista;
-
-	seqVisHead = LIS_CriarLista(NULL);
-
-	if(seqVisHead == NULL)
-		return NULL;
-
-	for(i=0;i<4;i++)
-	{
-		retornoCriaLista = LIS_InserirElementoApos(seqVisHead,carta);
-		if(retornoCriaLista != LIS_CondRetOK)
-			return NULL;
-	}
-
-	return seqVisHead;
+SV_Coluna SV_CriarColunaSeqVis(void){
+	return LIS_CriarLista(NULL);
 }
 
 /***************************************************************************
 *  Função: SV  &Excluir Coluna
 ***************************************************************************/
 
-SV_tpCondRet SV_ExcluirColunaSeqVis(SV_Coluna coluna)
-{
-	LIS_tpCondRet retornoDestroiLista;
-
-	if(LIS_ObterValor(coluna)==NULL)
+SV_tpCondRet SV_ExcluirColunaSeqVis(SV_Coluna coluna){
+	if(coluna == NULL)
 		return SV_CondRetColunaNaoExiste;
-
-	retornoDestroiLista = LIS_DestruirLista(coluna);
-
-	if(retornoDestroiLista != LIS_CondRetOK)
-		return SV_CondRetColunaNaoFoiDestruida;
-
-	return SV_CondRetOK;
+	
+	LIS_DestruirLista(coluna);
+	
+	return NPE_CondRetOK;
 }
 
 /***************************************************************************

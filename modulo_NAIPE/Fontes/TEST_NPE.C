@@ -79,6 +79,8 @@ int VerificarIndex(int indexColuna);
 *	=destruir	<indexColuna> <CondRet>
 *		- Chama a função NPE_DestruirColunaNaipe()
 ***********************************************************************/
+static NPE_Coluna colunas[DIM_VT_NPE] ;
+
 TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 
 	/*Inicialização das condições de retorno obtida e esperar com qualquer coisa */	
@@ -87,7 +89,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 
 	int  numLidos = -1 ;
     int  indexColuna = -1 ;
-	static NPE_Coluna colunas[DIM_VT_NPE] ;
+	
 
 	char cartaDada[4];
 
@@ -165,13 +167,13 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 	}
 
 	// Teste de NPE Destruir Coluna
-	else if(strcmp(ComandoTeste, EXIBIR_COL_CMD) == 0){
+	else if(strcmp(ComandoTeste, DESTRUIR_COL_CMD) == 0){
 		numLidos = LER_LerParametros("ii", &indexColuna, &CondRetEsperada);
 
 		if((numLidos != 2) || !VerificarIndex(indexColuna))
 			return TST_CondRetParm;
 
-		CondRetObtida = NPE_ExibirCarta(colunas[indexColuna]);
+		CondRetObtida = NPE_DestruirColunaNaipe(colunas[indexColuna]);
 
 		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao destruir coluna.\n");
 	}

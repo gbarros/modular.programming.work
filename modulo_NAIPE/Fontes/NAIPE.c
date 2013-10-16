@@ -39,7 +39,6 @@ NPE_Coluna NPE_CriarColunaNaipe(void){
 /***********************************************************************
 *	$FC Função: NPE &Excluir Coluna
 ***********************************************************************/
-
 NPE_tpCondRet NPE_DestruirColunaNaipe(NPE_Coluna coluna){
 	if(coluna == NULL)
 		return NPE_CondRetColunaNaoExiste;
@@ -55,11 +54,8 @@ NPE_tpCondRet NPE_DestruirColunaNaipe(NPE_Coluna coluna){
 
 NPE_tpCondRet NPE_VerificarInserirCarta(NPE_Coluna destino, Carta carta){
 	Carta cartaBase;
-	char naipeCartaBase, naipeCarta;
-	int valorCartaBase, valorCarta;
-	
 	// Verifica se a carta recebida existe
-	if(carta == NULL)
+	if(carta == NULL || ObterValor(carta) == -1 || ObterNaipe(carta) == 'X')
 		return NPE_CondRetCartaNaoExiste;
 
 	// Verifica se a coluna recebida existe
@@ -69,38 +65,32 @@ NPE_tpCondRet NPE_VerificarInserirCarta(NPE_Coluna destino, Carta carta){
 	// Comparar carta a inserir com carta da "base" da coluna (a de cima do bolo)
 	IrFinalLista(destino);
 	cartaBase = (Carta)LIS_ObterValor(destino);
-	// Se for NULL, a coluna de naipe está vazia e só recebe um A's qualquer
-	if(cartaBase == NULL){
+	printf("\n Carta Base: %d%c \n", ObterValor(cartaBase), ObterNaipe(cartaBase));
+	printf("Carta a inserir: %d%c\n", ObterValor(carta), ObterNaipe(carta));
+	// Se for NULL, a coluna de naipe está vazia e só recebe um A's de um naipe existente
+	if(cartaBase == NULL && ObterNaipe(carta) != 'X'){
 		if(ObterValor(carta) != 1)
 			return NPE_CondRetNaoPodeInserir;
 		else
 			return NPE_CondRetOK;
 	}
+
 	// Se os naipes forem diferentes, não pode inserir
-	naipeCartaBase = ObterNaipe(cartaBase);
-	naipeCarta = ObterNaipe(carta);
-
-	if(naipeCartaBase == 'X' || naipeCarta == 'X')
-		return NPE_CondRetCartaNaoExiste;
-
 	if(ObterNaipe(cartaBase)!= ObterNaipe(carta))
 		return NPE_CondRetNaoPodeInserir;
 	// Se os naipes forem iguais, verificar se é seguinte na ordem
 	else{
-		valorCartaBase = ObterValor(cartaBase);
-		valorCarta = (ObterValor(carta));
-
-		if(valorCartaBase == -1 || valorCarta == -1)
+		if(ObterValor(carta) == -1)
 			return NPE_CondRetCartaNaoExiste;
 				
 		// Se a carta base já for a última na ordem (K), não pode inserir
-		if(valorCartaBase == 13)
+		if(ObterValor(cartaBase) == 13)
 			return NPE_CondRetNaoPodeInserir;
 		
-		if(valorCarta != valorCartaBase + 1)
-			return NPE_CondRetNaoPodeInserir;
-		else
+		if(ObterValor(carta) == (ObterValor(cartaBase) + 1))
 			return NPE_CondRetOK;
+		else
+			return NPE_CondRetNaoPodeInserir;
 	}
 }
 
@@ -109,15 +99,9 @@ NPE_tpCondRet NPE_VerificarInserirCarta(NPE_Coluna destino, Carta carta){
 ***********************************************************************/
 
 NPE_tpCondRet NPE_InserirCartaEmNaipe(NPE_Coluna destino, Carta carta){
-	// Verifica se a carta existe
-	if(carta == NULL)
-		return NPE_CondRetCartaNaoExiste;
-
-	// Verifica se a coluna existe
-	if(destino == NULL)
-		return NPE_CondRetColunaNaoExiste;
-
+	printf("\n\nSou o ICN: %s", carta);
 	if(NPE_VerificarInserirCarta(destino, carta) == NPE_CondRetOK){
+		IrFinalLista(destino);
 		LIS_InserirElementoApos(destino, carta);
 		return NPE_CondRetOK;
 	}
@@ -149,29 +133,29 @@ static int ObterValor(Carta carta){
 	
 	if(carta[0] == 'A')
 		return 1;
-	if(carta[0] == '2')
+	else if(carta[0] == '2')
 		return 2;
-	if(carta[0] == '3')
+	else if(carta[0] == '3')
 		return 3;
-	if(carta[0] == '4')
+	else if(carta[0] == '4')
 		return 4;
-	if(carta[0] == '5')
+	else if(carta[0] == '5')
 		return 5;
-	if(carta[0] == '6')
+	else if(carta[0] == '6')
 		return 6;
-	if(carta[0] == '7')
+	else if(carta[0] == '7')
 		return 7;
-	if(carta[0] == '8')
+	else if(carta[0] == '8')
 		return 8;
-	if(carta[0] == '9')
+	else if(carta[0] == '9')
 		return 9;
-	if(carta[0] == '1')
+	else if(carta[0] == '1')
 		return 10;
-	if(carta[0] == 'J')
+	else if(carta[0] == 'J')
 		return 11;
-	if(carta[0] == 'Q')
+	else if(carta[0] == 'Q')
 		return 12;
-	if(carta[0] == 'K')
+	else if(carta[0] == 'K')
 		return 13;
 	else
 		return -1;
@@ -185,21 +169,21 @@ static char ObterNaipe(Carta carta){
 	if(val == 10){
 		if(carta[2] == 'P')
 			return 'P';
-		if(carta[2] == 'C')
+		else if(carta[2] == 'C')
 			return 'C';
-		if(carta[2] == 'E')
+		else if(carta[2] == 'E')
 			return 'E';
-		if(carta[2] == 'O')
+		else if(carta[2] == 'O')
 			return 'O';
 	}
 	else{
 		if(carta[1] == 'P')
 			return 'P';
-		if(carta[1] == 'C')
+		else if(carta[1] == 'C')
 			return 'C';
-		if(carta[1] == 'E')
+		else if(carta[1] == 'E')
 			return 'E';
-		if(carta[1] == 'O')
+		else if(carta[1] == 'O')
 			return 'O';
 	}
 	return 'X';

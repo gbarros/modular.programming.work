@@ -1,426 +1,200 @@
 /***************************************************************************
-*  $MCI Módulo de implementação: TLIS Teste lista de símbolos
+*	$MCI Módulo de implementação: TNPE Teste coluna tipo naipe
 *
-*  Arquivo gerado:              TestLIS.c
-*  Letras identificadoras:      TLIS
+*	Arquivo gerado:              TEST_NPE.c
+*	Letras identificadoras:      TNPE
 *
-*  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
-*  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
+*	Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
+*	Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
 *
-*  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
-*  Gestor:  LES/DI/PUC-Rio
-*  Autores: avs
+*	Projeto: [INF 1301] Implementação do Jogo FreeCell para fins educacionais
+*	Gestor:  LES/DI/PUC-Rio
+*	Autores: gb - Gabriel Barros
+*			 lg - Leonardo Giroto 
+*			 nk - Noemie Nakamura
 *
-*  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*     4       avs   01/fev/2006 criar linguagem script simbólica
-*     3       avs   08/dez/2004 uniformização dos exemplos
-*     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
-*     1       avs   16/abr/2003 início desenvolvimento
+*	$HA Histórico de evolução:
+*   Versão  Autor	Data			Observações
+*   1       nk		15/out/2013		Criação script, desenvolvimento
 *
+*	$ED Descrição do módulo
+*   Este móodulo contém as funções específicas para o teste de um módulo.
+*   Mais especificamente, contém a função que interpreta os comandos de
+*   teste que exercitarão as funções do módulo em teste.
 ***************************************************************************/
 
 #include    <string.h>
 #include    <stdio.h>
-#include    <malloc.h>
 
-#include    "TST_Espc.h"
+#include    "TST_ESPC.h"
+#include    "GENERICO.h"
+#include    "LERPARM.h"
 
-#include    "Generico.h"
-#include    "LerParm.h"
+#include	"SEQ_VIS.h"
 
-#include    "Lista.h"
+static const char CRIAR_COLVAZ_CMD		[ ] = "=criar"		;
+static const char VERIFICAR_INSVAZ_CMD	[ ] = "=vervaz"		;
+static const char VERIFICAR_INSCOM_CMD	[ ] = "=vercom"		;
+static const char INSERIR_COLVAZ_CMD	[ ] = "=insvaz"		;
+static const char INSERIR_COLCOM_CMD	[ ] = "=inscom"		;
+static const char EXIBIR_COL_CMD		[ ] = "=exibir"		;
+static const char DESTRUIR_COL_CMD		[ ] = "=destruir"	;
 
+#define DIM_VT_NPE 4
 
-static const char RESET_LISTA_CMD         [ ] = "=resetteste"     ;
-static const char CRIAR_LISTA_CMD         [ ] = "=criarlista"     ;
-static const char DESTRUIR_LISTA_CMD      [ ] = "=destruirlista"  ;
-static const char ESVAZIAR_LISTA_CMD      [ ] = "=esvaziarlista"  ;
-static const char INS_ELEM_ANTES_CMD      [ ] = "=inselemantes"   ;
-static const char INS_ELEM_APOS_CMD       [ ] = "=inselemapos"    ;
-static const char OBTER_VALOR_CMD         [ ] = "=obtervalorelem" ;
-static const char EXC_ELEM_CMD            [ ] = "=excluirelem"    ;
-static const char IR_INICIO_CMD           [ ] = "=irinicio"       ;
-static const char IR_FIM_CMD              [ ] = "=irfinal"        ;
-static const char AVANCAR_ELEM_CMD        [ ] = "=avancarelem"    ;
+NPE_Coluna colunas[DIM_VT_NPE] ;
 
+/***** Protótipos das funções encapsuladas no módulo *****/
 
-#define TRUE  1
-#define FALSE 0
-
-#define VAZIO     0
-#define NAO_VAZIO 1
-
-#define DIM_VT_LISTA   10
-#define DIM_VALOR     100
-
-LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
-
-/***** Protótipos das funções encapuladas no módulo *****/
-
-   static void DestruirValor( void * pValor ) ;
-
-   static int ValidarInxLista( int inxLista , int Modo ) ;
+int VerificarIndex(int indexColuna);
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
-
 /***********************************************************************
+*	$FC Função: TLIS &Testar lista
 *
-*  $FC Função: TLIS &Testar lista
+*	$ED Descrição da função
+*	Comandos de teste específicos para testar o módulo árvore:
+*   Podem ser criadas até 4 colunas tipo naipe.
+*   As colunas são conhecidas pelo seu índice de 0 a 3.
+*   
+*	Comandos disponíveis:
+*   =criar		<indexColuna>
+*		- Chama a função NPE_CriarColunaNaipe()
 *
-*  $ED Descrição da função
-*     Podem ser criadas até 10 listas, identificadas pelos índices 0 a 10
+*	=vervaz		<indexColuna> <String> <CondRet>
+*		- Chama a função NPE_VerificarInserirCarta()
 *
-*     Comandos disponíveis:
+*	=vercom		<indexColuna> <String> <CondRet>
+*		- Chama a função NPE_VerificarInserirCarta()
 *
-*     =resetteste
-*           - anula o vetor de listas. Provoca vazamento de memória
-*     =criarlista                   inxLista
-*     =destruirlista                inxLista
-*     =esvaziarlista                inxLista
-*     =inselemantes                 inxLista  string  CondRetEsp
-*     =inselemapos                  inxLista  string  CondRetEsp
-*     =obtervalorelem               inxLista  string  CondretPonteiro
-*     =excluirelem                  inxLista  CondRetEsp
-*     =irinicio                     inxLista
-*     =irfinal                      inxLista
-*     =avancarelem                  inxLista  numElem CondRetEsp
+*	=insvaz		<indexColuna> <String> <CondRet>
+*		- Chama a função NPE_InserirCartaEmNaipe()
 *
+*	=inscom		<indexColuna> <String> <CondRet>
+*		- Chama a função NPE_InserirCartaEmNaipe()
+*
+*	=exibir		<indexColuna> <CondRet>
+*		- Chama a função NPE_ExibirCarta()
+*
+*	=destruir	<indexColuna> <CondRet>
+*		- Chama a função NPE_DestruirColunaNaipe()
 ***********************************************************************/
+TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 
-   TST_tpCondRet TST_EfetuarComando( char * ComandoTeste )
-   {
+	/*Inicialização das condições de retorno obtida e esperar com qualquer coisa */	
+	NPE_tpCondRet CondRetObtida   = NPE_CondRetOK;
+	NPE_tpCondRet CondRetEsperada = NPE_CondRetColunaNaoExiste;
 
-      int inxLista  = -1 ,
-          numLidos   = -1 ,
-          CondRetEsp = -1  ;
+	int  numLidos = -1 ;
+    int  indexColuna = -1 ;
 
-      TST_tpCondRet CondRet ;
+	Carta cartaDada = NULL;
+	
+	TST_tpCondRet CondRet;
 
-      char   StringDado[  DIM_VALOR ] ;
-      char * pDado ;
+	// Teste de NPE Criar Coluna
+	if(strcmp(ComandoTeste, CRIAR_COLVAZ_CMD) == 0){
+		numLidos = LER_LerParametros("i", &indexColuna);
 
-      int ValEsp = -1 ;
+		if((numLidos != 1) || !VerificarIndex(indexColuna))
+			return TST_CondRetParm;
 
-      int i ;
+		colunas[indexColuna] =  NPE_CriarColunaNaipe();
 
-      int numElem = -1 ;
+		return TST_CompararPonteiroNulo(1, colunas[indexColuna], "Retorno errado ao criar coluna.\n") ;
+	}
 
-      StringDado[ 0 ] = 0 ;
+	// Teste de NPE Verificar Inserir Carta Em Coluna Vazia
+	else if(strcmp(ComandoTeste, VERIFICAR_INSVAZ_CMD) == 0){
+		numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
 
-      /* Efetuar reset de teste de lista */
+		if((numLidos != 3) || !VerificarIndex(indexColuna))
+			return TST_CondRetParm;
 
-         if ( strcmp( ComandoTeste , RESET_LISTA_CMD ) == 0 )
-         {
+		CondRetObtida = NPE_VerificarInserirCarta(colunas[indexColuna], cartaDada);
 
-            for( i = 0 ; i < DIM_VT_LISTA ; i++ )
-            {
-               vtListas[ i ] = NULL ;
-            } /* for */
+		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao verificar inserir.\n") ;
+	}
 
-            return TST_CondRetOK ;
+	// Teste de NPE Inserir Carta Em Coluna Vazia
+	else if(strcmp(ComandoTeste, INSERIR_COLVAZ_CMD) == 0){
+		numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
 
-         } /* fim ativa: Efetuar reset de teste de lista */
+		if((numLidos != 3) || !VerificarIndex(indexColuna))
+			return TST_CondRetParm;
 
-      /* Testar CriarLista */
+		CondRetObtida = NPE_InserirCartaEmNaipe(colunas[indexColuna], cartaDada);
 
-         else if ( strcmp( ComandoTeste , CRIAR_LISTA_CMD ) == 0 )
-         {
+		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao inserir.\n");
+	}
 
-            numLidos = LER_LerParametros( "i" ,
-                       &inxLista ) ;
+	// Teste de NPE Verificar Inserir Carta Em Coluna Com Carta
+	else if(strcmp(ComandoTeste, VERIFICAR_INSCOM_CMD) == 0){
+		numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
 
-            if ( ( numLidos != 1 )
-              || ( ! ValidarInxLista( inxLista , VAZIO )))
-            {
-               return TST_CondRetParm ;
-            } /* if */
+		if((numLidos != 3) || !VerificarIndex(indexColuna))
+			return TST_CondRetParm;
 
-            vtListas[ inxLista ] =
-                 LIS_CriarLista( DestruirValor ) ;
+		CondRetObtida = NPE_VerificarInserirCarta(colunas[indexColuna], cartaDada);
 
-            return TST_CompararPonteiroNulo( 1 , vtListas[ inxLista ] ,
-               "Erro em ponteiro de nova lista."  ) ;
+		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao verificar inserir.\n");
+	}
 
-         } /* fim ativa: Testar CriarLista */
+	// Teste de NPE Inserir Carta Em Coluna Com Carta
+	else if(strcmp(ComandoTeste, INSERIR_COLCOM_CMD) == 0){
+		numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
 
-      /* Testar Esvaziar lista lista */
+		if((numLidos != 3) || !VerificarIndex(indexColuna))
+			return TST_CondRetParm;
 
-         else if ( strcmp( ComandoTeste , ESVAZIAR_LISTA_CMD ) == 0 )
-         {
+		CondRetObtida = NPE_InserirCartaEmNaipe(colunas[indexColuna], cartaDada);
 
-            numLidos = LER_LerParametros( "i" ,
-                               &inxLista ) ;
+		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao inserir.\n");
+	}
 
-            if ( ( numLidos != 1 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
-            {
-               return TST_CondRetParm ;
-            } /* if */
+	// Teste de NPE Exibir Carta
+	else if(strcmp(ComandoTeste, EXIBIR_COL_CMD) == 0){
+		numLidos = LER_LerParametros("ii", &indexColuna, &CondRetEsperada);
 
-            LIS_EsvaziarLista( vtListas[ inxLista ] ) ;
+		if((numLidos != 2) || !VerificarIndex(indexColuna))
+			return TST_CondRetParm;
 
-            return TST_CondRetOK ;
+		CondRetObtida = NPE_ExibirCarta(colunas[indexColuna]);
 
-         } /* fim ativa: Testar Esvaziar lista lista */
+		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao exibir.\n");
+	}
 
-      /* Testar Destruir lista */
+	// Teste de NPE Destruir Coluna
+	else if(strcmp(ComandoTeste, EXIBIR_COL_CMD) == 0){
+		numLidos = LER_LerParametros("ii", &indexColuna, &CondRetEsperada);
 
-         else if ( strcmp( ComandoTeste , DESTRUIR_LISTA_CMD ) == 0 )
-         {
+		if((numLidos != 2) || !VerificarIndex(indexColuna))
+			return TST_CondRetParm;
 
-            numLidos = LER_LerParametros( "i" ,
-                               &inxLista ) ;
+		CondRetObtida = NPE_ExibirCarta(colunas[indexColuna]);
 
-            if ( ( numLidos != 1 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )))
-            {
-               return TST_CondRetParm ;
-            } /* if */
-
-            LIS_DestruirLista( vtListas[ inxLista ] ) ;
-            vtListas[ inxLista ] = NULL ;
-
-            return TST_CondRetOK ;
-
-         } /* fim ativa: Testar Destruir lista */
-
-      /* Testar inserir elemento antes */
-
-         else if ( strcmp( ComandoTeste , INS_ELEM_ANTES_CMD ) == 0 )
-         {
-
-            numLidos = LER_LerParametros( "isi" ,
-                       &inxLista , StringDado , &CondRetEsp ) ;
-
-            if ( ( numLidos != 3 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
-            {
-               return TST_CondRetParm ;
-            } /* if */
-
-            pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
-            if ( pDado == NULL )
-            {
-               return TST_CondRetMemoria ;
-            } /* if */
-
-            strcpy( pDado , StringDado ) ;
-
-
-            CondRet = LIS_InserirElementoAntes( vtListas[ inxLista ] , pDado ) ;
-
-            if ( CondRet != LIS_CondRetOK )
-            {
-               free( pDado ) ;
-            } /* if */
-
-            return TST_CompararInt( CondRetEsp , CondRet ,
-                     "Condicao de retorno errada ao inserir antes."                   ) ;
-
-         } /* fim ativa: Testar inserir elemento antes */
-
-      /* Testar inserir elemento apos */
-
-         else if ( strcmp( ComandoTeste , INS_ELEM_APOS_CMD ) == 0 )
-         {
-
-            numLidos = LER_LerParametros( "isi" ,
-                       &inxLista , StringDado , &CondRetEsp ) ;
-
-            if ( ( numLidos != 3 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
-            {
-               return TST_CondRetParm ;
-            } /* if */
-
-            pDado = ( char * ) malloc( strlen( StringDado ) + 1 ) ;
-            if ( pDado == NULL )
-            {
-               return TST_CondRetMemoria ;
-            } /* if */
-
-            strcpy( pDado , StringDado ) ;
-
-
-            CondRet = LIS_InserirElementoApos( vtListas[ inxLista ] , pDado ) ;
-
-            if ( CondRet != LIS_CondRetOK )
-            {
-               free( pDado ) ;
-            } /* if */
-
-            return TST_CompararInt( CondRetEsp , CondRet ,
-                     "Condicao de retorno errada ao inserir apos."                   ) ;
-
-         } /* fim ativa: Testar inserir elemento apos */
-
-      /* Testar excluir simbolo */
-
-         else if ( strcmp( ComandoTeste , EXC_ELEM_CMD ) == 0 )
-         {
-
-            numLidos = LER_LerParametros( "ii" ,
-                  &inxLista , &CondRetEsp ) ;
-
-            if ( ( numLidos != 2 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
-            {
-               return TST_CondRetParm ;
-            } /* if */
-
-            return TST_CompararInt( CondRetEsp ,
-                      LIS_ExcluirElemento( vtListas[ inxLista ] ) ,
-                     "Condição de retorno errada ao excluir."   ) ;
-
-         } /* fim ativa: Testar excluir simbolo */
-
-      /* Testar obter valor do elemento corrente */
-
-         else if ( strcmp( ComandoTeste , OBTER_VALOR_CMD ) == 0 )
-         {
-
-            numLidos = LER_LerParametros( "isi" ,
-                       &inxLista , StringDado , &ValEsp ) ;
-
-            if ( ( numLidos != 3 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
-            {
-               return TST_CondRetParm ;
-            } /* if */
-
-            pDado = ( char * ) LIS_ObterValor( vtListas[ inxLista ] ) ;
-
-            if ( ValEsp == 0 )
-            {
-               return TST_CompararPonteiroNulo( 0 , pDado ,
-                         "Valor não deveria existir." ) ;
-            } /* if */
-
-            if ( pDado == NULL )
-            {
-               return TST_CompararPonteiroNulo( 1 , pDado ,
-                         "Dado tipo um deveria existir." ) ;
-            } /* if */
-
-            return TST_CompararString( StringDado , pDado ,
-                         "Valor do elemento errado." ) ;
-
-         } /* fim ativa: Testar obter valor do elemento corrente */
-
-      /* Testar ir para o elemento inicial */
-
-         else if ( strcmp( ComandoTeste , IR_INICIO_CMD ) == 0 )
-         {
-
-            numLidos = LER_LerParametros( "i" , &inxLista ) ;
-
-            if ( ( numLidos != 1 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
-            {
-               return TST_CondRetParm ;
-            } /* if */
-
-            IrInicioLista( vtListas[ inxLista ] ) ;
-
-            return TST_CondRetOK ;
-
-         } /* fim ativa: Testar ir para o elemento inicial */
-
-      /* LIS  &Ir para o elemento final */
-
-         else if ( strcmp( ComandoTeste , IR_FIM_CMD ) == 0 )
-         {
-
-            numLidos = LER_LerParametros( "i" , &inxLista ) ;
-
-            if ( ( numLidos != 1 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
-            {
-               return TST_CondRetParm ;
-            } /* if */
-
-            IrFinalLista( vtListas[ inxLista ] ) ;
-
-            return TST_CondRetOK ;
-
-         } /* fim ativa: LIS  &Ir para o elemento final */
-
-      /* LIS  &Avançar elemento */
-
-         else if ( strcmp( ComandoTeste , AVANCAR_ELEM_CMD ) == 0 )
-         {
-
-            numLidos = LER_LerParametros( "iii" , &inxLista , &numElem ,
-                                &CondRetEsp ) ;
-
-            if ( ( numLidos != 3 )
-              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
-            {
-               return TST_CondRetParm ;
-            } /* if */
-
-            return TST_CompararInt( CondRetEsp ,
-                      LIS_AvancarElementoCorrente( vtListas[ inxLista ] , numElem ) ,
-                      "Condicao de retorno errada ao avancar" ) ;
-
-         } /* fim ativa: LIS  &Avançar elemento */
-
-      return TST_CondRetNaoConhec ;
-
-   } /* Fim função: TLIS &Testar lista */
-
+		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao destruir coluna.\n");
+	}
+	
+	return TST_CondRetNaoConhec;
+}
 
 /*****  Código das funções encapsuladas no módulo  *****/
 
-
 /***********************************************************************
+*  $FC Função: TNPE - Verificar índice de coluna tipo naipe
 *
-*  $FC Função: TLIS -Destruir valor
-*
+*  $FV Valor retornado
+*     0 - inxArvore não vale
+*     1 - inxArvore vale
 ***********************************************************************/
+int VerificarIndex(int indexColuna){
+	if((indexColuna < 0) || (indexColuna)){
+		return 0;
+	}
+	return 1 ;
+}
 
-   void DestruirValor( void * pValor )
-   {
-
-      free( pValor ) ;
-
-   } /* Fim função: TLIS -Destruir valor */
-
-
-/***********************************************************************
-*
-*  $FC Função: TLIS -Validar indice de lista
-*
-***********************************************************************/
-
-   int ValidarInxLista( int inxLista , int Modo )
-   {
-
-      if ( ( inxLista <  0 )
-        || ( inxLista >= DIM_VT_LISTA ))
-      {
-         return FALSE ;
-      } /* if */
-         
-      if ( Modo == VAZIO )
-      {
-         if ( vtListas[ inxLista ] != 0 )
-         {
-            return FALSE ;
-         } /* if */
-      } else
-      {
-         if ( vtListas[ inxLista ] == 0 )
-         {
-            return FALSE ;
-         } /* if */
-      } /* if */
-         
-      return TRUE ;
-
-   } /* Fim função: TLIS -Validar indice de lista */
-
-/********** Fim do módulo de implementação: TLIS Teste lista de símbolos **********/
+/********** Fim do módulo de implementação: TNPE Teste coluna tipo naipe **********/
 

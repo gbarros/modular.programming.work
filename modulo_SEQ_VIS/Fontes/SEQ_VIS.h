@@ -50,20 +50,20 @@ typedef LIS_tppLista SV_Coluna;
 typedef enum {
 	SV_CondRetOK,
 	// Concluiu corretamente
-	SV_CondRetColunaInexistente,
+	SV_CondRetColunaNaoExiste,
 	// Coluna inexistente
-	SV_CondRetNaoInsere,
+	SV_CondRetCartaNaoExiste,
+	// Carta inexistente
+	SV_CondRetNaoPodeInserir,
 	// Movimento de inserção não válido
-	SV_CondRetNaoRemove,
+	SV_CondRetNaoPodeRemover,
 	// Movimento de remoção não válido
-	SV_CondRetCartaInvalida,
-	// A carta recebida não pertence ao conjunto domínio de um baralho
-	SV_CondRetErroInserção,
-	// Erro ao inserir carta na coluna 
-	SV_CondRetErroRemoção,
+	SV_CondRetErroAoInserir,
+	// Erro ao inserir carta na coluna
+	SV_CondRetErroAoRemover,
 	// Erro ao remover carta da coluna
-	SV_CondRetErroNaExibição
-	// Erro ao exibir as cartas das colunas de Sequência Visual
+	SV_CondRetErroAoExibir
+	// Erro ao exibir as cartas das colunas de Extra
 } SV_tpCondRet;
 
 /***********************************************************************

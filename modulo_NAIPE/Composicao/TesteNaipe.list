@@ -1,0 +1,149 @@
+GERADOR DE SCRIPT DE DIRETIVAS PARA MAKE
+   LES / Informática / PUC-Rio    Versão 6.00 (c) 2005
+
+Composição do construto: TesteNaipe.comp
+
+   Nome do Construto:           TesteNaipe
+   Diretório base:              C:\Users\Noemie\Documents\GitHub\modular.programming.work\modulo_NAIPE\composicao
+
+   Arquivo composição:          TesteNaipe.comp
+   Arquivo plataforma:          gmake.parm
+
+   Arquivo diretivas MAKE:      TesteNaipe.make
+   Arquivo diretivas LINK:      TesteNaipe.build
+   Arquivo listagem:            TesteNaipe.list
+
+Módulos do construto: TesteNaipe.comp
+
+   lista.c
+   naipe.c
+   test_npe.c
+
+Estatísticas do construto
+
+   Estatísticas do arquivo: generico.h
+      Total linhas:             561
+      Linhas de código:          58
+      Linhas de comentário:     433
+      Linhas em branco:          70
+   Arquivos de inclusão de que necessita
+      tst_espc.h
+   Arquivos em que é incluído
+      test_npe.c
+
+   Estatísticas do arquivo: lerparm.h
+      Total linhas:             306
+      Linhas de código:          36
+      Linhas de comentário:     203
+      Linhas em branco:          67
+   Arquivos em que é incluído
+      test_npe.c
+
+   Estatísticas do arquivo: lista.c
+      Total linhas:             560
+      Linhas de código:         288
+      Linhas de comentário:     136
+      Linhas em branco:         154
+   Arquivos de inclusão de que necessita
+      lista.h
+
+   Estatísticas do arquivo: lista.h
+      Total linhas:             339
+      Linhas de código:          29
+      Linhas de comentário:     262
+      Linhas em branco:          48
+   Arquivos em que é incluído
+      lista.c
+      naipe.c
+      naipe.h
+
+   Estatísticas do arquivo: naipe.c
+      Total linhas:             208
+      Linhas de código:         130
+      Linhas de comentário:      46
+      Linhas em branco:          32
+   Arquivos de inclusão de que necessita
+      lista.h
+      naipe.h
+
+   Estatísticas do arquivo: naipe.h
+      Total linhas:             190
+      Linhas de código:          26
+      Linhas de comentário:     146
+      Linhas em branco:          18
+   Arquivos de inclusão de que necessita
+      lista.h
+   Arquivos em que é incluído
+      naipe.c
+
+   Estatísticas do arquivo: test_npe.c
+      Total linhas:             199
+      Linhas de código:          80
+      Linhas de comentário:      73
+      Linhas em branco:          46
+   Arquivos de inclusão de que necessita
+      generico.h
+      lerparm.h
+      tst_espc.h
+
+   Estatísticas do arquivo: tst_espc.h
+      Total linhas:             320
+      Linhas de código:          23
+      Linhas de comentário:     277
+      Linhas em branco:          20
+   Arquivos em que é incluído
+      generico.h
+      test_npe.c
+
+Totais por tipo de arquivo
+
+  Tipo: h        Path: ..\Fontes
+         Total linhas do tipo:      1716
+         Linhas de código:           172
+         Linhas de comentário:      1321
+         Linhas em branco:           223
+         Arquivos deste tipo:          5
+
+  Tipo: obj      Path: ..\Objetos
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: lib      Path: ..\Objetos
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: err      Path: ..\Produto
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: DEFAULT  Path: ..\Fontes
+         Total linhas do tipo:         0
+         Linhas de código:             0
+         Linhas de comentário:         0
+         Linhas em branco:             0
+         Arquivos deste tipo:          0
+
+  Tipo: c        Path: ..\Fontes
+         Total linhas do tipo:       967
+         Linhas de código:           498
+         Linhas de comentário:       255
+         Linhas em branco:           232
+         Arquivos deste tipo:          3
+
+Totais para todo o construto TesteNaipe
+
+   Total linhas:              2683
+   Linhas de código:           670
+   Linhas de comentário:      1576
+   Linhas em branco:           455
+   Arquivos processados:         8
+
