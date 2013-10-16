@@ -84,11 +84,12 @@
 *   - Chama a função EXT_ExcluirColunaExtra()
 ***********************************************************************/
 
+static EXT_Coluna coluna;
+
    TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
    {
       int  numLidos = 0;
       TST_tpCondRet condRet;
-      LIS_tppLista coluna;
       int ColunaEnviada;
       char* StringDada;
       int CondRetEsperada;
