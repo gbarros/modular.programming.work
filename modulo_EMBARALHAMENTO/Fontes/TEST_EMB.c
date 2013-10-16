@@ -109,12 +109,8 @@ static const char EMBARALHAR_BAR_CMD     [ ] = "=embaralhar";
 
          char baralhoDado[QTD][TAMANHO];
          char StringDada[30];
-         char ValorEsperado = '?'  ;
-         char ValorObtido   = '!'  ;
-         char ValorDado     = '\0' ;
          int  numLidos=0;
          TST_tpCondRet CondRet;
-         int CondRetObtido   = 0 ;
         int CondRetEsperada = 0 ;
 
 
@@ -125,21 +121,20 @@ static const char EMBARALHAR_BAR_CMD     [ ] = "=embaralhar";
             if (numLidos!=2){
                return TST_CondRetParm;
             }
-        //    printf(" \n\n\n\n\n STRING DADA: %s\n", StringDada);
             //Se for 0 o baralho a ser usado é o referencia
            if (!strcmp (StringDada, "0")){
-              strcpy(StringDada, "..\\Scripts\\BarRef.txt");
+              strcpy(StringDada, "..\\Fontes\\BarRef.txt");
             }
- //           printf(" \n\n\n\n\n STRING DADA: %s\n", StringDada);
-          //  printf("Farei o teste para : %s\n",StringDada );
+            //Carrega o baralho escolhido
             CondRet=TE_BarRefEscolhida(baralhoDado,StringDada);
+
             if ( TST_CompararInt(0, CondRet, "Encontrei um arquivo vazio") ==TST_CondRetErro){
                return TST_CondRetParm;
             }
       
-
-
+            //invoca da função a ser testada
             CondRet= EMB_Embaralha(baralhoDado);
+
            /// CondRet=0;
             if (TST_CompararInt(CondRetEsperada, CondRet, "Erro de execução!")==TST_CondRetErro){
                return TST_CondRetErro;
@@ -147,41 +142,10 @@ static const char EMBARALHAR_BAR_CMD     [ ] = "=embaralhar";
             else
                return TST_CondRetOK;    
 
-            return TST_CondRetOK;
          }
+
          else
             return TST_CondRetNaoConhec;
 
-        /* else if ( strcmp(ComandoTeste,VALIDAR_BAR_CMD)==0){
-
-            numLidos=LER_LerParametros("is",&CondRetEsperada,&StringDada);
-
-            if (numLidos!=2){
-
-               return TST_CondRetParm;
-            }
-
-            converteBaralhoStringChar(StringDada,baralhoDado);
-
-            //Se é válida a entrada
-            //Se embaralhou  
-            //Se é valido na saida
-
-            CondRet =EMB_embaralha(baralhoDado);
-
-            if (CondRetEsperada==CondRet)
-               return TST_CondRetOK;
-            else {
-
-               return TST_CondRetErro;
-            }
-
-            
-
-
-
-
-
-         }*/
 
    }
