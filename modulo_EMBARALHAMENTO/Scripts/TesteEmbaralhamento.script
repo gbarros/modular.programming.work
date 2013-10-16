@@ -1,8 +1,18 @@
-==Teste simples de Def
-=criar  	EMB_CondRetOK 	  0
+// Script:    TesteNaipe.script
+// Autor:     Gabriel Barros, Leonardo Giroto, Noemie Nakamura
+// Data:      12/out/2013
+// Propósito: Testar modulo Embaralhamento com os casos possíveis de entrada
 
-=validar    EMB_CondRetOK     AC,2C,3C,4C,5C,6C,7C,8C,9,10C,JC,QC,KC,AP,2P, 3P,4P,5P,6P,7P,8P,9P,10P,JP,QP,KP,AO,2O, 3O,4O,5O,6O,7O,8O,9O,10O,JO,QO,KO,AE,2E,3E,4E,5E,6E,7E,8E,9E,10E,JE,QE,KE,0
 
-==validar   EMB_CondRetBaralhoInvalido AC,F,3C,4C,5C,6C,7C,8C,9,10C,JC,QC,KC,AP,2P, 3P,4P,5P,6P,7P,8P,9P,10P,JP,QP,KP,AO,2O, 3O,4O,5O,6O,7O,8O,9O,10O,JO,QO,KO,AE,2E,3E,4E,5E,6E,7E,8E,9E,10E,JE,QE,KE,0
+==Teste simples de embaralhamento, com uma entrada certamente correta
+=embaralhar  	EMB_CondRetOK 	  0
 
-==validar   EMB_CondRetBaralhoInvalido AC,AC,3C,4C,5C,6C,7C,8C,9,10C,JC,QC,KC,AP,2P, 3P,4P,5P,6P,7P,8P,9P,10P,JP,QP,KP,AO,2O, 3O,4O,5O,6O,7O,8O,9O,10O,JO,QO,KO,AE,2E,3E,4E,5E,6E,7E,8E,9E,10E,JE,QE,KE,0 
+
+== Teste para casos de erro de origens diferentes
+=embaralhar    EMB_CondRetOK     "..\BaralhoTeste01.txt"
+
+==embaralhar   EMB_CondRetBaralhoInvalido  "..\BaralhoTeste02"
+
+==embaralhar   EMB_CondRetBaralhoInvalido  "..\BaralhoTeste03"
+
+

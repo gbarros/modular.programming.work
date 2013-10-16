@@ -1,41 +1,23 @@
-/***************************************************************************
-*	$MCD Módulo de definição: EMB Embaralhamento
-*
-*	Arquivo gerado:              EMBARALHA.h
-*	Letras identificadoras:      EMB
-*
-*	Nome da base de software:    Jogo FreeCell
-*	Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
-*
-*	Projeto: [INF 1301] Implementação do Jogo FreCell para fins educacionais
-*	Gestor:  LES/DI/PUC-Rio
-*	Autores: gb - Gabriel Barros
-*			 lg - Leonardo Giroto 
-*			 nk - Noemie Nakamura
-*
-*	$HA Histórico de evolução:
-*	Versão  Autor	Data			Observações
-*	6		gb 		15/out/2013		Introdução de assertivas 
-*	5 		lg		14/out/2013		Ajuste condições de retorno
-*   4		nk		14/out/2013		Mudança de nomenclatura, correções 
-*	3		gb 		13/out/2013		Teste do módulo
-* 	2 		lg, gb  13/out/2013		Desenvolvimento
-*   1       gb		12/out/2013		Início desenvolvimento
-***************************************************************************/
-
-
-#define EMBARALHA_OWN
-#include "EMBARALHA.h"
-#undef EMBARALHA_OWN
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <time.h> 
 
+
 #define QTD 52
 #define TAMANHO 4
 #define TAMANHOSTRING 180
+typedef enum {
+	EMB_CondRetOK,
+	// Concluiu corretamente
+	EMB_CondRetBaralhoInvalido,
+	// Recebeu um baralho inválido
+	EMB_CondRetErroNoEmbaralhamento,
+	// Erro na função de embaralhamento 
+	EMB_CondRetErroNaReferencia
+	//O Baralho Referencia
+} EMB_tpCondRet ;
+
 
 static void EMB_ConverteBaralhoStringChar (char String[], char baralho[QTD][TAMANHO]){
    int i=0;
@@ -140,4 +122,32 @@ EMB_tpCondRet EMB_Embaralha(char bar[QTD][TAMANHO]){
 
 		return EMB_CondRetOK;
  	
+}
+
+int main (void){
+    //char baralho[QTD][TAMANHO];
+    char baralho2 [QTD][TAMANHO];
+    int i=0;
+
+	EMB_BarReferencia(baralho2);
+
+	printf("\n");
+
+    for (i=0;i<QTD;i++){
+  	 	printf("%s ",baralho2[i]);
+   }
+
+	printf ("\nErro ? no emb: %d \n", EMB_Embaralha(baralho2));
+
+	printf("\n");
+
+	for (i=0;i<QTD;i++){
+	 	printf("%s ",baralho2[i]);
+	}
+
+
+	printf("\n oi ie!");
+	return 0;
+
+
 }
