@@ -69,7 +69,7 @@ typedef enum {
 	// A carta recebida não pertence ao conjunto domínio de um baralho
 	EXT_CondRetColunaVazia,
 	// A coluna a ser removida a carta não possui carta
-	EXT_CondRetErroInserção,
+	EXT_CondRetErroInsercao,
 	// Erro ao inserir carta na coluna 
 	EXT_CondRetErroRemocao,
 	// Erro ao remover carta da coluna
@@ -188,7 +188,7 @@ EXT_tpCondRet EXT_VerificarRemoverCarta(EXT_Coluna origem, Carta carta);
 *	EXT_CondRetOK - Inserção Realizada.
 *	EXT_CondRetColunaInexistente - A coluna passada como parâmentro não existe.
 *	EXT_CondRetCartaInvalida - A carta recebida não pertence ao baralho.
-*	EXT_CondRetErroInserção - Erro na função que insere.
+*	EXT_CondRetErroInsercao - Erro na função que insere.
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro, assim

@@ -79,7 +79,6 @@ EXT_tpCondRet EXT_ExcluirColunaExtra(EXT_Coluna coluna)
 
 EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta)
 {
-	LIS_tpCondRet retornoVerificaInserir;
 	int i;
 
 	if(LIS_ObterValor(destino) == NULL)
@@ -108,7 +107,6 @@ EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta)
 EXT_tpCondRet EXT_VerificarRemoverCarta(EXT_Coluna origem, Carta carta)
 {
 	LIS_tpCondRet retornoVerificaRemover;
-	int i;
 
 	if(LIS_ObterValor(origem) == NULL)
 		return EXT_CondRetColunaInexistente; // verifica se a coluna existe
@@ -153,7 +151,7 @@ EXT_tpCondRet EXT_InserirCartaEmExtra(EXT_Coluna destino, Carta carta)
 	if(retornoInserir == LIS_CondRetOK)
 		return EXT_CondRetOK;
 
-	return EXT_CondRetErroInserção;
+	return EXT_CondRetErroInsercao;
 }
 
 /***************************************************************************
