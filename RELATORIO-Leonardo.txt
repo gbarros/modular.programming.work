@@ -12,4 +12,17 @@ Data		Horas	Tipo Tarefa		Descrição da Tarefa Realizada
 
 02/out/13	2	Estudar			Estudar a realização de testes por meio do arcabouço de testes.
 
- ~~ 13/out/13	X	Implementação		Implementação dos módulos
+12/out/13 	6	Projetar		Comunicação com membros, compartilhamento de desenvolvimento, atualização de diretórios.
+			Codificar módulo	Montagem de pseudo-código do jogo. Início desenvolvimento módulo extra/células livres.
+13/out/13	10	Revisar projetos	Revisão dos módulos e seus relacionamentos. Compreensão da estrutura de todo jogo.
+			Estudar			Estudo de arquivos .comp e como funciona o Gmake.
+			Codificar módulo	Implementação de módulos .h e .c
+14/out/13   	10  	Revisar projetos    	Revisão do movimento das cartas (remove, insere) e das interfaces.
+			Estudar			Estudo de como fazer módulos de teste, como gerar os executáveis
+			Codificar módulo	Implementação de módulos .h e .c
+15/out/13   	6  	Revisar projetos    	Revisão do movimento das cartas (remove, insere) e das interfaces.
+			Estudar			Estudo de como fazer módulos de teste, como gerar os executáveis
+			Codificar módulo	Implementação de módulos .h e .c
+			Codificar módulo	Implementação de Scripts e Módulo Controlador de Testes
+16/out/13   	3  	Codificar módulo	Implementação de Scripts e Módulo Controlador de Testes
+			
