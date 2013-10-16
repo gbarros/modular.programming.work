@@ -12,6 +12,8 @@
 *  Autores: Gabriel Barros, Noemie Nakamura e Leonardo Giroto
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*       3.00   GB   15/10/2013 Coficação e Ajustes finais
+*       2.00   GB   14/10/2013 Implementação Dumb para entender o funcionamento
 *       1.00   GB   13/10/2013 Início do desenvolvimento
 *
 *  $ED Descrição do módulo
