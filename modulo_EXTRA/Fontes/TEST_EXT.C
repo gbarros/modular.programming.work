@@ -13,6 +13,7 @@
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
 *       1      LG   15/10/2013  Início do desenvolvimento
+*       2      LG   16/10/2013  Desenvolvimento
 *
 *  $ED Descrição do módulo
 *     Este módulo contém as funções específicas para o teste do
@@ -21,12 +22,12 @@
 *  $EIU Interface com o usuário pessoa
 *     Comandos de teste específicos para testar o módulo Extra:
 *
-*     =criar              - chama a função EXT_CriarColuna
-*     =excluir            - chama a função EXT_ExcluirColuna
+*     =criar              - chama a função EXT_CriarColunaExtra
+*     =excluir            - chama a função EXT_ExcluirColunaExtra
 *     =verificarinserir   - chama a função EXT_VerificarInserirCarta
 *     =verificarremover   - chama a função EXT_VerificarRemoverCarta
 *     =inserir            - chama a função EXT_InserirCartaEmExtra
-*     =remover            - chama a função EXT_RemoverCartaEmExtra
+*     =remover            - chama a função EXT_RemoverCartaDeExtra
 *     =exibir             - chama a função EXT_ExibirCartas
 *
 ***************************************************************************/
@@ -72,38 +73,28 @@
 
       if (strcmp(ComandoTeste,CRIAR_BAR_CMD)==0)
       {     
-        // numLidos = LER_LerParametros("ii",&CondRetEsperada,&ValorDado); // -q
+        numLidos = LER_LerParametros("i",&CondRetEsperada); // -q
 
-        // if (numLidos!=2)
-           // return TST_CondRetParm;
+        if (numLidos!=1)
+           return TST_CondRetParm;
 
-        coluna = EXT_CriarColuna();
+        coluna = EXT_CriarColunaExtra();
 
-        if (condRet != CondRetOK)
+        if (coluna != CondRetEsperada)
            return TST_CondRetErro;
 
         return TST_CondRetOK;
       }
       else if(strcmp(ComandoTeste,INSERIR_BAR_CMD)==0)
       {
-        // numLidos = LER_LerParametros("is",&CondRetEsperada,&StringDada); // -q²
+        numLidos = LER_LerParametros("isi",&ColunaEnviada,&StringDada,&CondRetEsperada); // -q²
 
-        // if (numLidos!=2)
-          // return TST_CondRetParm;
+        if (numLidos!=3)
+          return TST_CondRetParm;
 
-        condRet = EXT_InserirCartaEmExtra(coluna,carta1);
+        condRet = EXT_InserirCartaEmExtra(ColunaEnviada,StringDada);
 
-        if (condRet != CondRetOK)
-           return TST_CondRetErro;
-
-        condRet = EXT_InserirCartaEmExtra(coluna,NULL);
-
-        if (condRet != CondRetCartaInvalida)
-           return TST_CondRetErro;
-
-        condRet = EXT_InserirCartaEmExtra(NULL,carta1);
-
-        if (condRet != CondRetColunaInexistente)
+        if (condRet != CondRetEsperada)
            return TST_CondRetErro;
 
         return TST_CondRetOK;
@@ -126,38 +117,62 @@
       }
       else if(strcmp(ComandoTeste,VERIFICARREMOVER_BAR_CMD)==0)
       {
-        // numLidos = LER_LerParametros("is",&CondRetEsperada,&StringDada); // -q²
+        numLidos = LER_LerParametros("isi",&ColunaEnviada,&StringDada,&CondRetEsperada);
 
-        // if (numLidos!=2)
-          // return TST_CondRetParm;
+        if (numLidos!=3)
+          return TST_CondRetParm;
+
+        condRet = EXT_VerificarRemoverCarta(ColunaEnviada,StringDada);
+
+        if (condRet != CondRetEsperada)
+           return TST_CondRetErro;
+
+        return TST_CondRetOK;
+
       }
       else if(strcmp(ComandoTeste,REMOVER_BAR_CMD)==0)
       {
-        // numLidos = LER_LerParametros("is",&CondRetEsperada,&StringDada); // -q²
+        numLidos = LER_LerParametros("isi",&ColunaEnviada,&StringDada,&CondRetEsperada);
 
-        // if (numLidos!=2)
-          // return TST_CondRetParm;
+        if (numLidos!=3)
+          return TST_CondRetParm;
+
+        condRet = EXT_RemoverCartaDeExtra(ColunaEnviada,StringDada);
+
+        if (condRet != CondRetEsperada)
+           return TST_CondRetErro;
+
+        return TST_CondRetOK;
+
       }
       else if(strcmp(ComandoTeste,EXIBIR_BAR_CMD)==0)
       {
-        // numLidos = LER_LerParametros("is",&CondRetEsperada,&StringDada); // -q²
+        numLidos = LER_LerParametros("ii",&ColunaEnviada,&CondRetEsperada); // -q²
 
-        // if (numLidos!=2)
-          // return TST_CondRetParm;
+        if (numLidos!=2)
+          return TST_CondRetParm;
+
+        condRet = EXT_ExibirCartas(ColunaEnviada);
+
+          if (condRet != CondRetEsperada)
+           return TST_CondRetErro;
+
+        return TST_CondRetOK;
+
       }
       else if(strcmp(ComandoTeste,EXCLUIR_BAR_CMD)==0)
       {
-        // numLidos = LER_LerParametros("is",&CondRetEsperada,&StringDada); // -q²
+        numLidos = LER_LerParametros("ii",&ColunaEnviada,&CondRetEsperada); // -q²
 
-        // if (numLidos!=2)
-          // return TST_CondRetParm;
+        if (numLidos!=2)
+          return TST_CondRetParm;
 
-        //condRet = EXT_ExcluirColunaExtra(coluna);
+        condRet = EXT_ExcluirColunaExtra(ColunaEnviada);
 
-        // if (condRet != CondRetOK)
-           //return TST_CondRetErro;
+          if (condRet != CondRetEsperada)
+           return TST_CondRetErro;
 
-        // return TST_CondRetOK;
+        return TST_CondRetOK;
       }
       else
       {

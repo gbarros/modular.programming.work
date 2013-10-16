@@ -92,7 +92,7 @@ typedef enum {
 *			Se não, retorna NULL.
 ***********************************************************************/
 
-EXT_Coluna EXT_CriarColuna(void);
+EXT_Coluna EXT_CriarColunaExtra(void);
 
 /***********************************************************************
 *	$FC Função: EXT &Excluir Coluna
@@ -117,7 +117,7 @@ EXT_Coluna EXT_CriarColuna(void);
 *			Se não, retorna que a coluna não pôde ser destruída.
 ***********************************************************************/
 
-EXT_tpCondRet EXT_ExcluirColuna(EXT_Coluna coluna);
+EXT_tpCondRet EXT_ExcluirColunaExtra(EXT_Coluna coluna);
 
 /***********************************************************************
 *	$FC Função: EXT &Verificar Inserir Carta
