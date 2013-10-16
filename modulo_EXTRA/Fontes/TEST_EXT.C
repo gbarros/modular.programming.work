@@ -95,31 +95,26 @@
 
       if (strcmp(ComandoTeste,CRIAR_BAR_CMD)==0)
       {     
-        numLidos = LER_LerParametros("i",&CondRetEsperada); // -q
+        numLidos = LER_LerParametros("i",&CondRetEsperada);
 
         if (numLidos!=1)
            return TST_CondRetParm;
 
         coluna = EXT_CriarColunaExtra();
 
-        if (coluna != CondRetEsperada)
-           return TST_CondRetErro;
-
-        return TST_CondRetOK;
+        return TST_CompararPonteiroNulo(1,coluna,"Erro ao criar coluna Extra.\n");
+        
       }
       else if(strcmp(ComandoTeste,INSERIR_BAR_CMD)==0)
       {
-        numLidos = LER_LerParametros("isi",&ColunaEnviada,&StringDada,&CondRetEsperada); // -q²
+        numLidos = LER_LerParametros("isi",&ColunaEnviada,&StringDada,&CondRetEsperada);
 
         if (numLidos!=3)
           return TST_CondRetParm;
 
         condRet = EXT_InserirCartaEmExtra(ColunaEnviada,StringDada);
 
-        if (condRet != CondRetEsperada)
-           return TST_CondRetErro;
-
-        return TST_CondRetOK;
+        return TST_CompararInt(CondRetEsperada,condRet,"Erro ao inserir carta em Extra.\n");
 
       }
       else if(strcmp(ComandoTeste,VERIFICARINSERIR_BAR_CMD)==0)
@@ -131,10 +126,7 @@
 
         condRet = EXT_VerificarInserirCarta(ColunaEnviada,StringDada);
 
-        if (condRet != CondRetEsperada)
-           return TST_CondRetErro;
-
-        return TST_CondRetOK;
+        return TST_CompararInt(CondRetEsperada,condRet,"Erro ao verificar inserção em Extra.\n");
 
       }
       else if(strcmp(ComandoTeste,VERIFICARREMOVER_BAR_CMD)==0)
@@ -146,10 +138,7 @@
 
         condRet = EXT_VerificarRemoverCarta(ColunaEnviada,StringDada);
 
-        if (condRet != CondRetEsperada)
-           return TST_CondRetErro;
-
-        return TST_CondRetOK;
+        return TST_CompararInt(CondRetEsperada,condRet,"Erro ao verificar remoção de Extra.\n");
 
       }
       else if(strcmp(ComandoTeste,REMOVER_BAR_CMD)==0)
@@ -161,40 +150,32 @@
 
         condRet = EXT_RemoverCartaDeExtra(ColunaEnviada,StringDada);
 
-        if (condRet != CondRetEsperada)
-           return TST_CondRetErro;
-
-        return TST_CondRetOK;
+        return TST_CompararInt(CondRetEsperada,condRet,"Erro ao remover carta de Extra.\n");
 
       }
       else if(strcmp(ComandoTeste,EXIBIR_BAR_CMD)==0)
       {
-        numLidos = LER_LerParametros("ii",&ColunaEnviada,&CondRetEsperada); // -q²
+        numLidos = LER_LerParametros("ii",&ColunaEnviada,&CondRetEsperada);
 
         if (numLidos!=2)
           return TST_CondRetParm;
 
         condRet = EXT_ExibirCartas(ColunaEnviada);
 
-          if (condRet != CondRetEsperada)
-           return TST_CondRetErro;
-
-        return TST_CondRetOK;
+        return TST_CompararInt(CondRetEsperada,condRet,"Erro ao exibir.\n");
 
       }
       else if(strcmp(ComandoTeste,EXCLUIR_BAR_CMD)==0)
       {
-        numLidos = LER_LerParametros("ii",&ColunaEnviada,&CondRetEsperada); // -q²
+        numLidos = LER_LerParametros("ii",&ColunaEnviada,&CondRetEsperada);
 
         if (numLidos!=2)
           return TST_CondRetParm;
 
         condRet = EXT_ExcluirColunaExtra(ColunaEnviada);
 
-          if (condRet != CondRetEsperada)
-           return TST_CondRetErro;
+        return TST_CompararInt(CondRetEsperada,condRet,"Erro ao destruir coluna.\n");
 
-        return TST_CondRetOK;
       }
       else
       {
