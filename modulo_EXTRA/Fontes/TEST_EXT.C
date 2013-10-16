@@ -103,7 +103,7 @@
         coluna = EXT_CriarColunaExtra();
 
         return TST_CompararPonteiroNulo(1,coluna,"Erro ao criar coluna Extra.\n");
-        
+
       }
       else if(strcmp(ComandoTeste,INSERIR_BAR_CMD)==0)
       {
@@ -112,7 +112,7 @@
         if (numLidos!=3)
           return TST_CondRetParm;
 
-        condRet = EXT_InserirCartaEmExtra(ColunaEnviada,StringDada);
+        condRet = EXT_InserirCartaEmExtra(coluna,StringDada);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao inserir carta em Extra.\n");
 
@@ -124,7 +124,7 @@
          if (numLidos!=3)
            return TST_CondRetParm;
 
-        condRet = EXT_VerificarInserirCarta(ColunaEnviada,StringDada);
+        condRet = EXT_VerificarInserirCarta(coluna,StringDada);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao verificar inserção em Extra.\n");
 
@@ -136,7 +136,7 @@
         if (numLidos!=3)
           return TST_CondRetParm;
 
-        condRet = EXT_VerificarRemoverCarta(ColunaEnviada,StringDada);
+        condRet = EXT_VerificarRemoverCarta(coluna,StringDada);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao verificar remoção de Extra.\n");
 
@@ -148,7 +148,7 @@
         if (numLidos!=3)
           return TST_CondRetParm;
 
-        condRet = EXT_RemoverCartaDeExtra(ColunaEnviada,StringDada);
+        condRet = EXT_RemoverCartaDeExtra(coluna,StringDada);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao remover carta de Extra.\n");
 
@@ -160,7 +160,7 @@
         if (numLidos!=2)
           return TST_CondRetParm;
 
-        condRet = EXT_ExibirCartas(ColunaEnviada);
+        condRet = EXT_ExibirCartas(coluna);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao exibir.\n");
 
@@ -172,7 +172,7 @@
         if (numLidos!=2)
           return TST_CondRetParm;
 
-        condRet = EXT_ExcluirColunaExtra(ColunaEnviada);
+        condRet = EXT_ExcluirColunaExtra(coluna);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao destruir coluna.\n");
 

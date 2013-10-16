@@ -227,7 +227,7 @@ EXT_tpCondRet EXT_InserirCartaEmExtra(EXT_Coluna destino, Carta carta);
 			Caso contrário, retorna erro na Remocao.
 ***********************************************************************/
 
-EXT_tpCondRet EXT_RemoverCartaEmExtra(EXT_Coluna destino, Carta carta);
+EXT_tpCondRet EXT_RemoverCartaDeExtra(EXT_Coluna destino, Carta carta);
 
 /***********************************************************************
 *	$FC Função: EXT &Exibir Cartas
