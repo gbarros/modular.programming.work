@@ -13,66 +13,75 @@ PUC-Rio Outubro 2013
 	
 
 ----------------------------------------------------------------------------------------------------
-	INSTALAÇÃO E ESTRUTURA DE DIRETÓRIOS
+	INSTRUÇÕES DE INSTALAÇÃO E ESTRUTURA DE DIRETÓRIOS
 ----------------------------------------------------------------------------------------------------
 	Faça o download do arquivo INF1301-Trab01-GBLGNK.zip e crie uma pasta para descompactá-lo.
 	Verifique que as seguintes pastas e deverão estar presentes:
 
-	NOME			DESCRIÇÃO
-	doc			Contém a documentação do programa, descrita no próximo tópico.
+	NOME					DESCRIÇÃO
+	Documentos				Contém a documentação do programa, descrita no próximo tópico.
 	modulo_EMBARALHAMENTO	Contém os arquivos para execução e teste do módulo embaralhamento.
-	modulo_EXTRA		Contém os arquivos para execução e teste do módulo extra.
-	modulo_LISTA		Contém os arquivos para execução e teste do módulo lista.
-	modulo_NAIPE		Contém os arquivos para execução e teste do módulo naipe.
-	modulo_SEQ_VIS		Contém os arquivos para execução e teste do módulo sequências visíveis.
+	modulo_EXTRA			Contém os arquivos para execução e teste do módulo extra.
+	modulo_LISTA			Contém os arquivos para execução e teste do módulo lista.
+	modulo_NAIPE			Contém os arquivos para execução e teste do módulo naipe.
+	modulo_SEQ_VIS			Contém os arquivos para execução e teste do módulo sequências visíveis.
 
 	Todas as pastas do tipo modulo_X devem conter as seguintes subpastas:
 	
 	NOME			DESCRIÇÃO
-	batches			Contém todos os arquivos .batch necessários para automatizar as execuções
-				no prompt de comando.
-	composicao		Contém o arquivo Gmake.parm, necessário para o uso do arcabouço de testes.
-	fontes			Contém os módulos de definição necessários para o uso do arcabouço de testes.
-	ferramnt		Contém a ferramenta GMake, é utilizado para, a partir de um arquivo que descreve a 
-				composição de um construto, gerar as diretivas .make e .build usadas para compilar 
-				este construto. O GMake permite criar scripts de make que envolvem uma variedade de
-				ferramentas criadas pelo usuário, além das ferramentas que compõem o compilador.	
-	objetos			Contém a biblioteca ArcaboucoTeste.lib, necessária para o uso do arcabouço de testes.
-	produto			Contém as saídas de compilação.
-	scripts			Contém os scripts de teste do módulo, que representa os casos de teste necessários
-				para testar o módulo.
+	Batches			Contém todos os arquivos .batch necessários para automatizar as execuções
+					no prompt de comando.
+	Composicao		Contém o arquivo Gmake.parm, necessário para o uso do arcabouço de testes.
+	Fontes			Contém os módulos de definição necessários para o uso do arcabouço de testes.
+	Objetos			Contém os objetos gerados após compilação.
+	Produto			Contém as saídas de compilação.
+	Scripts			Contém os scripts de teste do módulo, que representa os casos de teste necessários
+					para testar o módulo.
+	
+	Para executar os testes, você deve utilizar o compilador do Visual Studio 2008 e arcabouço de testes
+	desenvolvido por Arndt Von Staa, fazendo o download pelo seguinte link:
+	
+	<http://www.inf.puc-rio.br/~inf1301/software/arcaboucoteste_2_02.zip>
+	
+	Após descompactá-lo numa pasta de sua preferência, pelo command prompt do Visual Studio execute o 
+	batch "CompilaTudo.bat" que está no seguinte diretório:
+	..\arcabouc\Batches\CompilaTudo.bat\
+	
+	Executado, ele deve criar na pasta Objetos a biblioteca do arcabouço a ser usada nos testes, 
+	com o nome "ArcaboucoTeste.lib", que deve ser copiado para a sua pasta Objetos de cada uma das
+	pastas com nome modulo_X.
 	
 ----------------------------------------------------------------------------------------------------
 	DOCUMENTAÇÃO
 ----------------------------------------------------------------------------------------------------
-	NOME				DESCRIÇÃO
-	leiame.txt			Versão eletrônica deste documento
+	NOME							DESCRIÇÃO
+	LEIAME.txt						Versão eletrônica deste documento
 	especificacao_requisitos.pdf	Apresenta a modelagem do problema, ou seja, a especificação de
-					requisitos do programa. Inclui uma descrição detalhada do
-					funcionamento e exemplos.
-	arquitetura.pdf			Apresenta modelagem da solução, com diagrama dos módulos e suas
-					relações, além das interfaces.
-	modelo_estrutural.pdf		Apresenta a modelagem física do programa e exemplos.
+									requisitos do programa. Inclui uma descrição detalhada do
+									funcionamento e exemplos.
+	arquitetura.pdf					Apresenta modelagem da solução, com diagrama dos módulos e suas
+									relações, além das interfaces.
+	modelo_estrutural.pdf			Apresenta a modelagem física do programa e exemplos.
 	
 ----------------------------------------------------------------------------------------------------
 	ARQUIVOS DE CÓDIGO FONTE
 ----------------------------------------------------------------------------------------------------
-	NOME				DESCRIÇÃO
-	LISTA.h, LISTA.c		Módulos de implementação e de definição do módulo que manipula a
-					estrutura de dados tipo lista.
+	NOME						DESCRIÇÃO
+	LISTA.h, LISTA.c			Módulos de implementação e de definição do módulo que manipula a
+								estrutura de dados tipo lista.
 	EMBARALHA.h, EMBARALHA.c	Módulos de implementação e de definição do módulo responsável
-					por embaralhar as cartas do baralho.
-	EXTRA.h, EXTRA.c		Módulos de implementação e de definição do módulo que manipula as
-					colunas extra (freecells).
-	NAIPE.h, NAIPE.c		Módulos de implementação e de definição do módulo que manipula as
-					colunas de naipe.
+								por embaralhar as cartas do baralho.
+	EXTRA.h, EXTRA.c			Módulos de implementação e de definição do módulo que manipula as
+								colunas extra (freecells).
+	NAIPE.h, NAIPE.c			Módulos de implementação e de definição do módulo que manipula as
+								colunas de naipe.
 	SEQ_VIS.h, SEQ_VIS.c		Módulos de implementação e de definição do módulo que manipula as
-					sequências visíveis.
-	TEST_LIS.c			Módulo de teste específico do módulo LISTA.
-	TEST_EMB.c			Módulo de teste específico do módulo EMBARALHA.
-	TEST_EXT.c			Módulo de teste específico do módulo EXTRA.
-	TEST_NPE.c			Módulo de teste específico do módulo NPE.
-	TEST_SV.c			Módulo de teste específico do módulo SEQ_VIS.
+								sequências visíveis.
+	TEST_LIS.c					Módulo de teste específico do módulo LISTA.
+	TEST_EMB.c					Módulo de teste específico do módulo EMBARALHA.
+	TEST_EXT.c					Módulo de teste específico do módulo EXTRA.
+	TEST_NPE.c					Módulo de teste específico do módulo NPE.
+	TEST_SV.c					Módulo de teste específico do módulo SEQ_VIS.
 ----------------------------------------------------------------------------------------------------
 	CONTATO
 ----------------------------------------------------------------------------------------------------
