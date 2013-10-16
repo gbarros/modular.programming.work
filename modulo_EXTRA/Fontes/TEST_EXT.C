@@ -52,8 +52,13 @@
 #define     REMOVER_BAR_CMD               "=remover"
 #define     EXIBIR_BAR_CMD                "=exibir"
 
-/*****  Código das funções exportadas pelo módulo  *****/
+#define DIM_VT_EXT 5
 
+/***** Protótipos das funções encapsuladas no módulo *****/
+
+int VerificarIndex(int indexColuna);
+
+/*****  Código das funções exportadas pelo módulo  *****/
 
 /***********************************************************************
 * $FC Função: TLIS &Testar lista
@@ -84,102 +89,117 @@
 *   - Chama a função EXT_ExcluirColunaExtra()
 ***********************************************************************/
 
-static EXT_Coluna coluna;
+static EXT_Coluna coluna[DIM_VT_EXT] ;
 
    TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
    {
-      int  numLidos = 0;
+      int  numLidos = -1;
       TST_tpCondRet condRet;
-      int ColunaEnviada;
-      char* StringDada;
+	  int indexColuna = -1;
+      char* StringDada = '\0';
       int CondRetEsperada;
 
       if (strcmp(ComandoTeste,CRIAR_BAR_CMD)==0)
       {     
         numLidos = LER_LerParametros("i",&CondRetEsperada);
 
-        if (numLidos!=1)
+        if (numLidos!=1 || !VerificarIndex(indexColuna))
            return TST_CondRetParm;
 
-        coluna = EXT_CriarColunaExtra();
+        coluna[indexColuna] = EXT_CriarColunaExtra();
 
-        return TST_CompararPonteiroNulo(1,coluna,"Erro ao criar coluna Extra.\n");
+        return TST_CompararPonteiroNulo(1,coluna[indexColuna],"Erro ao criar coluna Extra.\n");
 
       }
       else if(strcmp(ComandoTeste,INSERIR_BAR_CMD)==0)
       {
-        numLidos = LER_LerParametros("isi",&ColunaEnviada,&StringDada,&CondRetEsperada);
+        numLidos = LER_LerParametros("isi",&indexColuna,StringDada,&CondRetEsperada);
 
-        if (numLidos!=3)
+        if (numLidos!=3 || !VerificarIndex(indexColuna))
           return TST_CondRetParm;
 
-        condRet = EXT_InserirCartaEmExtra(coluna,StringDada);
+        condRet = EXT_InserirCartaEmExtra(coluna[indexColuna],StringDada);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao inserir carta em Extra.\n");
 
       }
       else if(strcmp(ComandoTeste,VERIFICARINSERIR_BAR_CMD)==0)
       {
-         numLidos = LER_LerParametros("isi",&ColunaEnviada,&StringDada,&CondRetEsperada);
+         numLidos = LER_LerParametros("isi",&indexColuna,StringDada,&CondRetEsperada);
 
-         if (numLidos!=3)
+         if (numLidos!=3 || !VerificarIndex(indexColuna))
            return TST_CondRetParm;
 
-        condRet = EXT_VerificarInserirCarta(coluna,StringDada);
+        condRet = EXT_VerificarInserirCarta(coluna[indexColuna],StringDada);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao verificar inserção em Extra.\n");
 
       }
       else if(strcmp(ComandoTeste,VERIFICARREMOVER_BAR_CMD)==0)
       {
-        numLidos = LER_LerParametros("isi",&ColunaEnviada,&StringDada,&CondRetEsperada);
+        numLidos = LER_LerParametros("isi",&indexColuna,StringDada,&CondRetEsperada);
 
-        if (numLidos!=3)
+        if (numLidos!=3 || !VerificarIndex(indexColuna))
           return TST_CondRetParm;
 
-        condRet = EXT_VerificarRemoverCarta(coluna,StringDada);
+        condRet = EXT_VerificarRemoverCarta(coluna[indexColuna],StringDada);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao verificar remoção de Extra.\n");
 
       }
       else if(strcmp(ComandoTeste,REMOVER_BAR_CMD)==0)
       {
-        numLidos = LER_LerParametros("isi",&ColunaEnviada,&StringDada,&CondRetEsperada);
+        numLidos = LER_LerParametros("isi",&indexColuna,StringDada,&CondRetEsperada);
 
-        if (numLidos!=3)
+        if (numLidos!=3 || !VerificarIndex(indexColuna))
           return TST_CondRetParm;
 
-        condRet = EXT_RemoverCartaDeExtra(coluna,StringDada);
+        condRet = EXT_RemoverCartaDeExtra(coluna[indexColuna],StringDada);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao remover carta de Extra.\n");
 
       }
       else if(strcmp(ComandoTeste,EXIBIR_BAR_CMD)==0)
       {
-        numLidos = LER_LerParametros("ii",&ColunaEnviada,&CondRetEsperada);
+        numLidos = LER_LerParametros("ii",&indexColuna,&CondRetEsperada);
 
-        if (numLidos!=2)
+        if (numLidos!=2|| !VerificarIndex(indexColuna))
           return TST_CondRetParm;
 
-        condRet = EXT_ExibirCartas(coluna);
+        condRet = EXT_ExibirCartas(coluna[indexColuna]);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao exibir.\n");
 
       }
       else if(strcmp(ComandoTeste,EXCLUIR_BAR_CMD)==0)
       {
-        numLidos = LER_LerParametros("ii",&ColunaEnviada,&CondRetEsperada);
+        numLidos = LER_LerParametros("ii",&indexColuna,&CondRetEsperada);
 
-        if (numLidos!=2)
+        if (numLidos!=2|| !VerificarIndex(indexColuna))
           return TST_CondRetParm;
 
-        condRet = EXT_ExcluirColunaExtra(coluna);
+        condRet = EXT_ExcluirColunaExtra(coluna[indexColuna]);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao destruir coluna.\n");
 
       }
-      else
-      {
-        return TST_CondRetErro;
-      }
-   }
+	return TST_CondRetNaoConhec;
+}
+
+/*****  Código das funções encapsuladas no módulo  *****/
+
+/***********************************************************************
+*  $FC Função: TNPE - Verificar índice de coluna tipo naipe
+*
+*  $FV Valor retornado
+*     0 - inxArvore não vale
+*     1 - inxArvore vale
+***********************************************************************/
+int VerificarIndex(int indexColuna){
+	if((indexColuna < 0) || (indexColuna > DIM_VT_EXT)){
+		return 0;
+	}
+	return 1 ;
+}
+
+/********** Fim do módulo de implementação: TNPE Teste coluna tipo extra **********/
