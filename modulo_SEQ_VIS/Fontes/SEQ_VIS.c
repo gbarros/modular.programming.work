@@ -15,6 +15,7 @@
 *
 *  $HA Histórico de evolução:
 *   Versão  Autor	Data			Observações
+*	4		nk		16/out/2013		Correções e finalização do desenvolvimento
 *	3		lg		14/out/2013		Continuação do desenvolvimento
 *	2		nk		14/out/2013		Correção de nomenclatura, novas funções
 *	1 		lg		13/out/2013		Criação e início do desenvolvimento do módulo
@@ -24,7 +25,9 @@
 #include "SEQ_VIS.h"
 #undef SEQ_VIS_OWN
 
-typedef char* Carta;
+static int ObterValor(Carta carta);
+static char ObterNaipe(Carta carta);
+static int ContarElementos(SV_Coluna coluna);
 
 /***************************************************************************
 *  Função: SV  &Criar Coluna
@@ -51,10 +54,41 @@ SV_tpCondRet SV_ExcluirColunaSeqVis(SV_Coluna coluna){
 *  Função: SV  &Verificar Inserir Carta
 ***************************************************************************/
 
-SV_tpCondRet SV_VerificarInserirCarta(SVColuna destino, Carta carta)
-{
+SV_tpCondRet SV_VerificarInserirCarta(SV_Coluna destino, Carta carta){
+	Carta cartaBase;
+	// Verifica se a carta recebida existe
+	if(carta == NULL || ObterValor(carta) == -1 || ObterNaipe(carta) == 'X')
+		return SV_CondRetCartaNaoExiste;
 
-//here goes the code
+	// Verifica se a coluna recebida existe
+	if(destino == NULL)
+		return SV_ColunaNaoExiste;
+	
+	// Comparar carta a inserir com carta da "base" da coluna (a de cima do bolo)
+	IrFinalLista(destino);
+	cartaBase = (Carta)LIS_ObterValor(destino); 
+
+	// Se for NULL, a coluna está vazia e pode receber qualquer carta válida
+	if(cartaBase == NULL){
+		return SV_CondRetOK;
+	}
+
+	// Se já tiver uma carta, comparar valores e cores
+	
+	// Se as cores forem iguais, não pode inserir
+	if(ObterCor(carta) == ObterCor(cartaBase))
+		return SV_CondRetNaoPodeInserir;
+	else{
+		// Se a carta base já for um A's, não pode inserir
+		if(ObterValor(cartaBase) == 1)
+			return SV_CondRetNaoPodeInserir;
+		// Se a carta a inserir não for antecessora à carta base em numeral,
+		// não pode inserir
+		else if(ObterValor(carta) != (ObterValor(cartaBase) + 1))
+			return SV_CondRetNaoPodeInserir;
+		else
+			return SV_CondRetOK;
+	}
 
 }
 
@@ -62,44 +96,172 @@ SV_tpCondRet SV_VerificarInserirCarta(SVColuna destino, Carta carta)
 *  Função: SV  &Verificar Remover Carta
 ***************************************************************************/
 
-SV_tpCondRet SV_VerificarRemoverCarta(SVColuna origem, Carta carta){
-//here goes the code
+SV_tpCondRet SV_VerificarRemoverCarta(SV_Coluna origem, Carta carta){
+	int resBusca, resAvanco;
+	Carta cartaCorr, cartaCopia = carta;
+
+	// Verifica se a carta recebida existe
+	if(carta == NULL || ObterValor(carta) == -1 || ObterNaipe(carta) == 'X')
+		return SV_CondRetCartaNaoExiste;
+
+	// Verifica se a coluna recebida existe
+	if(destino == NULL)
+		return SV_CondRetColunaNaoExiste;
+
+	//Verificar se a coluna está vazia
+	if(LIS_ObterValor(origem) == NULL)
+		return SV_CondRetColunaVazia;
+
+	// Verifica se a carta recebida pertence à coluna
+	resBusca = LIS_ProcurarValor(origem, carta);
+	if(resBusca == LIS_CondRetNaoAchou || resBusca == LIS_CondRetListaVazia){
+		return SV_CondRetCartaNaoExiste;
+	}
+
+	// Dado que uma carta válida foi encontrada, só é possível removê-la se
+	// todas as cartas debaixo podem também ser removidas
+	while(resAvanco != CondRetFimLista){
+		resAvanco = LIS_AvancarElementoCorrente(origem, 1);
+		cartaCorr = LIS_ObterValor(origem);
+		
+		if((ObterValor(cartaCorr) == (ObterValor(cartaCopia) - 1)) && (ObterCor(cartaCorr) != ObterCor(cartaCopia))
+			cartaCopia = cartaCorr;
+		else
+			break;
+	}
+	return SV_CondRetNaoPodeRemover;
+	
+}
 
 }
 
 /***************************************************************************
-*  Função: SV  &Inserir Carta Em SVra
+*  Função: SV  &Inserir Carta Em Sequência Visível
 ***************************************************************************/
 
-SV_tpCondRet SV_InserirCarta(SV_Coluna destino, Carta carta)
-{
-	// checar se a carta na última posição da lista é 1 valor a menos e pertence a um naipe de cor oposta
+SV_tpCondRet SV_InserirCartaEmSeqVis(SV_Coluna destino, Carta carta){
+	NPE_tpCondRet condRet = NPE_CondRetErroAoInserir;
+	
+	if(NPE_VerificarInserirCarta(destino, carta) != SV_CondRetOK){
+		return SV_CondRetErroAoInserir;
+	}
+	
+	IrFinalLista(destino);
+	condRet = LIS_InserirElementoApos(destino, carta);
+	
+	if(condRet == NPE_CondRetOK){
+		return NPE_CondRetOK;
+	}
+	else
+		return NPE_CondRetErroAoInserir;
 }
 
 /***************************************************************************
-*  Função: SV  &Remover Carta De SVra
+*  Função: SV  &Remover Carta De Sequêncial Visível
 ***************************************************************************/
 
 SV_tpCondRet SV_RemoverCartaDeSeqVis(SV_Coluna origem, Carta carta){
-/*Deve-se analizar os retornos de procurar valor e talvez de ExcluirElemento*/
+	int resAvanco;
+	SV_tpCondRet condRet = SV_CondRetErroAoInserir;
+	
+	if(SV_VerificarRemoverCarta(destino, carta) != SV_CondRetOK){
+		return SV_CondRetErroAoRemover;
+	}
 
-	if(LIS_ProcurarValor(alvo, carta) == LIS_CondRetNaoEncontrou || LIS_ProcurarValor(alvo, carta) == LIS_CondRetListaVazia))
-	{
-		return -1;
+	// Primeiro fazer o elemento corrente ser o elemento a ser excluído
+	IrInicioLista(origem);
+	while(LIS_ObterValor(origem) != carta){
+			resAvanco = LIS_AvancarElementoCorrente(origem, 1);
+	}
+	condRet = ExcluirElemento(origem);
+
+	if(condRet == NPE_CondRetOK){
+		return SV_CondRetOK;
 	}
 	else
-	{
-		int deuCerto = LIS_ExcluirElemento(alvo);
-	}
-
-	return deuCerto;
+		return NPE_CondRetErroAoInserir;
 }
 
 /***************************************************************************
-*  Função: SV  &Exibir Carta
+*  Função: SV  &Exibir Cartas
 ***************************************************************************/
 
-void SVExibirCartas(SVColuna coluna)
-{
-	// codigo
+SV_tpCondRet SV_ExibirCartas(SVColuna coluna){
+	int i;
+	Carta carta;
+	
+	// Verifica se a coluna existe
+	if(coluna == NULL)
+		return NPE_CondRetColunaNaoExiste;
+
+	IrInicioLista(coluna);
+	carta = LIS_ObterValor(coluna);
+	{
+		
+	}
+	
+
+	printf("%s", carta);
+}
+
+static int ObterValor(Carta carta){
+	if(carta == NULL)
+		return -1;
+	
+	if(carta[0] == 'A')
+		return 1;
+	else if(carta[0] == '2')
+		return 2;
+	else if(carta[0] == '3')
+		return 3;
+	else if(carta[0] == '4')
+		return 4;
+	else if(carta[0] == '5')
+		return 5;
+	else if(carta[0] == '6')
+		return 6;
+	else if(carta[0] == '7')
+		return 7;
+	else if(carta[0] == '8')
+		return 8;
+	else if(carta[0] == '9')
+		return 9;
+	else if(carta[0] == '1')
+		return 10;
+	else if(carta[0] == 'J')
+		return 11;
+	else if(carta[0] == 'Q')
+		return 12;
+	else if(carta[0] == 'K')
+		return 13;
+	else
+		return -1;
+}
+static char ObterNaipe(Carta carta){
+	int val = ObterValor(carta);
+	
+	if(val == -1)
+		return 'X';
+
+	if(val == 10){
+		if(carta[2] == 'P')
+			return 'P';
+		else if(carta[2] == 'C')
+			return 'C';
+		else if(carta[2] == 'E')
+			return 'E';
+		else if(carta[2] == 'O')
+			return 'O';
+	}
+	else{
+		if(carta[1] == 'P')
+			return 'P';
+		else if(carta[1] == 'C')
+			return 'C';
+		else if(carta[1] == 'E')
+			return 'E';
+		else if(carta[1] == 'O')
+			return 'O';
+	}
+	return 'X';
 }

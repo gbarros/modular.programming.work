@@ -1,24 +1,41 @@
-----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------
 	RELATÓRIO: Noemie Nakamura
-----------------------------------------------------------------------------------------------------
-Data		Horas	Tipo Tarefa		Descrição da Tarefa Realizada
-----------------------------------------------------------------------------------------------------
-09/set/13	1	Projetar		Definição dos requisitos do jogo com Gabriel.
-10/set/13	2	Especificar módulos	Definição dos módulos e suas relações com Gabriel e Leonardo (arquitetura).
-21/set/13	1,5	Especificar módulos	(Re)Definição dos módulos, suas relações e quais funções
-			Especificar funções	cada módulo deveria apresentar. Definição da interface.
-25/set/13	2	Estudar			Estudo do módulo lista, conhecimento e compreensão de suas funções com Gabriel.
-			Codificar módulo 	Início da codificação do módulo de células livres com Gabriel.
-10/out/13	1	Estudar			Estudo do uso correto do arcabouço de testes.
-11/out/13 	6	Estudar			Continuação de estudo do uso correto do arcabouço de testes.
-			Codificar módulo	(Re)Estruturação básica de diretórios e código dos programas conforme critérios.
-						Criação do arquivo LEIAME.
-12/out/13 	6	Projetar		Comunicação com membros, compartilhamento de desenvolvimento, atualização de diretórios.
-			Codificar módulo	Montagem de pseudo-código do jogo. Início desenvolvimento módulo extra/células livres.
-13/out/13	11	Revisar projetos	Revisão dos módulos e seus relacionamentos. Compreensão da estrutura de todo jogo.
-			Projetar		Definição de modelo físico e exemplo.
-			Estudar			Estudo de arquivos .comp e como funciona o Gmake.
-			Codificar módulo	Codificação de módulos .h e .c
-14/out/13   	10  	Revisar projetos    	Revisão do movimento das cartas (remove, insere) e das interfaces.
-			Estudar			Estudo de como fazer módulos de teste, como gerar os executáveis
-			Codificar módulo	Continuação da codificação de módulos .h e .c
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+Data		Horas	Tipo Tarefa				Descrição da Tarefa Realizada
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+09/set/13	1	Projetar				Definição dos requisitos do jogo com Gabriel.
+
+10/set/13	2	Especificar módulos			Definição dos módulos e suas relações com Gabriel e Leonardo (arquitetura).
+
+21/set/13	1,5	Especificar módulos			(Re)Definição dos módulos, suas relações e quais funções
+			Especificar funções			cada módulo deveria apresentar. Definição da interface.
+
+25/set/13	2	Estudar					Estudo do módulo lista, conhecimento e compreensão de suas funções com Gabriel.
+			Codificar módulo 			Início da codificação do módulo de células livres com Gabriel.
+
+10/out/13	1	Estudar					Estudo do uso correto do arcabouço de testes.
+
+11/out/13 	6	Estudar					Continuação de estudo do uso correto do arcabouço de testes.
+			Codificar módulo			(Re)Estruturação básica de diretórios e código dos programas conforme critérios.
+								Criação do arquivo LEIAME.
+12/out/13 	6	Projetar				Comunicação com membros, compartilhamento de desenvolvimento, atualização de diretórios.
+			Codificar módulo			Montagem de pseudo-código do jogo. Início desenvolvimento módulo extra/células livres.
+
+13/out/13	11	Revisar projetos			Revisão dos módulos e seus relacionamentos. Compreensão da estrutura de todo jogo.
+			Projetar				Definição de modelo físico e exemplo.
+			Estudar					Estudo de arquivos .comp e como funciona o Gmake.
+			Codificar módulo			Codificação de módulos .h e .c
+
+14/out/13   	10  	Revisar projetos    			Revisão do movimento das cartas (remove, insere) e das interfaces.
+			Estudar					Estudo de como fazer módulos de teste, como gerar os executáveis
+			Codificar módulo			Continuação da codificação de módulos .h e .c
+
+15/out/13	11	Codificar módulo			Continuação e término da codificação de módulo .c
+			Redigir script de teste			Redação do script de teste conforme padrões
+			Realizar os testes			Redação dos arquivos comp, compilação e execução do teste dos módulos
+			Diagnosticar e corrigir os problemas	Debugging dos erros dos testes		
+
+16/out/13	18	Codificar módulo			Continuação da codificação de módulos .h e .c
+			Redigir script de teste			Redação do script de teste conforme padrões
+			Realizar os testes			Redação dos arquivos comp, compilação e execução do teste dos módulos
+			Diagnosticar e corrigir os problemas	Debugging dos erros dos testes		

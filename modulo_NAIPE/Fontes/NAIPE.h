@@ -61,7 +61,7 @@ typedef enum {
 	NPE_CondRetErroAoInserir,
 	// Erro ao inserir carta na coluna
 	NPE_CondRetErroAoExibir
-	// Erro ao exibir as cartas das colunas de Extra
+	// Erro ao exibir as cartas da coluna
 } NPE_tpCondRet ;
 
 /***********************************************************************

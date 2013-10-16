@@ -32,13 +32,11 @@
 
 #include	"NAIPE.h"
 
-static const char CRIAR_COLVAZ_CMD		[ ] = "=criar"		;
-static const char VERIFICAR_INSVAZ_CMD	[ ] = "=vervaz"		;
-static const char VERIFICAR_INSCOM_CMD	[ ] = "=vercom"		;
-static const char INSERIR_COLVAZ_CMD	[ ] = "=insvaz"		;
-static const char INSERIR_COLCOM_CMD	[ ] = "=inscom"		;
-static const char EXIBIR_COL_CMD		[ ] = "=exibir"		;
-static const char DESTRUIR_COL_CMD		[ ] = "=destruir"	;
+static const char CRIAR_COL_CMD		[ ] = "=criar"		;
+static const char VERIFICAR_INS_CMD	[ ] = "=verif"		;
+static const char INSERIR_COL_CMD	[ ] = "=inserir"	;
+static const char EXIBIR_COL_CMD	[ ] = "=exibir"		;
+static const char DESTRUIR_COL_CMD	[ ] = "=destruir"	;
 
 #define DIM_VT_NPE 4
 
@@ -90,13 +88,10 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 	int  numLidos = -1 ;
     int  indexColuna = -1 ;
 	
-
 	char cartaDada[4];
 
-	TST_tpCondRet CondRet;
-
 	// Teste de NPE Criar Coluna
-	if(strcmp(ComandoTeste, CRIAR_COLVAZ_CMD) == 0){
+	if(strcmp(ComandoTeste, CRIAR_COL_CMD) == 0){
 		numLidos = LER_LerParametros("i", &indexColuna);
 
 		if((numLidos != 1) || !VerificarIndex(indexColuna))
@@ -107,8 +102,8 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 		return TST_CompararPonteiroNulo(1, colunas[indexColuna], "Retorno errado ao criar coluna.\n") ;
 	}
 
-	// Teste de NPE Verificar Inserir Carta Em Coluna Vazia
-	else if(strcmp(ComandoTeste, VERIFICAR_INSVAZ_CMD) == 0){
+	// Teste de NPE Verificar Inserir Carta Em Coluna
+	else if(strcmp(ComandoTeste, VERIFICAR_INS_CMD) == 0){
 		numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
 		if((numLidos != 3) || !VerificarIndex(indexColuna))
 			return TST_CondRetParm;
@@ -118,8 +113,8 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao verificar inserir.\n") ;
 	}
 
-	// Teste de NPE Inserir Carta Em Coluna Vazia
-	else if(strcmp(ComandoTeste, INSERIR_COLVAZ_CMD) == 0){
+	// Teste de NPE Inserir Carta Em Coluna
+	else if(strcmp(ComandoTeste, INSERIR_COL_CMD) == 0){
 		numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
 
 		if((numLidos != 3) || !VerificarIndex(indexColuna))
@@ -130,29 +125,29 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao inserir.\n");
 	}
 
-	// Teste de NPE Verificar Inserir Carta Em Coluna Com Carta
-	else if(strcmp(ComandoTeste, VERIFICAR_INSCOM_CMD) == 0){
-		numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
+	//// Teste de NPE Verificar Inserir Carta Em Coluna Com Carta
+	//else if(strcmp(ComandoTeste, VERIFICAR_INSCOM_CMD) == 0){
+	//	numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
 
-		if((numLidos != 3) || !VerificarIndex(indexColuna))
-			return TST_CondRetParm;
+	//	if((numLidos != 3) || !VerificarIndex(indexColuna))
+	//		return TST_CondRetParm;
 
-		CondRetObtida = NPE_VerificarInserirCarta(colunas[indexColuna], cartaDada);
+	//	CondRetObtida = NPE_VerificarInserirCarta(colunas[indexColuna], cartaDada);
 
-		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao verificar inserir.\n");
-	}
+	//	return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao verificar inserir.\n");
+	//}
 
-	// Teste de NPE Inserir Carta Em Coluna Com Carta
-	else if(strcmp(ComandoTeste, INSERIR_COLCOM_CMD) == 0){
-		numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
+	//// Teste de NPE Inserir Carta Em Coluna Com Carta
+	//else if(strcmp(ComandoTeste, INSERIR_COLCOM_CMD) == 0){
+	//	numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
 
-		if((numLidos != 3) || !VerificarIndex(indexColuna))
-			return TST_CondRetParm;
+	//	if((numLidos != 3) || !VerificarIndex(indexColuna))
+	//		return TST_CondRetParm;
 
-		CondRetObtida = NPE_InserirCartaEmNaipe(colunas[indexColuna], cartaDada);
+	//	CondRetObtida = NPE_InserirCartaEmNaipe(colunas[indexColuna], cartaDada);
 
-		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao inserir.\n");
-	}
+	//	return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao inserir.\n");
+	//}
 
 	// Teste de NPE Exibir Carta
 	else if(strcmp(ComandoTeste, EXIBIR_COL_CMD) == 0){

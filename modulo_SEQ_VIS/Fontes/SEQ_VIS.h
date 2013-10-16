@@ -17,7 +17,7 @@
 *
 *	$HA Histórico de evolução:
 *	Versão  Autor   Data			Observações
-*	4		lg		14/10/2013		Atualização de condições de retorno e ajustes
+*	4		lg		14/out/2013		Atualização de condições de retorno e ajustes
 *	3		nk		14/out/2013		Inclusão de cabeçalhos, assertivas, novas funções
 *	2  		lg		13/out/2013		Realização das definições
 *	1		nk		11/out/2013		Criação do módulo com suas definições
@@ -41,6 +41,7 @@
 /***** Declarações exportadas pelo módulo *****/
 
 /* Tipo referência para uma sequência visível */
+typedef char* Carta;
 typedef LIS_tppLista SV_Coluna;
 
 /***********************************************************************
@@ -54,6 +55,8 @@ typedef enum {
 	// Coluna inexistente
 	SV_CondRetCartaNaoExiste,
 	// Carta inexistente
+	SV_CondRetColunaVazia,
+	// Coluna está vazia
 	SV_CondRetNaoPodeInserir,
 	// Movimento de inserção não válido
 	SV_CondRetNaoPodeRemover,
@@ -63,7 +66,7 @@ typedef enum {
 	SV_CondRetErroAoRemover,
 	// Erro ao remover carta da coluna
 	SV_CondRetErroAoExibir
-	// Erro ao exibir as cartas das colunas de Extra
+	// Erro ao exibir as cartas da coluna
 } SV_tpCondRet;
 
 /***********************************************************************
