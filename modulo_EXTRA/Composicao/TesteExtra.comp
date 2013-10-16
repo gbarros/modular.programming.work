@@ -1,0 +1,24 @@
+# Modulo testado: Conta
+
+[Diretorios]
+
+Nome        =  TesteExtra
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+lib         =  ..\Objetos
+obj         =  ..\Objetos
+c           =  ..\Fontes
+h           =  ..\Fontes
+
+[Modulos]
+LISTA
+EXTRA
+TEST_EXT
+
+[BuildInicio]
+ArcaboucoTeste.lib
+/OUT:..\Produto\TesteExtra.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[Fim]

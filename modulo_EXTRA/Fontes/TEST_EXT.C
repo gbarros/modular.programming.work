@@ -56,9 +56,32 @@
 
 
 /***********************************************************************
+* $FC Função: TLIS &Testar lista
 *
- // Something goes here...
+* $ED Descrição da função
+* Comandos de teste específicos para testar o módulo Extra:
 *
+* Comandos disponíveis:
+*   =criar    <Coluna>
+*   - Chama a função EXT_CriarColunaExtra()
+*
+* =verificarinserir   <Coluna> <String> <CondRetEsperada>
+*   - Chama a função EXT_VerificarInserirCarta()
+*
+* =verificarremover   <Coluna> <String> <CondRetEsperada>
+*   - Chama a função EXT_VerificarRemoverCarta()
+*
+* =inserir   <Coluna> <String> <CondRetEsperada>
+*   - Chama a função EXT_InserirCartaEmExtra()
+*
+* =remover   <Coluna> <String> <CondRetEsperada>
+*   - Chama a função EXT_RemoverCartaDeExtra()
+*
+* =exibir   <Coluna> <CondRetEsperada>
+*   - Chama a função EXT_ExibirCartas()
+*
+* =excluir  <Coluna> <CondRetEsperada>
+*   - Chama a função EXT_ExcluirColunaExtra()
 ***********************************************************************/
 
    TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
@@ -69,7 +92,6 @@
       int ColunaEnviada;
       char* StringDada;
       int CondRetEsperada;
-
 
       if (strcmp(ComandoTeste,CRIAR_BAR_CMD)==0)
       {     
