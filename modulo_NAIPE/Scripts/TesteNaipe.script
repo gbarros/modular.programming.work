@@ -39,8 +39,8 @@
 =inserir	coluna0		carta1		NPE_CondRetOK	
 
 == Exibição de carta
-=exibir		coluna0		
-=exibir		coluna1		
+=exibir		coluna0		NPE_CondRetOK
+=exibir		coluna1		NPE_CondRetColunaNaoExiste
 
 == Destruir coluna
 =destruir	coluna0		NPE_CondRetOK

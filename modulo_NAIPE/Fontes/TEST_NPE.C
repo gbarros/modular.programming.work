@@ -4,8 +4,8 @@
 *	Arquivo gerado:              TEST_NPE.c
 *	Letras identificadoras:      TNPE
 *
-*	Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
-*	Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
+*	Nome da base de software:    Jogo FreeCell
+*	Arquivo da base de software: D:\AUTOTEST\PROJETOS\MODULO_NAIPE.BSW
 *
 *	Projeto: [INF 1301] Implementação do Jogo FreeCell para fins educacionais
 *	Gestor:  LES/DI/PUC-Rio
@@ -15,6 +15,7 @@
 *
 *	$HA Histórico de evolução:
 *   Versão  Autor	Data			Observações
+*	2		nk		16/out/2013		Correções, finalização do desenvolvimento
 *   1       nk		15/out/2013		Criação script, desenvolvimento
 *
 *	$ED Descrição do módulo
@@ -48,10 +49,10 @@ int VerificarIndex(int indexColuna);
 /*****  Código das funções exportadas pelo módulo  *****/
 
 /***********************************************************************
-*	$FC Função: TLIS &Testar lista
+*	$FC Função: TNPE &Testar naipe
 *
 *	$ED Descrição da função
-*	Comandos de teste específicos para testar o módulo árvore:
+*	Comandos de teste específicos para testar o módulo naipe.
 *   Podem ser criadas até 4 colunas tipo naipe.
 *   As colunas são conhecidas pelo seu índice de 0 a 3.
 *   

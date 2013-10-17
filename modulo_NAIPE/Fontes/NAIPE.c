@@ -52,27 +52,21 @@ NPE_tpCondRet NPE_DestruirColunaNaipe(NPE_Coluna coluna){
 /***********************************************************************
 *	$FC Função: NPE &Verificar Inserir Carta
 ***********************************************************************/
-
 NPE_tpCondRet NPE_VerificarInserirCarta(NPE_Coluna destino, Carta carta){
 	Carta cartaBase;
 	char naipeCarta, naipeCartaBase;
 	int valorCarta, valorCartaBase, XX;
 
-	printf("\n");
 	valorCarta = ObterValor(carta);
-	printf("Carta a inserir: %d", valorCarta);
 	naipeCarta = ObterNaipe(carta);
-	printf("%c\n", naipeCarta);
 
 	// Verifica se a carta recebida existe
 	if(carta == NULL || valorCarta == -1 || naipeCarta == 'X'){
-		printf("Carta nao existe.\n");
 		return NPE_CondRetCartaNaoExiste;
 	}
 
 	// Verifica se a coluna recebida existe
 	if(destino == NULL){
-		printf("Coluna nao existe.\n");
 		return NPE_CondRetColunaNaoExiste;
 	}
 	
@@ -80,22 +74,15 @@ NPE_tpCondRet NPE_VerificarInserirCarta(NPE_Coluna destino, Carta carta){
 	IrFinalLista(destino);
 	cartaBase = LIS_ObterValor(destino);
 	
-	printf("Carta do topo: ");
-	XX = NPE_ExibirCarta(destino);
-	printf("\n");
-
 	valorCartaBase = ObterValor(cartaBase);
 	naipeCartaBase = ObterNaipe(cartaBase);
 
 	// Se for NULL, a coluna de naipe está vazia e só recebe um A's
 	if(cartaBase == NULL){
-		printf("CartaBase is NULL.\n");
 		if(ObterValor(carta) != 1){
-			printf("Nao pode inserir.\n");
 			return NPE_CondRetNaoPodeInserir;
 		}
 		else{
-			printf("Pode inserir.\n");
 			return NPE_CondRetOK;
 		}
 	}
@@ -108,16 +95,13 @@ NPE_tpCondRet NPE_VerificarInserirCarta(NPE_Coluna destino, Carta carta){
 	else{
 		// Se a carta base já for a última na ordem (K), não pode inserir
 		if(valorCartaBase == 13){
-			printf("Naipe já está completo.\n");
 			return NPE_CondRetNaoPodeInserir;
 		}
 		
 		if(valorCarta == (valorCartaBase + 1)){
-			printf("Pode inserir.\n");
 			return NPE_CondRetOK;
 		}
 		else{
-			printf("Nao pode inserir.\n");
 			return NPE_CondRetNaoPodeInserir;
 		}
 	}
@@ -126,27 +110,20 @@ NPE_tpCondRet NPE_VerificarInserirCarta(NPE_Coluna destino, Carta carta){
 /***********************************************************************
 *	$FC Função: NPE &Inserir Cartas Em Extra
 ***********************************************************************/
-
 NPE_tpCondRet NPE_InserirCartaEmNaipe(NPE_Coluna destino, Carta carta){
 	NPE_tpCondRet condRet = NPE_CondRetErroAoInserir;
 	
 	if(NPE_VerificarInserirCarta(destino, carta) != NPE_CondRetOK){
-		printf("NAO PODE INSERIR, MEU FILHO!\n");
 		return NPE_CondRetErroAoInserir;
 	}
 	
 	IrFinalLista(destino);
 	condRet = LIS_InserirElementoApos(destino, carta);
-	if(strcmp(LIS_ObterValor(destino), carta) == 0){
-		printf("A nova carta base: %s\n", carta);
-	}
 
 	if(condRet == NPE_CondRetOK){
-		printf("Inserimos com sucesso!\n");
 		return NPE_CondRetOK;
 	}
 	else{
-		printf("FAIL!\n");
 		return NPE_CondRetErroAoInserir;
 	}
 }
