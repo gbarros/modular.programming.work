@@ -38,8 +38,6 @@
 #define TAMANHOSTRING 180
 
 
-//EMB_tpCondRet EMB_embaralha(char bar[53][4]);
-
 static void EMB_ConverteBaralhoStringChar (char String[], char baralho[QTD][TAMANHO]){
    int i=0;
    char *pnome;
@@ -80,9 +78,6 @@ static EMB_tpCondRet EMB_BarReferencia (char baralho [QTD][TAMANHO]){
      		fclose (pFile);
              return EMB_CondRetErroNaReferencia;
         }
-
-
-
 	}
 
 EMB_tpCondRet EMB_Embaralha(char bar[QTD][TAMANHO]){
