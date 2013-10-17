@@ -77,16 +77,19 @@ SV_tpCondRet SV_VerificarInserirCarta(SV_Coluna destino, Carta carta){
 	// Se já tiver uma carta, comparar valores e cores
 	
 	// Se as cores forem iguais, não pode inserir
-	if(ObterCor(carta) == ObterCor(cartaBase))
+	if(ObterCor(carta) == ObterCor(cartaBase)){
 		return SV_CondRetNaoPodeInserir;
+	}
 	else{
 		// Se a carta base já for um A's, não pode inserir
-		if(ObterValor(cartaBase) == 1)
+		if(ObterValor(cartaBase) == 1){
 			return SV_CondRetNaoPodeInserir;
+		}
 		// Se a carta a inserir não for antecessora à carta base em numeral,
 		// não pode inserir
-		else if(ObterValor(carta) != (ObterValor(cartaBase) + 1))
+		else if(ObterValor(cartaBase) != (ObterValor(carta) + 1)){
 			return SV_CondRetNaoPodeInserir;
+		}
 		else
 			return SV_CondRetOK;
 	}
@@ -114,21 +117,38 @@ SV_tpCondRet SV_VerificarRemoverCarta(SV_Coluna origem, Carta carta){
 		return SV_CondRetColunaVazia;
 
 	// Verifica se a carta recebida pertence à coluna
+	IrInicioLista(origem);
 	resBusca = LIS_ProcurarValor(origem, carta);
-	if(resBusca == LIS_CondRetNaoAchou || resBusca == LIS_CondRetListaVazia){
-		return SV_CondRetCartaNaoExiste;
-	}
 
+
+
+	if(resBusca == LIS_CondRetNaoAchou || resBusca == LIS_CondRetListaVazia){
+		return SV_CondRetNaoPodeRemover;
+	}
+	if(LIS_AvancarElementoCorrente(origem, 1)==LIS_CondRetFimLista)
+	{
+		return SV_CondRetOK;
+	}
+ 	LIS_AvancarElementoCorrente(origem, -1);//retornando para o elemento correto
 	// Dado que uma carta válida foi encontrada, só é possível removê-la se
 	// todas as cartas debaixo podem também ser removidas
+	cartaCorr = LIS_ObterValor(origem);
 	while(resAvanco != LIS_CondRetFimLista){
+
 		resAvanco = LIS_AvancarElementoCorrente(origem, 1);
-		cartaCorr = LIS_ObterValor(origem);
-		
-		if((ObterValor(cartaCorr) == (ObterValor(cartaCopia) - 1)) && (ObterCor(cartaCorr) != ObterCor(cartaCopia)))
-			cartaCopia = cartaCorr;
-		else
+
+		cartaCopia = LIS_ObterValor(origem);
+
+
+		if((ObterValor(cartaCopia) == (ObterValor(cartaCorr) - 1)) && (ObterCor(cartaCorr) != ObterCor(cartaCopia)))
+			cartaCorr=cartaCopia;
+		else if (strcmp(cartaCorr,cartaCopia)==0){
+			return SV_CondRetOK;
+		}
+		else{
 			return SV_CondRetNaoPodeRemover;
+
+		}
 	}
 	return SV_CondRetOK;
 	
@@ -139,7 +159,6 @@ SV_tpCondRet SV_VerificarRemoverCarta(SV_Coluna origem, Carta carta){
 ***************************************************************************/
 SV_tpCondRet SV_InserirCartaEmSeqVis(SV_Coluna destino, Carta carta){
 	SV_tpCondRet condRet = SV_CondRetErroAoInserir;
-	
 	if(SV_VerificarInserirCarta(destino, carta) != SV_CondRetOK){
 		return SV_CondRetErroAoInserir;
 	}
@@ -150,8 +169,10 @@ SV_tpCondRet SV_InserirCartaEmSeqVis(SV_Coluna destino, Carta carta){
 	if(condRet == SV_CondRetOK){
 		return SV_CondRetOK;
 	}
-	else
+	else{
+
 		return SV_CondRetErroAoInserir;
+	}
 }
 
 /***************************************************************************
@@ -216,7 +237,6 @@ SV_tpCondRet SV_ExibirCartas(SV_Coluna coluna){
 	IrInicioLista(coluna);
 	while(resAvanco != LIS_CondRetFimLista){
 		carta = LIS_ObterValor(coluna);
-		printf("%s\t", carta);
 		resAvanco = LIS_AvancarElementoCorrente(coluna, 1);
 	}
 	return SV_CondRetOK;

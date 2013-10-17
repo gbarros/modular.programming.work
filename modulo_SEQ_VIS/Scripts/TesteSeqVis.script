@@ -28,6 +28,7 @@
 =declararparm	carta5		string	"AC"
 =declararparm	carta6		string	"10C"
 =declararparm	carta7		string	"AO"
+=declararparm	carta8		string	"0"
 
 == Criar coluna tipo sequência visível
 =criar		coluna0		SV_CondRetOK
@@ -40,7 +41,7 @@
 =popul		coluna0		carta2		SV_CondRetOK
 =popul		coluna0		carta3		SV_CondRetOK
 =popul		coluna2		carta7		SV_CondRetOK
-=popul		coluna0		carta9		SV_CondRetCartaNaoExiste
+=popul		coluna0		carta8		SV_CondRetCartaNaoExiste
 =popul		coluna3		carta0		SV_CondRetColunaNaoExiste
 
 == Verificar inserção de carta
@@ -50,34 +51,34 @@
 =verins		coluna2		carta1		SV_CondRetNaoPodeInserir
 =verins		coluna1		carta6		SV_CondRetOK
 =verins		coluna0		carta6		SV_CondRetNaoPodeInserir
-=verins		coluna0		carta4		SV_CondRetOK
+
 
 == Verificar remoção de carta
 =verrem		coluna0		"8F"		SV_CondRetCartaNaoExiste
 =verrem		coluna3		carta0		SV_CondRetColunaNaoExiste
 =verrem		coluna1		carta0		SV_CondRetColunaVazia
-=verrem		coluna0		carta6		SV_CondRetCartaNaoExiste
+=verrem		coluna0		carta6		SV_CondRetNaoPodeRemover
 =verrem		coluna0		carta0		SV_CondRetNaoPodeRemover
 =verrem		coluna2		carta7		SV_CondRetOK
 =verrem		coluna0		carta1		SV_CondRetOK
 
 == Inserir carta em coluna
-=verins		coluna0		"8F"		SV_CondRetErroAoInserir
-=verins		coluna3		carta0		SV_CondRetErroAoInserir
-=verins		coluna0		carta5		SV_CondRetErroAoInserir
-=verins		coluna2		carta1		SV_CondRetErroAoInserir
-=verins		coluna1		carta6		SV_CondRetOK
-=verins		coluna0		carta6		SV_CondRetErroAoInserir
-=verins		coluna0		carta4		SV_CondRetOK
+=inserir		coluna0		"8F"		SV_CondRetErroAoInserir
+=inserir		coluna3		carta0		SV_CondRetErroAoInserir
+=inserir		coluna0		carta5		SV_CondRetErroAoInserir
+=inserir		coluna2		carta1		SV_CondRetErroAoInserir
+=inserir		coluna1		carta6		SV_CondRetOK
+=inserir		coluna0		carta6		SV_CondRetErroAoInserir
+=inserir		coluna0		carta4		SV_CondRetOK
 
 == Remover carta de coluna
-=verrem		coluna0		"8F"		SV_CondRetErroAoRemover
-=verrem		coluna3		carta0		SV_CondRetErroAoRemover
-=verrem		coluna1		carta0		SV_CondRetErroAoRemover
-=verrem		coluna0		carta6		SV_CondRetErroAoRemover
-=verrem		coluna0		carta0		SV_CondRetErroAoRemover
-=verrem		coluna2		carta7		SV_CondRetOK
-=verrem		coluna0		carta1		SV_CondRetOK
+=remover		coluna0		"8F"		SV_CondRetErroAoRemover
+=remover		coluna3		carta0		SV_CondRetErroAoRemover
+=remover		coluna1		carta0		SV_CondRetErroAoRemover
+=remover		coluna0		carta6		SV_CondRetErroAoRemover
+=remover		coluna0		carta0		SV_CondRetErroAoRemover
+=remover		coluna2		carta7		SV_CondRetOK
+=remover		coluna0		carta1		SV_CondRetOK
 
 == Exibição de carta
 =exibir		coluna0		SV_CondRetOK	

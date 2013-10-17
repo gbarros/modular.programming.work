@@ -142,12 +142,26 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 		if (CarregaStringDada(cartaDada)==TST_CondRetMemoria){
             return TST_CondRetMemoria;
           }
-
+	
 		CondRetObtida = SV_VerificarRemoverCarta(colunas[indexColuna], cartasRecebidas[indexCarta]);
 
-		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao verificar inserir.\n") ;
+		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao verificar remover.\n") ;
 	}
 
+	else if(strcmp(ComandoTeste, REMOVER_COL_CMD) == 0){
+		numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
+
+		if((numLidos != 3) || !VerificarIndex(indexColuna))
+			return TST_CondRetParm;
+
+		if (CarregaStringDada(cartaDada)==TST_CondRetMemoria){
+            return TST_CondRetMemoria;
+          }
+
+		CondRetObtida = SV_RemoverCartaDeSeqVis(colunas[indexColuna], cartasRecebidas[indexCarta]);
+
+		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao verificar remover.\n") ;
+	}
 	// Teste de SV Inserir Carta Em Coluna
 	else if(strcmp(ComandoTeste, INSERIR_COL_CMD) == 0){
 		numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
@@ -177,7 +191,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 	}
 
 	// Teste de SV Excluir Coluna
-	else if(strcmp(ComandoTeste, EXIBIR_COL_CMD) == 0){
+	else if(strcmp(ComandoTeste, DESTRUIR_COL_CMD) == 0){
 		numLidos = LER_LerParametros("ii", &indexColuna, &CondRetEsperada);
 
 		if((numLidos != 2) || !VerificarIndex(indexColuna))
@@ -217,7 +231,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 *     1 - inxArvore vale
 ***********************************************************************/
 int VerificarIndex(int indexColuna){
-	if((indexColuna < 0) || (indexColuna)){
+	if((indexColuna < 0) || (indexColuna > DIM_VT_SV)){
 		return 0;
 	}
 	return 1 ;
@@ -226,7 +240,7 @@ int VerificarIndex(int indexColuna){
 TST_tpCondRet CarregaStringDada( char * String){
    int i, entrou=1;
 
-     for(i=0;i<52;i++){
+     for(i=0;i<QTD_SV;i++){
 
            if (strcmp(String,cartasRecebidas[i])==0){
              indexCarta=i;
@@ -235,8 +249,8 @@ TST_tpCondRet CarregaStringDada( char * String){
            }
         }
         if(entrou){ //Se não entrou no ultimo if
-          for(i=0;i<52 && ( strlen(cartasRecebidas[i]) );i++);
-            if(i==52){
+          for(i=0;i<QTD_SV && ( strlen(cartasRecebidas[i]) );i++);
+            if(i==QTD_SV){
               printf("Acabou a memória do vetor auxilar do modulo controlador de teste");
               return TST_CondRetMemoria;
             }

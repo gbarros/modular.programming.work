@@ -1,0 +1,24 @@
+# Modulo testado: Conta
+
+[Diretorios]
+
+Nome        =  TesteSeqVis
+PathDefault =  ..\Fontes
+err         =  ..\Produto
+lib         =  ..\Objetos
+obj         =  ..\Objetos
+c           =  ..\Fontes
+h           =  ..\Fontes
+
+[Modulos]
+LISTA
+SEQ_VIS
+TEST_SV
+
+[BuildInicio]
+ArcaboucoTeste.lib
+/OUT:..\Produto\TesteSeqVis.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+
+[Fim]
