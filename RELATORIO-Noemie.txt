@@ -38,4 +38,6 @@ Data		Horas	Tipo Tarefa				Descrição da Tarefa Realizada
 16/out/13	18	Codificar módulo			Continuação da codificação de módulos .h e .c
 			Redigir script de teste			Redação do script de teste conforme padrões
 			Realizar os testes			Redação dos arquivos comp, compilação e execução do teste dos módulos
-			Diagnosticar e corrigir os problemas	Debugging dos erros dos testes		
+			Diagnosticar e corrigir os problemas	Debugging dos erros dos testes
+
+17/out/13	5	Diagnosticar e corrigir os problemas	Debugging dos erros dos testes, últimas organizações de arquivos e diretórios					
