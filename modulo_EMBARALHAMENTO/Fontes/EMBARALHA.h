@@ -22,6 +22,7 @@
 *	2		nk		14/out/2013		Inclusão de funções, cabeçalhos, correções
 *	3		lg		14/out/2013		Ajuste condições de retorno
 *	4		gb		15/out/2013     Implementação do código
+*	5 		lg 		16/out/2013		Ajuste das condições de retorno e cabeçalhos
 *
 *	$ED Descrição do módulo
 *	Recebe uma sequência representando baralho ordenado e retorna esta sequência
@@ -53,10 +54,11 @@ typedef enum {
 	EMB_CondRetErroNoEmbaralhamento,
 	// Erro na função de embaralhamento 
 	EMB_CondRetErroNaReferencia,
+	// Erro no caminho para o baralho de referência
 } EMB_tpCondRet ;
 
 /***********************************************************************
-*	$FC Função: EMB
+*	$FC Função: EMB_Embaralha
 *
 *	$ED Descrição da função
 *	Recebe um baralho completo (52 cartas, 4 naipes) ordenado e o embaralha.
@@ -67,6 +69,10 @@ typedef enum {
 *	$FV Valor retornado
 *	EMB_CondRetOK - Conseguiu embaralhar.
 *	EMB_CondRetBaralhoInvalido - Recebeu um baralho inválido e não embaralhou.
+* 	EMB_CondRetErroNoEmbaralhamento - Deu erro na função que executa o
+*	embaralhamento.
+*	EMB_CondRetErroNaReferencia - O caminho para o baralho de referência está
+*	errado.
 *
 *	Assertivas
 *	Entrada - O baralho deve ser um baralho válido, isto é, completo e
