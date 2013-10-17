@@ -260,7 +260,7 @@ SV_tpCondRet SV_PopularSeqVis(SV_Coluna destino, Carta carta);
 *	na coluna escolhida na ordem em que estão dispostas.
 ***********************************************************************/
 
-SV_CondRet SV_ExibirCartas(EXT_Coluna coluna);
+SV_tpCondRet SV_ExibirCartas(SV_Coluna coluna);
 
 #undef SEQ_VIS_EXT
 

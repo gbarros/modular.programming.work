@@ -29,10 +29,10 @@
 =declararparm	carta6		string	"10C"
 =declararparm	carta7		string	"AO"
 
-== Criar coluna tipo naipe
-=criar		coluna0
-=criar		coluna1
-=criar		coluna2
+== Criar coluna tipo sequência visível
+=criar		coluna0		SV_CondRetOK
+=criar		coluna1		SV_CondRetOK
+=criar		coluna2		SV_CondRetOK
 
 == Popular colunas com cartas quaisquer
 =popul		coluna0		carta0		SV_CondRetOK

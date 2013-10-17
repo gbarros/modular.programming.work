@@ -32,7 +32,6 @@
 static int ObterValor(Carta carta);
 static char ObterNaipe(Carta carta);
 static char REF []= " "; //Referencia para espaço vazio
-static char REF2 []= "80A"; //Referencia para espaço vazio
 
 
 /***************************************************************************
