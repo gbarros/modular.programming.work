@@ -54,6 +54,8 @@ static const char EXIBIR_BAR_CMD              [ ] = "=exibir";
 
 
 #define DIM_VT_EXT 5
+#define QTD_EXT 52
+#define TAMANHO 4
 
 /***** Protótipos das funções encapsuladas no módulo *****/
 
@@ -92,7 +94,7 @@ TST_tpCondRet CarregaStringDada( char * String);
 ***********************************************************************/
 
 static EXT_Coluna coluna[DIM_VT_EXT] ;
-static char cartasRecebidas[52][4];
+static char cartasRecebidas[QTD_EXT][TAMANHO];
 static int indexCarta=0;
 
    TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
