@@ -1,0 +1,87 @@
+// Script:	TExtra.script
+// Autor:	Leonardo Giroto, Gabriel Barros e Noemie Nakamura
+// Data:	15/out/2013
+// Propósito: 	Testar o módulo Extra
+
+
+== Inicializa Valores
+=declararparm	coluna0		int 0
+=declararparm	coluna1		int 1
+=declararparm	coluna2		int 2
+
+
+=declararparm	carta0		string	"AP"
+=declararparm	carta1		string	"2O"
+=declararparm	carta2		string	"3E"
+=declararparm	carta3		string	"5P"
+=declararparm	carta4		string	"8E"
+=declararparm	carta5		string	"7F"
+=declararparm	carta6		string   "0"
+=declararparm	carta7		string  "7P"
+
+== Declarar condições de retorno
+=declararparm	EXT_CondRetOK						int 0
+=declararparm	EXT_CondRetColunaInexistente		int 1
+=declararparm	EXT_CondRetNaoPodeInserir			int 2
+=declararparm	EXT_CondRetNaoPodeRemover			int 3
+=declararparm	EXT_CondRetCartaInvalida			int 4
+=declararparm	EXT_CondRetErroRemocao				int 5
+
+==Teste de Extra Para Criar Coluna
+=criar  	coluna0			EXT_CondRetOK
+=criar 		coluna1			EXT_CondRetOK
+
+== Teste de Extra ao Inserir em Coluna Inválida
+=inserir 	coluna2		carta0 		EXT_CondRetColunaInexistente
+
+== Teste de Extra ao Inserir Carta Inválida
+=inserir 	coluna0 	carta6 		EXT_CondRetCartaInvalida
+
+
+== Teste de Extra ao Inserir Coluna Completa (4)
+=inserir	coluna0		carta0		EXT_CondRetOK
+=inserir 	coluna0		carta1		EXT_CondRetOK
+=inserir 	coluna0		carta2		EXT_CondRetOK
+=inserir 	coluna0		carta3		EXT_CondRetOK
+=inserir 	coluna0		carta4		EXT_CondRetNaoPodeInserir
+=inserir 	coluna0		carta7		EXT_CondRetNaoPodeInserir
+
+== Teste de Extra para Verificar Inserir; Coluna com 4 cartas
+=verificarinserir	coluna0 	carta0 		EXT_CondRetNaoPodeInserir
+=verificarinserir	coluna1 	carta0 		EXT_CondRetOK
+=verificarinserir	coluna2 	carta0 		EXT_CondRetColunaInexistente
+
+
+== Teste de Extra para Verificar Remover; Coluna com 4 cartas
+=verificarremover	coluna0 	carta0		EXT_CondRetOK
+=verificarremover 	coluna0		carta1		EXT_CondRetOK
+=verificarremover 	coluna0		carta2		EXT_CondRetOK
+=verificarremover 	coluna0		carta3		EXT_CondRetOK
+=verificarremover	coluna0 	carta4 		EXT_CondRetNaoPodeRemover
+
+== Teste de Extra para Remover; Coluna com 4 cartas
+
+=remover	coluna0 	carta0		EXT_CondRetOK
+=remover	coluna0 	carta0		EXT_CondRetErroRemocao
+=remover 	coluna0		carta1		EXT_CondRetOK
+=remover 	coluna0		carta2		EXT_CondRetOK
+=remover 	coluna0		carta3		EXT_CondRetOK
+=remover	coluna0 	carta4 		EXT_CondRetErroRemocao
+
+== Teste de Extra para Remover de Coluna Inexistente
+
+=remover	coluna2		carta0 		EXT_CondRetColunaInexistente
+
+== Teste de Extra para Remover Carta Invalida
+=remover	coluna0 	carta6		EXT_CondRetCartaInvalida
+
+
+== Teste de Exibição dos Valores
+=exibir		coluna0		EXT_CondRetOK
+=exibir		coluna1		EXT_CondRetOK
+=exibir		coluna2		EXT_CondRetColunaInexistente
+
+== Teste de Extra Para Excluir Coluna
+=excluir	coluna0 	EXT_CondRetOK
+=excluir 	coluna1		EXT_CondRetOK
+=excluir 	coluna2		EXT_CondRetColunaInexistente

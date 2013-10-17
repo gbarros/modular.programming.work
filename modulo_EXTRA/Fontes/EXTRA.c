@@ -20,6 +20,7 @@
 *	3		nk		14/out/2013		Correção de nomenclatura, novas funções
 *	4		lg		14/out/2013		Desenvolvimento
 *	5		lg		15/out/2013		Desenvolvimento
+*   6       gb      16/out/2013     Desenvolvimento
 *    
 ***************************************************************************/
 #define EXTRA_OWN
@@ -27,6 +28,12 @@
 #include <stdio.h>
 #include <string.h>
 #undef EXTRA_OWN
+
+static int ObterValor(Carta carta);
+static char ObterNaipe(Carta carta);
+static char REF []= " "; //Referencia para espaço vazio
+static char REF2 []= "80A"; //Referencia para espaço vazio
+
 
 /***************************************************************************
 *  Função: EXT  &Criar Coluna
@@ -47,9 +54,12 @@ EXT_Coluna EXT_CriarColunaExtra(void)
 
 	for(i=0;i<4;i++)
 	{
-		retornoCriaLista = LIS_InserirElementoApos(extraHead,NULL);
-		if(retornoCriaLista != LIS_CondRetOK)
+		retornoCriaLista = LIS_InserirElementoApos(extraHead,REF);
+		if(retornoCriaLista != LIS_CondRetOK){
+			LIS_DestruirLista(extraHead);
 			return NULL;
+
+		}
 	}
 
 	return extraHead;
@@ -62,13 +72,10 @@ EXT_Coluna EXT_CriarColunaExtra(void)
 
 EXT_tpCondRet EXT_ExcluirColunaExtra(EXT_Coluna coluna)
 {
-	if(LIS_ObterValor(coluna)==NULL)
+	if(coluna==NULL)
 		return EXT_CondRetColunaInexistente;
 
 	LIS_DestruirLista(coluna);
-
-	if(coluna != NULL)
-		return EXT_CondRetColunaNaoFoiDestruida;
 
 	return EXT_CondRetOK;
 }
@@ -79,22 +86,26 @@ EXT_tpCondRet EXT_ExcluirColunaExtra(EXT_Coluna coluna)
 
 EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta)
 {
-	int i;
+	int i=4;
+	static int CONTA=0;
 
-	if(LIS_ObterValor(destino) == NULL)
+	if(destino == NULL)
 		return EXT_CondRetColunaInexistente;
-
-	if(carta == NULL)
+	// verifica se a carta é válida
+	if(carta == NULL || (ObterValor(carta)== -1)|| (ObterNaipe(carta)=='X') )
 		return EXT_CondRetCartaInvalida;
 
-	IrInicioLista(destino);
+	IrFinalLista(destino);
 
-	for(i=0;i<4;i++)
+	while(i)
 	{
-		if(LIS_ObterValor(destino)==0) //vê se há elemento na posição
+		if(LIS_ObterValor(destino)==REF){ //vê se não há elemento na posição
+			printf("\n ABSSSSSS    |%s|  %d  &   %d \n", LIS_ObterValor(destino),i, CONTA++ );
 			return EXT_CondRetOK;
+		}
 		else
-			LIS_AvancarElementoCorrente(destino,1); //vê próximo elemento da lista
+			LIS_AvancarElementoCorrente(destino,-1); //vê próximo elemento da lista
+		i--;
 	}
 
 	return EXT_CondRetNaoPodeInserir;
@@ -108,18 +119,28 @@ EXT_tpCondRet EXT_VerificarRemoverCarta(EXT_Coluna origem, Carta carta)
 {
 	LIS_tpCondRet retornoVerificaRemover;
 
-	if(LIS_ObterValor(origem) == NULL)
+	if(origem== NULL)
 		return EXT_CondRetColunaInexistente; // verifica se a coluna existe
 
-	if(carta == NULL)
-		return EXT_CondRetCartaInvalida; // verifica se a carta é válida
+	// verifica se a carta é válida
+	if(carta == NULL || (ObterValor(carta)== -1)|| (ObterNaipe(carta)=='X'))
+
+		return EXT_CondRetCartaInvalida; 
+
+	  IrInicioLista(origem);
 
 	retornoVerificaRemover = LIS_ProcurarValor(origem,carta); // procura a carta na coluna
 
+	printf("\n\n retornoVerificaRemover: %d  ", retornoVerificaRemover);
+
 	if(retornoVerificaRemover == LIS_CondRetNaoAchou)
-		return EXT_CondRetCartaInvalida; // se a carta não estiver na coluna
+
+		return EXT_CondRetNaoPodeRemover; // se a carta não estiver na coluna
+
 	else if(retornoVerificaRemover == LIS_CondRetListaVazia)
-		return EXT_CondRetColunaVazia; // se a coluna estiver vazia
+
+		return EXT_CondRetNaoPodeRemover; // se a coluna estiver vazia
+
 	else
 		return EXT_CondRetOK;
 
@@ -133,25 +154,40 @@ EXT_tpCondRet EXT_InserirCartaEmExtra(EXT_Coluna destino, Carta carta)
 {
 	LIS_tpCondRet retornoInserir;
 	EXT_tpCondRet possivelInserir;
-
-	if(LIS_ObterValor(destino) == NULL)
+	printf("\n ENDERECO: %x  \n",destino );
+	if(destino == NULL){
 		return EXT_CondRetColunaInexistente; // verifica se a coluna existe
-
-	if(carta == NULL)
-		return EXT_CondRetCartaInvalida; // verifica se a carta é válida
-
-	possivelInserir = EXT_VerificarInserirCarta(destino,carta); // chama função para verificar se a inserção é possível
-
-	if(possivelInserir == EXT_CondRetOK) // se a inserção for possível
-	{
-		IrFinalLista(destino); //torna elemento corrente o ultimo elemento
-		retornoInserir = LIS_InserirElementoApos(destino,carta); // insere após o elemento corrente
 	}
+  else{
+		if(carta == NULL || (ObterValor(carta)== -1)|| (ObterNaipe(carta)=='X')){
 
-	if(retornoInserir == LIS_CondRetOK)
-		return EXT_CondRetOK;
+			return EXT_CondRetCartaInvalida; // verifica se a carta é válida
+		}
+		else{
+			possivelInserir = EXT_VerificarInserirCarta(destino,carta); // chama função para verificar se a inserção é possível
 
-	return EXT_CondRetErroInsercao;
+			printf("\n Possivel? %d \n ", possivelInserir);
+
+			if(possivelInserir == EXT_CondRetOK) // se a inserção for possível
+			{
+				IrFinalLista(destino); //torna elemento corrente o ultimo elemento
+				printf ("\n\n\n EU SOU A CARTA DA VEZ: %s \n",carta);
+
+				retornoInserir = LIS_InserirElementoApos(destino,carta); // insere após o elemento corrente
+
+				if(retornoInserir == LIS_CondRetOK)
+					return EXT_CondRetOK;
+				else
+					EXT_CondRetNaoPodeInserir;
+			}
+			else{
+
+				return EXT_CondRetNaoPodeInserir;
+
+			}
+		}
+	}
+	return EXT_CondRetNaoPodeInserir;
 }
 
 /***************************************************************************
@@ -160,29 +196,42 @@ EXT_tpCondRet EXT_InserirCartaEmExtra(EXT_Coluna destino, Carta carta)
 
 EXT_tpCondRet EXT_RemoverCartaDeExtra(EXT_Coluna origem, Carta carta)
 {
-	LIS_tpCondRet retornoRemover;
+	LIS_tpCondRet retornoRemover,
+				  retornoInserir;
 	EXT_tpCondRet possivelRemover;
-
-	if(LIS_ObterValor(origem) == NULL)
+	printf("\n ENDERECO: %x  \n",origem );
+	if(origem== NULL){
 		return EXT_CondRetColunaInexistente; // verifica se a coluna existe
-
-	if(carta == NULL)
-		return EXT_CondRetCartaInvalida; // verifica se a carta é válida
-
-	possivelRemover = EXT_VerificarRemoverCarta(origem,carta); // chama função que vê se é possível remover
-
-	if(possivelRemover == EXT_CondRetOK) // se a Remocao for possível
-		retornoRemover = LIS_ExcluirElemento(origem); // se estiver, exclui a carta da coluna
-
-	if(retornoRemover == LIS_CondRetOK)
-	{
-		retornoRemover = LIS_InserirElementoApos(origem,NULL);
-		if(retornoRemover == LIS_CondRetOK)
-			return EXT_CondRetOK;
 	}
+	else{
+		if(carta == NULL || (ObterValor(carta)== -1)|| (ObterNaipe(carta)=='X')){
 
-	return EXT_CondRetErroRemocao;
+			return EXT_CondRetCartaInvalida; // verifica se a carta é válida
+		}
+		else{
+			//possivelRemover = ; // chama função que vê se é possível remover
+			possivelRemover=EXT_VerificarRemoverCarta(origem,carta);
+			printf("\n\n\n Passei %d\n",possivelRemover);
+			if(possivelRemover == EXT_CondRetOK) {   // se a Remocao for possível
+				retornoRemover = LIS_ExcluirElemento(origem); // se estiver, exclui a carta da coluna
 
+				printf("\n\n\n\n\nAqui deu o erro  %d", retornoRemover);
+
+				if(retornoRemover == LIS_CondRetOK)
+				{
+					retornoInserir = LIS_InserirElementoApos(origem,REF);
+					if(retornoInserir == LIS_CondRetOK)
+						return EXT_CondRetOK;
+					else
+						return EXT_CondRetErroRemocao;
+				}
+				else
+					return EXT_CondRetErroRemocao;
+			}
+			else
+				return EXT_CondRetErroRemocao;
+		}
+	}	
 }
 
 /***************************************************************************
@@ -192,14 +241,13 @@ EXT_tpCondRet EXT_RemoverCartaDeExtra(EXT_Coluna origem, Carta carta)
 EXT_tpCondRet EXT_ExibirCartas(EXT_Coluna coluna)
 {
 	int i;
-	LIS_tpCondRet andar;
+	LIS_tpCondRet avancarCondRet;
 	char *valor;
 
-	if(LIS_ObterValor(coluna) == NULL)
+	if(coluna == NULL)
 		return EXT_CondRetColunaInexistente; // verifica se a coluna existe
-
-	IrInicioLista(coluna); // garantir que pegaremos os valores desde o início
-
+	IrFinalLista(coluna); // garantir que pegaremos os valores desde o início
+	printf("\n\nExtra:   \n");
 	for(i=0;i<4;i++)
 	{
 		valor = LIS_ObterValor(coluna);
@@ -207,18 +255,75 @@ EXT_tpCondRet EXT_ExibirCartas(EXT_Coluna coluna)
 		if(valor == NULL)
 			break;
 		
-		printf("%s ",valor);
+		printf("[ |%s| ] ",valor);
 
-		andar = LIS_AvancarElementoCorrente(coluna,1);
+		avancarCondRet = LIS_AvancarElementoCorrente(coluna,-1);
+		if (avancarCondRet == LIS_CondRetFimLista)
+			break;
 	}
 
 	printf("\n");
-
 	return EXT_CondRetOK;
 }
 
-int main()
-{
-	return 0;
+static int ObterValor(Carta carta){
+	if(carta == NULL)
+		return -1;
+	
+	if(carta[0] == 'A')
+		return 1;
+	else if(carta[0] == '2')
+		return 2;
+	else if(carta[0] == '3')
+		return 3;
+	else if(carta[0] == '4')
+		return 4;
+	else if(carta[0] == '5')
+		return 5;
+	else if(carta[0] == '6')
+		return 6;
+	else if(carta[0] == '7')
+		return 7;
+	else if(carta[0] == '8')
+		return 8;
+	else if(carta[0] == '9')
+		return 9;
+	else if(carta[0] == '1')
+		return 10;
+	else if(carta[0] == 'J')
+		return 11;
+	else if(carta[0] == 'Q')
+		return 12;
+	else if(carta[0] == 'K')
+		return 13;
+	else
+		return -1;
 }
+static char ObterNaipe(Carta carta){
+	int val = ObterValor(carta);
+	
+	if(val == -1)
+		return 'X';
 
+	if(val == 10){
+		if(carta[2] == 'P')
+			return 'P';
+		else if(carta[2] == 'C')
+			return 'C';
+		else if(carta[2] == 'E')
+			return 'E';
+		else if(carta[2] == 'O')
+			return 'O';
+	}
+	else{
+		if(carta[1] == 'P')
+			return 'P';
+		else if(carta[1] == 'C')
+			return 'C';
+		else if(carta[1] == 'E')
+			return 'E';
+		else if(carta[1] == 'O')
+			return 'O';
+	}
+	return 'X';
+}

@@ -12,8 +12,9 @@
 *  Autores: Gabriel Barros, Noemie Nakamura e Leonardo Giroto
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
-*       1      LG   15/10/2013  Início do desenvolvimento
+*       3      GB   16/10/2013  Desenvolvimento e verificação de corretude
 *       2      LG   16/10/2013  Desenvolvimento
+*       1      LG   15/10/2013  Início do desenvolvimento
 *
 *  $ED Descrição do módulo
 *     Este módulo contém as funções específicas para o teste do
@@ -43,20 +44,21 @@
 #include    "EXTRA.h"
 
 /* Tabela dos nomes dos comandos de teste específicos */
+static const char CRIAR_BAR_CMD               [ ] = "=criar";
+static const char EXCLUIR_BAR_CMD             [ ] = "=excluir";
+static const char VERIFICARINSERIR_BAR_CMD    [ ] = "=verificarinserir";
+static const char VERIFICARREMOVER_BAR_CMD    [ ] = "=verificarremover";
+static const char INSERIR_BAR_CMD             [ ] = "=inserir";
+static const char REMOVER_BAR_CMD             [ ] = "=remover";
+static const char EXIBIR_BAR_CMD              [ ] = "=exibir";
 
-#define     CRIAR_BAR_CMD                 "=criar"
-#define     EXCLUIR_BAR_CMD               "=excluir"
-#define     VERIFICARINSERIR_BAR_CMD      "=verificarinserir"
-#define     VERIFICARREMOVER_BAR_CMD      "=verificarremover"
-#define     INSERIR_BAR_CMD               "=inserir"
-#define     REMOVER_BAR_CMD               "=remover"
-#define     EXIBIR_BAR_CMD                "=exibir"
 
 #define DIM_VT_EXT 5
 
 /***** Protótipos das funções encapsuladas no módulo *****/
 
 int VerificarIndex(int indexColuna);
+TST_tpCondRet CarregaStringDada( char * String);
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -67,7 +69,7 @@ int VerificarIndex(int indexColuna);
 * Comandos de teste específicos para testar o módulo Extra:
 *
 * Comandos disponíveis:
-*   =criar    <Coluna>
+*   =criar    <indexColuna>
 *   - Chama a função EXT_CriarColunaExtra()
 *
 * =verificarinserir   <Coluna> <String> <CondRetEsperada>
@@ -90,20 +92,24 @@ int VerificarIndex(int indexColuna);
 ***********************************************************************/
 
 static EXT_Coluna coluna[DIM_VT_EXT] ;
+static char cartasRecebidas[52][4];
+static int indexCarta=0;
 
    TST_tpCondRet TST_EfetuarComando(char *ComandoTeste)
    {
       int  numLidos = -1;
       TST_tpCondRet condRet;
-	  int indexColuna = -1;
-      char* StringDada = '\0';
-      int CondRetEsperada;
+	    int indexColuna = -1;
+      //int i=0, entrou=1;
+
+      char StringDada[DIM_VT_EXT];
+      int CondRetEsperada=0;
 
       if (strcmp(ComandoTeste,CRIAR_BAR_CMD)==0)
       {     
-        numLidos = LER_LerParametros("i",&CondRetEsperada);
+        numLidos = LER_LerParametros("ii",&indexColuna,&CondRetEsperada);
 
-        if (numLidos!=1 || !VerificarIndex(indexColuna))
+        if (numLidos!=2 || !VerificarIndex(indexColuna))
            return TST_CondRetParm;
 
         coluna[indexColuna] = EXT_CriarColunaExtra();
@@ -117,8 +123,12 @@ static EXT_Coluna coluna[DIM_VT_EXT] ;
 
         if (numLidos!=3 || !VerificarIndex(indexColuna))
           return TST_CondRetParm;
+      
+          if (CarregaStringDada( StringDada)==TST_CondRetMemoria){
+            return TST_CondRetMemoria;
+          }
 
-        condRet = EXT_InserirCartaEmExtra(coluna[indexColuna],StringDada);
+        condRet = EXT_InserirCartaEmExtra(coluna[indexColuna],cartasRecebidas[indexCarta]);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao inserir carta em Extra.\n");
 
@@ -126,23 +136,29 @@ static EXT_Coluna coluna[DIM_VT_EXT] ;
       else if(strcmp(ComandoTeste,VERIFICARINSERIR_BAR_CMD)==0)
       {
          numLidos = LER_LerParametros("isi",&indexColuna,StringDada,&CondRetEsperada);
+          if (CarregaStringDada( StringDada)==TST_CondRetMemoria){
+            return TST_CondRetMemoria;
+          }
 
          if (numLidos!=3 || !VerificarIndex(indexColuna))
            return TST_CondRetParm;
 
-        condRet = EXT_VerificarInserirCarta(coluna[indexColuna],StringDada);
+          condRet = EXT_VerificarInserirCarta(coluna[indexColuna],cartasRecebidas[indexCarta]);
 
-        return TST_CompararInt(CondRetEsperada,condRet,"Erro ao verificar inserção em Extra.\n");
+          return TST_CompararInt(CondRetEsperada,condRet,"Erro ao verificar inserção em Extra.\n");
 
       }
       else if(strcmp(ComandoTeste,VERIFICARREMOVER_BAR_CMD)==0)
       {
         numLidos = LER_LerParametros("isi",&indexColuna,StringDada,&CondRetEsperada);
-
         if (numLidos!=3 || !VerificarIndex(indexColuna))
           return TST_CondRetParm;
 
-        condRet = EXT_VerificarRemoverCarta(coluna[indexColuna],StringDada);
+        if (CarregaStringDada( StringDada)==TST_CondRetMemoria){
+          return TST_CondRetMemoria;
+        }
+
+        condRet = EXT_VerificarRemoverCarta(coluna[indexColuna],cartasRecebidas[indexCarta]);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao verificar remoção de Extra.\n");
 
@@ -154,7 +170,11 @@ static EXT_Coluna coluna[DIM_VT_EXT] ;
         if (numLidos!=3 || !VerificarIndex(indexColuna))
           return TST_CondRetParm;
 
-        condRet = EXT_RemoverCartaDeExtra(coluna[indexColuna],StringDada);
+        if (CarregaStringDada( StringDada)==TST_CondRetMemoria){
+          return TST_CondRetMemoria;
+        }
+
+        condRet = EXT_RemoverCartaDeExtra(coluna[indexColuna],cartasRecebidas[indexCarta]);
 
         return TST_CompararInt(CondRetEsperada,condRet,"Erro ao remover carta de Extra.\n");
 
@@ -192,8 +212,8 @@ static EXT_Coluna coluna[DIM_VT_EXT] ;
 *  $FC Função: TNPE - Verificar índice de coluna tipo naipe
 *
 *  $FV Valor retornado
-*     0 - inxArvore não vale
-*     1 - inxArvore vale
+*     0 - indexColuna não vale
+*     1 - indexColuna vale
 ***********************************************************************/
 int VerificarIndex(int indexColuna){
 	if((indexColuna < 0) || (indexColuna > DIM_VT_EXT)){
@@ -201,5 +221,28 @@ int VerificarIndex(int indexColuna){
 	}
 	return 1 ;
 }
+
+TST_tpCondRet CarregaStringDada( char * String){
+   int i, entrou=1;
+
+     for(i=0;i<52;i++){
+
+           if (strcmp(String,cartasRecebidas[i])==0){
+             indexCarta=i;
+             entrou=0;
+             break;
+           }
+        }
+        if(entrou){ //Se não entrou no ultimo if
+          for(i=0;i<52 && ( strlen(cartasRecebidas[i]) );i++);
+            if(i==52){
+              printf("Acabou a memória do vetor auxilar do modulo controlador de teste");
+              return TST_CondRetMemoria;
+            }
+            indexCarta=i;
+        }
+         strcpy(cartasRecebidas[indexCarta],String);
+         return TST_CondRetOK;
+ }
 
 /********** Fim do módulo de implementação: TNPE Teste coluna tipo extra **********/

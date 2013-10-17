@@ -1,0 +1,9 @@
+extra.c
+Microsoft (R) Incremental Linker Version 10.00.30319.01
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+ArcaboucoTeste.lib 
+/OUT:..\Produto\TesteExtra.exe 
+/INCREMENTAL:NO 
+/MACHINE:IX86 
+lista.obj extra.obj test_ext.obj 

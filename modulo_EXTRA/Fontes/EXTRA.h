@@ -57,8 +57,6 @@ typedef LIS_tppLista EXT_Coluna;
 typedef enum {
 	EXT_CondRetOK,
 	// Concluiu corretamente
-	EXT_CondRetColunaNaoFoiDestruida,
-	// Erro na função que destrói a coluna
 	EXT_CondRetColunaInexistente,
 	// Coluna inexistente
 	EXT_CondRetNaoPodeInserir,
@@ -67,12 +65,8 @@ typedef enum {
 	// Movimento de Remocao não válido
 	EXT_CondRetCartaInvalida,
 	// A carta recebida não pertence ao conjunto domínio de um baralho
-	EXT_CondRetColunaVazia,
-	// A coluna a ser removida a carta não possui carta
-	EXT_CondRetErroInsercao,
-	// Erro ao inserir carta na coluna 
-	EXT_CondRetErroRemocao,
-	// Erro ao remover carta da coluna
+	EXT_CondRetErroRemocao
+	// Erro ao remover carta que não pode ser removida da coluna
 
 } EXT_tpCondRet ;
 
@@ -161,13 +155,13 @@ EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta);
 *	$FV Valor retornado
 *	EXT_CondRetOK - É possível.
 *	EXT_CondRetColunaInexistente - A coluna passada como parâmetro não existe.
-*	EXT_CondRetCartaInvalida - A carta recebida não é válida ou não está
-*	entre as cartas de Extra.
-*	EXT_CondRetColunaVazia - A coluna passada como parâmetro está vazia.
+*	EXT_CondRetCartaInvalida - A carta recebida não é válida.
+*	EXT_CondRetNaoPodeRemover - A carta não está na coluna ou a coluna passada
+*	como parâmetro está vazia.
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro, assim como
-*	uma carta que pertença ao baralho.
+*	uma carta que pertença ao baralho e está presente na estrutura Extra.
 *
 *	Saída - Se executou corretamente, valida a Remocao.
 ***********************************************************************/
