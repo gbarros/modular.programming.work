@@ -18,9 +18,9 @@ PUC-Rio Outubro 2013
 	Faça o download do arquivo INF1301-Trab01-GBLGNK.zip e crie uma pasta para descompactá-lo.
 	Verifique que as seguintes pastas e deverão estar presentes:
 
-	NOME					DESCRIÇÃO
-	Documentos				Contém a documentação do programa, descrita no próximo tópico.
-	modulo_EMBARALHAMENTO	Contém os arquivos para execução e teste do módulo embaralhamento.
+	NOME				DESCRIÇÃO
+	Documentos			Contém a documentação do programa, descrita no próximo tópico.
+	modulo_EMBARALHAMENTO		Contém os arquivos para execução e teste do módulo embaralhamento.
 	modulo_EXTRA			Contém os arquivos para execução e teste do módulo extra.
 	modulo_LISTA			Contém os arquivos para execução e teste do módulo lista.
 	modulo_NAIPE			Contém os arquivos para execução e teste do módulo naipe.
@@ -30,13 +30,13 @@ PUC-Rio Outubro 2013
 	
 	NOME			DESCRIÇÃO
 	Batches			Contém todos os arquivos .batch necessários para automatizar as execuções
-					no prompt de comando.
+				no prompt de comando.
 	Composicao		Contém o arquivo Gmake.parm, necessário para o uso do arcabouço de testes.
 	Fontes			Contém os módulos de definição necessários para o uso do arcabouço de testes.
 	Objetos			Contém os objetos gerados após compilação.
 	Produto			Contém as saídas de compilação.
 	Scripts			Contém os scripts de teste do módulo, que representa os casos de teste necessários
-					para testar o módulo.
+				para testar o módulo.
 	
 	Para executar os testes, você deve utilizar o compilador do Visual Studio 2008 e arcabouço de testes
 	desenvolvido por Arndt Von Staa, fazendo o download pelo seguinte link:
@@ -50,38 +50,45 @@ PUC-Rio Outubro 2013
 	Executado, ele deve criar na pasta Objetos a biblioteca do arcabouço a ser usada nos testes, 
 	com o nome "ArcaboucoTeste.lib", que deve ser copiado para a sua pasta Objetos de cada uma das
 	pastas com nome modulo_X.
+
+	Copie para a sua pasta Composicao o arquivo Gmake.parm, que, na pasta do arcabouço, também está na pasta
+	Composicao.
 	
 ----------------------------------------------------------------------------------------------------
 	DOCUMENTAÇÃO
 ----------------------------------------------------------------------------------------------------
-	NOME							DESCRIÇÃO
-	LEIAME.txt						Versão eletrônica deste documento
-	especificacao_requisitos.pdf	Apresenta a modelagem do problema, ou seja, a especificação de
-									requisitos do programa. Inclui uma descrição detalhada do
-									funcionamento e exemplos.
-	arquitetura.pdf					Apresenta modelagem da solução, com diagrama dos módulos e suas
-									relações, além das interfaces.
-	modelo_estrutural.pdf			Apresenta a modelagem física do programa e exemplos.
+	NOME				DESCRIÇÃO
+	LEIAME.txt			Versão eletrônica deste documento
+	
+	Espercificação de Requisitos	Apresenta a modelagem do problema, ou seja, a especificação de
+	e Arquitetura do Programa.pdf	requisitos do programa. Inclui uma descrição detalhada do
+					funcionamento e exemplos. Apresenta modelagem da solução, com diagrama 
+					dos módulos e suas relações, além das interfaces.		
+	
+	Modelo Estrutural.pdf		Apresenta a modelagem física do programa e exemplos.
 	
 ----------------------------------------------------------------------------------------------------
 	ARQUIVOS DE CÓDIGO FONTE
 ----------------------------------------------------------------------------------------------------
 	NOME						DESCRIÇÃO
-	LISTA.h, LISTA.c			Módulos de implementação e de definição do módulo que manipula a
-								estrutura de dados tipo lista.
+	LISTA.h, LISTA.c		Módulos de implementação e de definição do módulo que manipula a
+					estrutura de dados tipo lista.
 	EMBARALHA.h, EMBARALHA.c	Módulos de implementação e de definição do módulo responsável
-								por embaralhar as cartas do baralho.
-	EXTRA.h, EXTRA.c			Módulos de implementação e de definição do módulo que manipula as
-								colunas extra (freecells).
-	NAIPE.h, NAIPE.c			Módulos de implementação e de definição do módulo que manipula as
-								colunas de naipe.
+					por embaralhar as cartas do baralho.
+	EXTRA.h, EXTRA.c		Módulos de implementação e de definição do módulo que manipula as
+					colunas extra (freecells).
+	NAIPE.h, NAIPE.c		Módulos de implementação e de definição do módulo que manipula as
+					colunas de naipe.
 	SEQ_VIS.h, SEQ_VIS.c		Módulos de implementação e de definição do módulo que manipula as
-								sequências visíveis.
-	TEST_LIS.c					Módulo de teste específico do módulo LISTA.
-	TEST_EMB.c					Módulo de teste específico do módulo EMBARALHA.
-	TEST_EXT.c					Módulo de teste específico do módulo EXTRA.
-	TEST_NPE.c					Módulo de teste específico do módulo NPE.
-	TEST_SV.c					Módulo de teste específico do módulo SEQ_VIS.
+					sequências visíveis.
+	TEST_LIS.c			Módulo de teste específico do módulo LISTA.
+	TEST_EMB.c			Módulo de teste específico do módulo EMBARALHA.
+	TEST_EXT.c			Módulo de teste específico do módulo EXTRA.
+	TEST_NPE.c			Módulo de teste específico do módulo NPE.
+	TEST_SV.c			Módulo de teste específico do módulo SEQ_VIS.
+
+	Observações: Um baralho de referência foi declarado num arquivo de texto BarRef.txt. Ao fazer os testes
+	também existem baralhos de teste pré-definidos em arquivos .txt.
 ----------------------------------------------------------------------------------------------------
 	CONTATO
 ----------------------------------------------------------------------------------------------------

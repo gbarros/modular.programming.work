@@ -1,6 +1,0 @@
-ArcaboucoTeste.lib
-/OUT:..\Produto\TesteEmbaralhamento.exe
-/INCREMENTAL:NO
-/MACHINE:IX86
-embaralha.obj  test_emb.obj  
-

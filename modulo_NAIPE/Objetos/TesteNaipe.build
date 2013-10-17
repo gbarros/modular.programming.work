@@ -1,6 +1,0 @@
-ArcaboucoTeste.lib
-/OUT:..\Produto\TesteNaipe.exe
-/INCREMENTAL:NO
-/MACHINE:IX86
-lista.obj  naipe.obj  test_npe.obj  
-
