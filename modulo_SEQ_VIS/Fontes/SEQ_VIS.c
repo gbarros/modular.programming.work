@@ -32,7 +32,6 @@ static int ContarElementos(SV_Coluna coluna);
 /***************************************************************************
 *  Função: SV  &Criar Coluna
 ***************************************************************************/
-
 SV_Coluna SV_CriarColunaSeqVis(void){
 	return LIS_CriarLista(NULL);
 }
@@ -53,7 +52,6 @@ SV_tpCondRet SV_ExcluirColunaSeqVis(SV_Coluna coluna){
 /***************************************************************************
 *  Função: SV  &Verificar Inserir Carta
 ***************************************************************************/
-
 SV_tpCondRet SV_VerificarInserirCarta(SV_Coluna destino, Carta carta){
 	Carta cartaBase;
 	// Verifica se a carta recebida existe
@@ -133,12 +131,9 @@ SV_tpCondRet SV_VerificarRemoverCarta(SV_Coluna origem, Carta carta){
 	
 }
 
-}
-
 /***************************************************************************
 *  Função: SV  &Inserir Carta Em Sequência Visível
 ***************************************************************************/
-
 SV_tpCondRet SV_InserirCartaEmSeqVis(SV_Coluna destino, Carta carta){
 	NPE_tpCondRet condRet = NPE_CondRetErroAoInserir;
 	
@@ -159,10 +154,9 @@ SV_tpCondRet SV_InserirCartaEmSeqVis(SV_Coluna destino, Carta carta){
 /***************************************************************************
 *  Função: SV  &Remover Carta De Sequêncial Visível
 ***************************************************************************/
-
 SV_tpCondRet SV_RemoverCartaDeSeqVis(SV_Coluna origem, Carta carta){
 	int resAvanco;
-	SV_tpCondRet condRet = SV_CondRetErroAoInserir;
+	SV_tpCondRet condRet = SV_CondRetErroAoRemover;
 	
 	if(SV_VerificarRemoverCarta(destino, carta) != SV_CondRetOK){
 		return SV_CondRetErroAoRemover;
@@ -179,13 +173,35 @@ SV_tpCondRet SV_RemoverCartaDeSeqVis(SV_Coluna origem, Carta carta){
 		return SV_CondRetOK;
 	}
 	else
-		return NPE_CondRetErroAoInserir;
+		return SV_CondRetErroAoRemover;
+}
+
+/***********************************************************************
+*	Função: SV &Popular Sequência Visível
+***********************************************************************/
+
+SV_tpCondRet SV_PopularSeqVis(SV_Coluna destino, Carta carta){
+	int resIns = SV_CondRetErroAoInserir;
+	
+	// Verifica se a carta recebida existe
+	if(carta == NULL || ObterValor(carta) == -1 || ObterNaipe(carta) == 'X')
+		return SV_CondRetCartaNaoExiste;
+
+	// Verifica se a coluna recebida existe
+	if(destino == NULL)
+		return SV_ColunaNaoExiste;
+
+	IrFinalLista(destino);
+	resIns = LIS_InserirElementoApos(destino, carta);
+	if(resIns == LIS_CondRetOK)
+		return SV_CondRetOK;
+	else
+		return resIns;
 }
 
 /***************************************************************************
 *  Função: SV  &Exibir Cartas
 ***************************************************************************/
-
 SV_tpCondRet SV_ExibirCartas(SVColuna coluna){
 	int i;
 	Carta carta;

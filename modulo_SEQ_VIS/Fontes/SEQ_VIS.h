@@ -17,6 +17,7 @@
 *
 *	$HA Histórico de evolução:
 *	Versão  Autor   Data			Observações
+*	5		nk		16/out/2013		Correções e nova função.
 *	4		lg		14/out/2013		Atualização de condições de retorno e ajustes
 *	3		nk		14/out/2013		Inclusão de cabeçalhos, assertivas, novas funções
 *	2  		lg		13/out/2013		Realização das definições
@@ -98,9 +99,8 @@ SV_Coluna SV_CriarColunaSeqVis(void);
 *
 *	$FV Valor retornado
 *	SV_CondRetOK - Conseguiu destruir.
-*	SV_CondRetColunaInexistente - A coluna passada como parâmentro não existe
+*	SV_CondRetColunaNaoExiste - A coluna passada como parâmentro não existe
 *	e, portanto, não é excluída.
-*	SV_CondRetColunaNaoFoiDestruida - Erro ao destruir a coluna.
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro.
@@ -122,12 +122,14 @@ SV_tpCondRet SV_ExcluirColunaSeqVis(SV_Coluna coluna);
 *
 *	$FV Valor retornado
 *	SV_CondRetOK - É possível.
-*	SV_CondRetColunaInexistente - A coluna passada como parâmentro não existe.
-*	SV_CondRetNaoInsere - Não é uma inserção válida.
+*	SV_CondRetCartaNaoExiste - A carta passada como parâmetro não existe.
+*	SV_CondRetColunaNaoExiste - A coluna passada como parâmetro não existe.
+*	SV_CondRetPodeInserir - Não é uma inserção válida.
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro, assim como
-*	uma carta que pertença ao baralho.
+*	uma carta que pertença ao baralho. A carta de entrada deve ser menor do
+*	que a carta base, assim como de cor diferente.
 *
 *	Saída - Se executou corretamente, valida a inserção.
 ***********************************************************************/
@@ -146,12 +148,16 @@ SV_tpCondRet SV_VerificarInserirCarta(SV_Coluna destino, Carta carta);
 *
 *	$FV Valor retornado
 *	SV_CondRetOK - É possível.
+*	SV_CondRetCartaNaoExiste - A carta passada como parâmetro não existe.
 *	SV_CondRetColunaInexistente - A coluna passada como parâmentro não existe.
-*	SV_CondRetNaoInsere - Não é uma remoção válida.
+*	SV_CondRetColunaVazia - A coluna passada está vazia.
+*	SV_CondRetPodeInserir - Não é uma remoção válida.
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro, assim como
-*	uma carta que pertença ao baralho.
+*	uma carta que pertença ao baralho. A carta de entrada só pode ser removida
+*	se as cartas abaixo dela puderem ser removidas, i.e., se não há carta abaixo
+*	ou se as cartas abaixo estão em ordem decrescente e cor alternada.
 *
 *	Saída - Se executou corretamente, valida a remoção.
 ***********************************************************************/
@@ -169,7 +175,8 @@ SV_tpCondRet SV_VerificarRemoverCarta(SV_Coluna origem, Carta carta);
 *	carta - Carta a qual se quer inserir.
 *
 *	$FV Valor retornado
-*	???
+*	SV_CondRetOK - Inseriu com sucesso.
+*	SV_CondRetErroAoInserir - Não insere e a coluna permanece a mesma.
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro, assim
@@ -192,7 +199,8 @@ SV_tpCondRet SV_InserirCartaEmSeqVis(SV_Coluna destino, Carta carta);
 *	carta - Carta a qual se quer inserir.
 *
 *	$FV Valor retornado
-*	???
+*	SV_CondRetOK - Removeu com sucesso.
+*	SV_CondRetErroAoRemover - Não remove e a coluna permanece a mesma.
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro, assim
@@ -203,7 +211,33 @@ SV_tpCondRet SV_InserirCartaEmSeqVis(SV_Coluna destino, Carta carta);
 *	última carta apontando para NULL.
 ***********************************************************************/
 
-SV_tpCondRet SV_RemoverCartaDeSeqVis(SV_Coluna alvo, Carta carta);
+SV_tpCondRet SV_RemoverCartaDeSeqVis(SV_Coluna origem, Carta carta);
+
+/***********************************************************************
+*	$FC Função: SV &Popular Sequência Visível
+*
+*	$ED Descrição da função
+*	Insere qualquer carta válida numa coluna (sem regras de inserção).
+*
+*	$EP Parâmetros
+*   origem - Coluna de onde se quer remover a carta.
+*	carta - Carta a qual se quer inserir.
+*
+*	$FV Valor retornado
+*	SV_CondRetOK - Inseriu com sucesso.
+*	SV_CondRetCartaNaoExiste - A carta passada como parâmetro não existe.
+*	SV_CondRetColunaNaoExiste - A coluna passada como parâmetro não existe.
+*	SV_CondRetErroAoInserir - Faltou memória ao inserir.
+*
+*	Assertivas
+*	Entrada - Deve-se passar uma coluna existente como parâmetro, assim
+*	como uma carta.
+*
+*	Saída - Se executou corretamente, irá inserir a carta desejada na
+*	coluna desejada.
+***********************************************************************/
+
+SV_tpCondRet SV_PopularSeqVis(SV_Coluna destino, Carta carta);
 
 /***********************************************************************
 *	$FC Função: SV &Exibir Cartas
@@ -215,7 +249,9 @@ SV_tpCondRet SV_RemoverCartaDeSeqVis(SV_Coluna alvo, Carta carta);
 *   coluna - Coluna cujas cartas serão exibidas.                 
 *
 *	$FV Valor retornado
-*	???
+*	SV_CondRetOK - Exibe corretamente.
+*	SV_CondRetColunaNaoExiste - Recebeu uma coluna que não existe e por
+*	isso não imprime.
 *
 *	Assertivas
 *	Entrada - Deve-se passar uma coluna existente como parâmetro. 
@@ -224,7 +260,7 @@ SV_tpCondRet SV_RemoverCartaDeSeqVis(SV_Coluna alvo, Carta carta);
 *	na coluna escolhida na ordem em que estão dispostas.
 ***********************************************************************/
 
-void SEQ_VIS_ExibirCartas(EXT_Coluna coluna);
+SV_CondRet SV_ExibirCartas(EXT_Coluna coluna);
 
 #undef SEQ_VIS_EXT
 
