@@ -55,7 +55,7 @@ NPE_tpCondRet NPE_DestruirColunaNaipe(NPE_Coluna coluna){
 NPE_tpCondRet NPE_VerificarInserirCarta(NPE_Coluna destino, Carta carta){
 	Carta cartaBase;
 	char naipeCarta, naipeCartaBase;
-	int valorCarta, valorCartaBase, XX;
+	int valorCarta, valorCartaBase;
 
 	valorCarta = ObterValor(carta);
 	naipeCarta = ObterNaipe(carta);

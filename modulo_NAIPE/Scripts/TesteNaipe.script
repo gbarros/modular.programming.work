@@ -22,7 +22,7 @@
 =declararparm	carta4		string	"7C"
 
 == Criar coluna tipo naipe
-=criar		coluna0
+=criar		coluna0		NPE_CondRetOK
 
 == Verificar inserção de carta em coluna
 =verif		coluna0		carta3		NPE_CondRetNaoPodeInserir

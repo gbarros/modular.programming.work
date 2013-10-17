@@ -45,6 +45,7 @@ static const char DESTRUIR_COL_CMD	[ ] = "=destruir"	;
 /***** Protótipos das funções encapsuladas no módulo *****/
 
 int VerificarIndex(int indexColuna);
+TST_tpCondRet CarregaStringDada( char * String);
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -78,7 +79,9 @@ int VerificarIndex(int indexColuna);
 *	=destruir	<indexColuna> <CondRet>
 *		- Chama a função NPE_DestruirColunaNaipe()
 ***********************************************************************/
-static NPE_Coluna colunas[DIM_VT_NPE] ;
+static NPE_Coluna colunas[DIM_VT_NPE];
+static char cartasRecebidas[52][4];
+static int indexCarta=0;
 
 TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 
@@ -93,9 +96,9 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 
 	// Teste de NPE Criar Coluna
 	if(strcmp(ComandoTeste, CRIAR_COL_CMD) == 0){
-		numLidos = LER_LerParametros("i", &indexColuna);
+		numLidos = LER_LerParametros("i",&indexColuna,&CondRetEsperada);
 
-		if((numLidos != 1) || !VerificarIndex(indexColuna))
+		if((numLidos != 2) || !VerificarIndex(indexColuna))
 			return TST_CondRetParm;
 
 		colunas[indexColuna] =  NPE_CriarColunaNaipe();
@@ -109,7 +112,11 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 		if((numLidos != 3) || !VerificarIndex(indexColuna))
 			return TST_CondRetParm;
 
-		CondRetObtida = NPE_VerificarInserirCarta(colunas[indexColuna], cartaDada);
+		if (CarregaStringDada(cartaDada)==TST_CondRetMemoria){
+            return TST_CondRetMemoria;
+          }
+
+		CondRetObtida = NPE_VerificarInserirCarta(colunas[indexColuna],cartasRecebidas[indexCarta]);
 
 		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao verificar inserir.\n") ;
 	}
@@ -121,34 +128,14 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 		if((numLidos != 3) || !VerificarIndex(indexColuna))
 			return TST_CondRetParm;
 
-		CondRetObtida = NPE_InserirCartaEmNaipe(colunas[indexColuna], cartaDada);
+		if (CarregaStringDada(cartaDada)==TST_CondRetMemoria){
+            return TST_CondRetMemoria;
+          }
+
+		CondRetObtida = NPE_InserirCartaEmNaipe(colunas[indexColuna],cartasRecebidas[indexCarta]);
 
 		return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao inserir.\n");
 	}
-
-	//// Teste de NPE Verificar Inserir Carta Em Coluna Com Carta
-	//else if(strcmp(ComandoTeste, VERIFICAR_INSCOM_CMD) == 0){
-	//	numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
-
-	//	if((numLidos != 3) || !VerificarIndex(indexColuna))
-	//		return TST_CondRetParm;
-
-	//	CondRetObtida = NPE_VerificarInserirCarta(colunas[indexColuna], cartaDada);
-
-	//	return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao verificar inserir.\n");
-	//}
-
-	//// Teste de NPE Inserir Carta Em Coluna Com Carta
-	//else if(strcmp(ComandoTeste, INSERIR_COLCOM_CMD) == 0){
-	//	numLidos = LER_LerParametros("isi", &indexColuna, cartaDada, &CondRetEsperada);
-
-	//	if((numLidos != 3) || !VerificarIndex(indexColuna))
-	//		return TST_CondRetParm;
-
-	//	CondRetObtida = NPE_InserirCartaEmNaipe(colunas[indexColuna], cartaDada);
-
-	//	return TST_CompararInt(CondRetEsperada, CondRetObtida, "Retorno errado ao inserir.\n");
-	//}
 
 	// Teste de NPE Exibir Carta
 	else if(strcmp(ComandoTeste, EXIBIR_COL_CMD) == 0){
@@ -192,6 +179,28 @@ int VerificarIndex(int indexColuna){
 	}
 	return 1 ;
 }
+
+TST_tpCondRet CarregaStringDada( char * String){
+   int i, entrou=1;
+
+     for(i=0;i<52;i++){
+
+           if (strcmp(String,cartasRecebidas[i])==0){
+             indexCarta=i;
+             entrou=0;
+             break;
+           }
+        }
+        if(entrou){ //Se não entrou no ultimo if
+          for(i=0;i<52 && ( strlen(cartasRecebidas[i]) );i++);
+            if(i==52){
+              return TST_CondRetMemoria;
+            }
+            indexCarta=i;
+        }
+         strcpy(cartasRecebidas[indexCarta],String);
+         return TST_CondRetOK;
+ }
 
 /********** Fim do módulo de implementação: TNPE Teste coluna tipo naipe **********/
 
