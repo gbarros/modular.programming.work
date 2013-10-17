@@ -1,0 +1,89 @@
+// Script:    TesteNaipe.script
+// Autor:     Gabriel Barros, Leonardo Giroto, Noemie Nakamura
+// Data:      16/out/2013
+// Propósito: Testar módulo sequências visíveis
+
+== Declarar condições de retorno
+=declararparm   SV_CondRetOK				int 0
+=declararparm   SV_CondRetColunaNaoExiste	int 1
+=declararparm   SV_CondRetCartaNaoExiste	int 2
+=declararparm	SV_CondRetColunaVazia		int 3
+=declararparm   SV_CondRetNaoPodeInserir	int 4
+=declararparm   SV_CondRetNaoPodeRemover	int 5
+=declararparm	SV_CondRetErroAoInserir		int	6
+=declararparm	SV_CondRetErroAoRemover 	int	7
+=declararparm	SV_CondRetErroAoExibir		int	8
+
+== Inicializar valores
+=declararparm	coluna0		int	0
+=declararparm	coluna1		int	1
+=declararparm	coluna2		int	2
+=declararparm	coluna3		int	3
+
+=declararparm	carta0		string	"AE"
+=declararparm	carta1		string	"4C"
+=declararparm	carta2		string	"3P"
+=declararparm	carta3		string	"2C"
+=declararparm	carta4		string	"AP"
+=declararparm	carta5		string	"AC"
+=declararparm	carta6		string	"10C"
+=declararparm	carta7		string	"AO"
+
+== Criar coluna tipo naipe
+=criar		coluna0
+=criar		coluna1
+=criar		coluna2
+
+== Popular colunas com cartas quaisquer
+=popul		coluna0		carta0		SV_CondRetOK
+=popul		coluna0		carta1		SV_CondRetOK
+=popul		coluna0		carta2		SV_CondRetOK
+=popul		coluna0		carta3		SV_CondRetOK
+=popul		coluna2		carta7		SV_CondRetOK
+=popul		coluna0		carta9		SV_CondRetCartaNaoExiste
+=popul		coluna3		carta0		SV_CondRetColunaNaoExiste
+
+== Verificar inserção de carta
+=verins		coluna0		"8F"		SV_CondRetCartaNaoExiste
+=verins		coluna3		carta0		SV_CondRetColunaNaoExiste
+=verins		coluna0		carta5		SV_CondRetNaoPodeInserir
+=verins		coluna2		carta1		SV_CondRetNaoPodeInserir
+=verins		coluna1		carta6		SV_CondRetOK
+=verins		coluna0		carta6		SV_CondRetNaoPodeInserir
+=verins		coluna0		carta4		SV_CondRetOK
+
+== Verificar remoção de carta
+=verrem		coluna0		"8F"		SV_CondRetCartaNaoExiste
+=verrem		coluna3		carta0		SV_CondRetColunaNaoExiste
+=verrem		coluna1		carta0		SV_CondRetColunaVazia
+=verrem		coluna0		carta6		SV_CondRetCartaNaoExiste
+=verrem		coluna0		carta0		SV_CondRetNaoPodeRemover
+=verrem		coluna2		carta7		SV_CondRetOK
+=verrem		coluna0		carta1		SV_CondRetOK
+
+== Inserir carta em coluna
+=verins		coluna0		"8F"		SV_CondRetErroAoInserir
+=verins		coluna3		carta0		SV_CondRetErroAoInserir
+=verins		coluna0		carta5		SV_CondRetErroAoInserir
+=verins		coluna2		carta1		SV_CondRetErroAoInserir
+=verins		coluna1		carta6		SV_CondRetOK
+=verins		coluna0		carta6		SV_CondRetErroAoInserir
+=verins		coluna0		carta4		SV_CondRetOK
+
+== Remover carta de coluna
+=verrem		coluna0		"8F"		SV_CondRetErroAoRemover
+=verrem		coluna3		carta0		SV_CondRetErroAoRemover
+=verrem		coluna1		carta0		SV_CondRetErroAoRemover
+=verrem		coluna0		carta6		SV_CondRetErroAoRemover
+=verrem		coluna0		carta0		SV_CondRetErroAoRemover
+=verrem		coluna2		carta7		SV_CondRetOK
+=verrem		coluna0		carta1		SV_CondRetOK
+
+== Exibição de carta
+=exibir		coluna0		SV_CondRetOK	
+=exibir		coluna3		SV_CondRetColunaNaoExiste
+
+== Destruir coluna
+=destruir	coluna0		SV_CondRetOK
+=destruir	coluna3		SV_CondRetColunaNaoExiste
+

@@ -15,7 +15,7 @@
 *
 *  $HA Histórico de evolução:
 *   Versão  Autor	Data			Observações
-*	4		nk		16/out/2013		Correções e finalização do desenvolvimento
+*	4		nk		16/out/2013		Correções, finalização do desenvolvimento
 *	3		lg		14/out/2013		Continuação do desenvolvimento
 *	2		nk		14/out/2013		Correção de nomenclatura, novas funções
 *	1 		lg		13/out/2013		Criação e início do desenvolvimento do módulo
@@ -27,7 +27,6 @@
 
 static int ObterValor(Carta carta);
 static char ObterNaipe(Carta carta);
-static int ContarElementos(SV_Coluna coluna);
 
 /***************************************************************************
 *  Função: SV  &Criar Coluna
@@ -125,9 +124,9 @@ SV_tpCondRet SV_VerificarRemoverCarta(SV_Coluna origem, Carta carta){
 		if((ObterValor(cartaCorr) == (ObterValor(cartaCopia) - 1)) && (ObterCor(cartaCorr) != ObterCor(cartaCopia))
 			cartaCopia = cartaCorr;
 		else
-			break;
+			return SV_CondRetNaoPodeRemover;
 	}
-	return SV_CondRetNaoPodeRemover;
+	return SV_CondRetOK;
 	
 }
 
