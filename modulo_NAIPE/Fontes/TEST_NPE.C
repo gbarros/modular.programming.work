@@ -96,7 +96,7 @@ TST_tpCondRet TST_EfetuarComando(char *ComandoTeste){
 
 	// Teste de NPE Criar Coluna
 	if(strcmp(ComandoTeste, CRIAR_COL_CMD) == 0){
-		numLidos = LER_LerParametros("i",&indexColuna,&CondRetEsperada);
+		numLidos = LER_LerParametros("ii",&indexColuna,&CondRetEsperada);
 
 		if((numLidos != 2) || !VerificarIndex(indexColuna))
 			return TST_CondRetParm;
