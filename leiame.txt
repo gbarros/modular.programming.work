@@ -10,7 +10,6 @@ PUC-Rio Outubro 2013
 	Aqui é brevemente descrito o programa desenvolvido com informações de instalação e utilização 
 	de seus módulos. O programa é a implementação do Jogo FreeCell por meio da estrutura de dados
 	lista, construído sob linguagem C.
-	
 
 ----------------------------------------------------------------------------------------------------
 	INSTRUÇÕES DE INSTALAÇÃO E ESTRUTURA DE DIRETÓRIOS

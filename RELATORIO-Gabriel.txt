@@ -1,34 +1,43 @@
-----------------------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 	RELATÓRIO: Gabriel Barros
-----------------------------------------------------------------------------------------------------
-Data		Horas	Tipo Tarefa		Descrição da Tarefa Realizada
-----------------------------------------------------------------------------------------------------
-09/set/13	1	Projetar				Definição dos Requisitos do Jogo (requirido para a aula seguinte)
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Data		Horas	Tipo Tarefa					Descrição da Tarefa Realizada
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+09/set/13	1	Projetar					Definição dos Requisitos do Jogo (requirido para a aula seguinte)
 
-10/set/13	2	Especificar módulos		Definição dos módulos e suas relações
+10/set/13	2	Especificar módulos				Definição dos módulos e suas relações
 
-21/set/13	1,5	Especificar módulos/	Os 3 se reuniram para definir a estrutura dos modulos de colunas e o desenho da interface 
-				Especificar funções		(por meio de protótipo no bloco de notas). Foi utilizado meio misto de comunicação: Eu por Skype, 
-										Noemie e Leonardo juntos presencialmente.
+21/set/13	1,5	Especificar módulos/				Os 3 se reuniram para definir a estrutura dos modulos de colunas e o desenho da interface 
+			Especificar funções				(por meio de protótipo no bloco de notas). Foi utilizado meio misto de comunicação: Eu por Skype, 
+									Noemie e Leonardo juntos presencialmente.
 
-25/set/13	4	Estudar					Inicio de coding básico do programa, em cima do modulo CEDULASLIVRES.Leitura e compreensao do
-										modulo lista. Eu e Noemie.
+25/set/13	4	Estudar						Inicio de coding básico do programa, em cima do modulo CEDULASLIVRES.Leitura e compreensao do
+									modulo lista. Eu e Noemie.
 
-				Codificar módulo		Após o termino da atividade acima, continuei a escrever o modulo CEDULASLIVRES e a definir 
-										mudanças na arquitetura.
-28/set/13  4    Codificar módulo        Com o trabalho em desenvolvimento, foi percebido novos requisitos e mudanças na estrutura básica foram feitas,
-										a exemplo CEDULASLIVRES passou a se chamar EXTRA.
+			Codificar módulo				Após o termino da atividade acima, continuei a escrever o modulo CEDULASLIVRES e a definir 
+									mudanças na arquitetura.
+28/set/13  	4	Codificar módulo       				Com o trabalho em desenvolvimento, foi percebido novos requisitos e mudanças na estrutura básica foram feitas,
+									a exemplo CEDULASLIVRES passou a se chamar EXTRA.
 
-12/set/13  4    Estudar/				Comecei a montagem do modulo EMBARALHAMENTO, para que apartir de sua simplicidade enquanto módulo, pudesse aprender
-				Codificar módulos		a usar o arcabouço com todos os casos de teste necessários.
+12/set/13  	4 	Estudar/					Comecei a montagem do modulo EMBARALHAMENTO, para que apartir de sua simplicidade enquanto módulo, pudesse aprender
+			Codificar módulos				a usar o arcabouço com todos os casos de teste necessários.
 
-13/out/13	11	Revisar projetos/		Revisão dos módulos e seus relacionamentos. Compreensão da estrutura de todo jogo.
-			 		Projetar/			Definição de modelo físico e exemplo.
-					Estudar	/			Estudo de arquivos .comp e como funciona o Gmake.
-				Codificar módulo		Codificação 
+13/out/13	11	Revisar projetos/				Revisão dos módulos e seus relacionamentos. Compreensão da estrutura de todo jogo.
+			Projetar/					Definição de modelo físico e exemplo.
+			Estudar	/					Estudo de arquivos .comp e como funciona o Gmake.
+			Codificar módulo
+			 
 
-14/out/13   10  Revisar projetos /    	Revisão da transação de movimento de carta(s)
-					Projetar/			Apartir da revisão fizemos mudanças nas interfaces
-					Estudar				Analise dos exemplos de Controlador de Teste e o uso de .Scripts
-				Códificar módulo        Construção de todos os modulos. (.c e .h) (todo o grupo)
-15/out/13   10  Códificar módulo        Embaralhamento.c e Test_EMB.c 
+14/out/13   	10	Revisar projetos /    				Revisão da transação de movimento de carta(s)
+			Projetar/					Apartir da revisão fizemos mudanças nas interfaces
+			Estudar						Analise dos exemplos de Controlador de Teste e o uso de .Scripts
+			Códificar módulo        			Construção de todos os modulos. (.c e .h) (todo o grupo)
+
+15/out/13   	10  	Códificar módulo        			Embaralhamento.c e Test_EMB.c 
+
+16/out/13	18	Codificar módulo				Continuação da codificação de módulos .h e .c
+			Redigir script de teste				Redação do script de teste conforme padrões
+			Realizar os testes				Redação dos arquivos comp, compilação e execução do teste dos módulos
+			Diagnosticar e corrigir os problemas		Debugging dos erros dos testes
+
+17/out/13	5	Diagnosticar e corrigir os problemas		Debugging dos erros dos testes, últimas organizações de arquivos e diretórios
