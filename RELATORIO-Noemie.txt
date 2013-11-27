@@ -40,4 +40,18 @@ Data		Horas	Tipo Tarefa				Descrição da Tarefa Realizada
 			Realizar os testes			Redação dos arquivos comp, compilação e execução do teste dos módulos
 			Diagnosticar e corrigir os problemas	Debugging dos erros dos testes
 
-17/out/13	5	Diagnosticar e corrigir os problemas	Debugging dos erros dos testes, últimas organizações de arquivos e diretórios					
+17/out/13	5	Diagnosticar e corrigir os problemas	Debugging dos erros dos testes, últimas organizações de arquivos e diretórios
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+15/nov/13	7	Estudar					Revisão da especificação do trabalho 04 de acordo com as últimas aulas
+			Revisar especificações			e dos módulos já feitos quanto a possíveis mudanças que serão necessárias.
+			Especificar módulos			Especificação dos módulos Freecell e Lista quanto à auto-verificação e
+			Especificar as funções			assertivas.
+
+16/nov/13	2	Codificar módulo			Início da codificação do módulo Freecell.
+	
+25/nov/13	2	Estudar					Revisão do modelo físico.
+
+26/nov/13	2	Revisar projetos			Correções na arquitetura e no modelo físico.
+
+27/nov/13	4	Revisar projetos			Reformulação do modelo físico e exemplo do modelo físico.
+								Acréscimo de assertiva estrutural.
