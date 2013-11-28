@@ -15,7 +15,6 @@
 *
 *  $HA Histórico de evolução:
 *   Versão  Autor	Data			Observações
-*	5		nk		28/nov/2013		Correções
 *	4		nk		16/out/2013		Correções, finalização do desenvolvimento
 *	3		lg		14/out/2013		Continuação do desenvolvimento
 *	2		nk		14/out/2013		Correção de nomenclatura, novas funções
@@ -238,7 +237,6 @@ SV_tpCondRet SV_ExibirCartas(SV_Coluna coluna){
 	IrInicioLista(coluna);
 	while(resAvanco != LIS_CondRetFimLista){
 		carta = LIS_ObterValor(coluna);
-		printf("%s", carta);
 		resAvanco = LIS_AvancarElementoCorrente(coluna, 1);
 	}
 	return SV_CondRetOK;
