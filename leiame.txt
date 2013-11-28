@@ -2,7 +2,7 @@
 Arquivo LEIAME
 
 Gabriel Barros, Leonardo Giroto & Noemie Nakamura
-PUC-Rio Outubro 2013
+PUC-Rio Novembro 2013
 
 ----------------------------------------------------------------------------------------------------
 	APRESENTAÇÃO
@@ -21,6 +21,7 @@ PUC-Rio Outubro 2013
 	Documentos			Contém a documentação do programa, descrita no próximo tópico.
 	modulo_EMBARALHAMENTO		Contém os arquivos para execução e teste do módulo embaralhamento.
 	modulo_EXTRA			Contém os arquivos para execução e teste do módulo extra.
+	modulo_FREECELL			Contém os arquivos para execução do módulo freecell.
 	modulo_LISTA			Contém os arquivos para execução e teste do módulo lista.
 	modulo_NAIPE			Contém os arquivos para execução e teste do módulo naipe.
 	modulo_SEQ_VIS			Contém os arquivos para execução e teste do módulo sequências visíveis.
@@ -59,12 +60,13 @@ PUC-Rio Outubro 2013
 	NOME				DESCRIÇÃO
 	LEIAME.txt			Versão eletrônica deste documento
 	
-	Espercificação de Requisitos	Apresenta a modelagem do problema, ou seja, a especificação de
-	e Arquitetura do Programa.pdf	requisitos do programa. Inclui uma descrição detalhada do
-					funcionamento e exemplos. Apresenta modelagem da solução, com diagrama 
-					dos módulos e suas relações, além das interfaces.		
-	
-	Modelo Estrutural.pdf		Apresenta a modelagem física do programa e exemplos.
+	Espercificação de Requisitos	Apresenta a modelagem do problema, ou seja, a especificação
+	e Arquitetura do Programa.pdf	de requisitos do programa. Inclui uma descrição detalhada do
+					funcionamento e exemplos. Apresenta modelagem da solução, com 
+					diagrama dos módulos e suas relações, além das interfaces. 
+					Apresenta a modelagem física do programa com suas assertivas
+					estruturais e exemplo. Finalmente, apresenta modelo de lista 
+					genérica auto-verificável com suas assertivas.		
 	
 ----------------------------------------------------------------------------------------------------
 	ARQUIVOS DE CÓDIGO FONTE
