@@ -60,13 +60,20 @@ PUC-Rio Novembro 2013
 	NOME				DESCRIÇÃO
 	LEIAME.txt			Versão eletrônica deste documento
 	
-	documentacao.pdf		Apresenta a modelagem do problema, ou seja, a especificação
+	LinguagemTeste.txt		Documentação da linguagem script de teste.
+
+	Descricao_comandos.pdf		Documento descrevendo cada comando de teste  disponibilizado
+					para testar o verificador.	
+
+	Documentacao.pdf		Apresenta a modelagem do problema, ou seja, a especificação
 					de requisitos do programa. Inclui uma descrição detalhada do
 					funcionamento e exemplos. Apresenta modelagem da solução, com 
 					diagrama dos módulos e suas relações, além das interfaces. 
 					Apresenta a modelagem física do programa com suas assertivas
 					estruturais e exemplo. Finalmente, apresenta modelo de lista 
-					genérica auto-verificável com suas assertivas.		
+					genérica auto-verificável com suas assertivas.
+	
+	Relatorio_alteracoes.pdf	Listagem das alterações feitas ao longo do desenvolvimento.	
 	
 ----------------------------------------------------------------------------------------------------
 	ARQUIVOS DE CÓDIGO FONTE
