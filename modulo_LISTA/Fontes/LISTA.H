@@ -13,9 +13,13 @@
 *  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores: avs
+*           gb - Gabriel Barros
+*           lg - Leonardo Giroto 
+*	    nk - Noemie Nakamura
 *
 *  $HA Histórico de evolução:
 *     Versão  Autor    Data     Observações
+*     5        GB   24/nov/2013 Inicio de desenvolvimento: Lista Autoverificável 
 *     4       avs   01/fev/2006 criar linguagem script simbólica
 *     3       avs   08/dez/2004 uniformização dos exemplos
 *     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
@@ -63,11 +67,6 @@
 
 typedef struct LIS_tagLista * LIS_tppLista ;
 
-#ifdef _DEBUG
-// Variavel definida durante DEBUG para evitar uso de assert durante testes 
-// É alterada pela ultima função chamada
-LIS_tpCondRet retornoFuncao;
-#endif
 
 /***********************************************************************
  *
@@ -92,18 +91,20 @@ typedef enum {
     LIS_CondRetNaoAchou,
     /* Não encontrou o valor procurado */
 
-    LIS_CondRetFaltouMemoria
+    LIS_CondRetFaltouMemoria,
     /* Faltou memória ao tentar criar um elemento de lista */
-//#ifdef _DEBUG
-    ,
+            
     LIS_CondRetParam,
     /* Parametro de entrada errado ou NULL*/
+            
     LIS_CondRetEstruturaDados,
     /* Os dados estão corrompidos*/
+   LIS_CondRetVazamentoMemoria,
+   /*Erro identificado quando há inconsistências no pareamento de dados com
+     a lista de memória alocada*/
     LIS_CondRetExecucao
     /*Erros associados a execução, possivelmente são erros 
      * de memória não identificáveis como tal*/
-//#endif
 } LIS_tpCondRet;
    
    
@@ -430,7 +431,6 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo);
 #endif
 
 
-
 /**********************************************************************
  * $FC Função: LIS &Verificar a Lista
  * 
@@ -444,9 +444,7 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo);
  * 
  * 
  **********************************************************************/
-#ifdef _DEBUG
 LIS_tpCondRet VerificaLista(void); 
-#endif
     
 #undef LISTA_EXT
 

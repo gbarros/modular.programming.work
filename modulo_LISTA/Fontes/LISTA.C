@@ -1,5 +1,5 @@
 /***************************************************************************
- *  $MCI Módulo de implementação: LIS  Lista duplamente encadeada
+ *  $MCI Módulo de implementação: LIS Lista duplamente encadeada Autoverificável
  *
  *  Arquivo gerado:              LISTA.c
  *  Letras identificadoras:      LIS
@@ -10,13 +10,15 @@
  *  Projeto: INF 1301 / 1628 Automatização dos testes de módulos C
  *  Gestor:  LES/DI/PUC-Rio
  *  Autores: avs
+ *            gb
  *
  *  $HA Histórico de evolução:
- *     Versão  Autor    Data     Observações
- *     4       avs   01/fev/2006 criar linguagem script simbólica
- *     3       avs   08/dez/2004 uniformização dos exemplos
- *     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
- *     1       avs   16/abr/2003 início desenvolvimento
+ *  Versão  Autor    Data     Observações
+ *   5       gb   24/nov/2013 Inicio da inserção dos códigos de AutoVerificação
+ *   4       avs  01/fev/2006 criar linguagem script simbólica
+ *   3       avs  08/dez/2004 uniformização dos exemplos
+ *   2       avs  07/jul/2003 unificação de todos os módulos em um só projeto
+ *   1       avs  16/abr/2003 início desenvolvimento
  *
  ***************************************************************************/
 
@@ -46,10 +48,8 @@ typedef struct tagElemLista {
 
     struct tagElemLista * pProx;
     /* Ponteiro para o elemento sucessor */
-    #ifdef _DEBUG
     struct LIS_tagLista * pCabeca;
     /* Ponteiro para a Cabeca da Lista a qual o no pertence */
-    #endif
 
 } tpElemLista;
 
@@ -82,7 +82,6 @@ typedef struct LIS_tagLista {
 /********DADOS encaspulados no módulo *******/
 
 #ifdef _DEBUG
-
 static char EspacoLixo[ 256 ] =
         "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx";
 /* Espaço de dados lixo usado ao testar */
@@ -95,13 +94,12 @@ static LIS_tppLista memAlocada=NULL;
 
 /***** Protótipos das funções encapuladas no módulo *****/
 
-static void LiberarElemento(LIS_tppLista pLista,
-        tpElemLista * pElem);
+static void LiberarElemento(LIS_tppLista pLista,tpElemLista * pElem);
 
-static tpElemLista * CriarElemento(LIS_tppLista pLista,
-        void * pValor);
+static tpElemLista * CriarElemento(LIS_tppLista pLista,void * pValor);
 
 static void LimparCabeca(LIS_tppLista pLista);
+static void DeletarElementoLEA(tpElemLista pElem);
 
 /*****  Código das funções exportadas pelo módulo  *****/
 
@@ -113,8 +111,7 @@ static void LimparCabeca(LIS_tppLista pLista);
 LIS_tppLista LIS_CriarLista(void ( * ExcluirValor) (void * pDado)) {
 
     LIS_tpLista * pLista = NULL;
-    LIS_tpCondRet condRet;
-#ifdef _DEBUG    
+    LIS_tpCondRet condRet;   
     // Verifica se já foi criado a lista de espaços alocados e cria
     if (estaInicializado==0){
         memAlocada= (LIS_tppLista*) malloc(sizeof(LIS_tppLista));
@@ -127,7 +124,6 @@ LIS_tppLista LIS_CriarLista(void ( * ExcluirValor) (void * pDado)) {
             memAlocada->ExcluirValor=NULL;            
         }
     }
-#endif
    pLista = (LIS_tpLista *) malloc(sizeof ( LIS_tpLista));
     if (pLista == NULL) {
         return NULL;
@@ -136,15 +132,16 @@ LIS_tppLista LIS_CriarLista(void ( * ExcluirValor) (void * pDado)) {
     LimparCabeca(pLista); 
 
     pLista->ExcluirValor = ExcluirValor;
-#ifdef _DEBUG
     // Inclui esta Cabeça na Lista memAlocada
     IrFinalLista(memAlocada);
     condRet= LIS_InserirElementoApos(pLista);
-#endif
+    
 /* Se não estiver em modo _DEBUG o erro não será tratado
  *  então o jogo deve ser abortado */    
-#ifndef _DEBUG
+#ifndef _PENSAR
     assert(condRet==LIS_CondRetOK);
+#else
+    retornoFuncao=condRet
 #endif
     return pLista;
 
@@ -175,10 +172,10 @@ void LIS_EsvaziarLista(LIS_tppLista pLista) {
     tpElemLista * pElem;
     tpElemLista * pProx;
     LIS_tpCondRet cRetorno;
-#ifndef _DEBUG
-    assert(VerificaLista(pLista)==LIS_CondRetOK);
-#else
-    cRetorno=VerificarLista(pLista);
+#ifndef _PENSAR
+    cRetorno=VerificaLista(pLista);
+    assert(cRetorno==LIS_CondRetOK);
+#else 
     retornoFuncao= cRetorno;
     if (cRetorno!=LIS_CondRetOK){
         return;
@@ -199,7 +196,7 @@ void LIS_EsvaziarLista(LIS_tppLista pLista) {
 /***************************************************************************
  *
  *  Função: LIS  &Inserir elemento antes
- *  ****/
+ *  **********************************************/
 
 LIS_tpCondRet LIS_InserirElementoAntes(LIS_tppLista pLista, void * pValor) {
     tpElemLista * pElem;
@@ -236,7 +233,7 @@ LIS_tpCondRet LIS_InserirElementoAntes(LIS_tppLista pLista, void * pValor) {
 /***************************************************************************
  *
  *  Função: LIS  &Inserir elemento após
- *  ****/
+ ****************************************************/
 
 LIS_tpCondRet LIS_InserirElementoApos(LIS_tppLista pLista, void * pValor) {
 
@@ -276,15 +273,11 @@ LIS_tpCondRet LIS_InserirElementoApos(LIS_tppLista pLista, void * pValor) {
 /***************************************************************************
  *
  *  Função: LIS  &Excluir elemento
- *  ****/
+ ***************************************************/
 
 LIS_tpCondRet LIS_ExcluirElemento(LIS_tppLista pLista) {
 
     tpElemLista * pElem;
-
-#ifdef _DEBUG
-    assert(pLista != NULL);
-#endif
 
     if (pLista->pElemCorr == NULL) {
         return LIS_CondRetListaVazia;
@@ -323,14 +316,9 @@ LIS_tpCondRet LIS_ExcluirElemento(LIS_tppLista pLista) {
 
 void * LIS_ObterValor(LIS_tppLista pLista) {
 
-#ifdef _DEBUG
-    assert(pLista != NULL);
-#endif
-
     if (pLista->pElemCorr == NULL) {
-        return NULL;
+        return NULL; // Lista Vazia
     } /* if */
-
     return pLista->pElemCorr->pValor;
 
 } /* Fim função: LIS  &Obter referência para o valor contido no elemento */
@@ -371,27 +359,11 @@ void IrFinalLista(LIS_tppLista pLista) {
  *  ****/
 
 LIS_tpCondRet LIS_AvancarElementoCorrente(LIS_tppLista pLista, int numElem) {
-
     int i;
-
     tpElemLista * pElem;
 
-#ifdef _DEBUG
-    assert(pLista != NULL);
-#endif
-
-    /* Tratar lista vazia */
-
-    if (pLista->pElemCorr == NULL) {
-
-        return LIS_CondRetListaVazia;
-
-    } /* fim ativa: Tratar lista vazia */
-
     /* Tratar avançar para frente */
-
     if (numElem > 0) {
-
         pElem = pLista->pElemCorr;
         for (i = numElem; i > 0; i--) {
             if (pElem == NULL) {
@@ -447,13 +419,6 @@ LIS_tpCondRet LIS_ProcurarValor(LIS_tppLista pLista, void * pValor) {
 
     tpElemLista * pElem;
 
-#ifdef _DEBUG
-    assert(pLista != NULL);
-#endif
-
-    if (pLista->pElemCorr == NULL) {
-        return LIS_CondRetListaVazia;
-    } /* if */
     IrInicioLista(pLista);
     for (pElem = pLista->pElemCorr;
             pElem != NULL;
@@ -487,12 +452,64 @@ void LiberarElemento(LIS_tppLista pLista, tpElemLista * pElem) {
             && (pElem->pValor != NULL)) {
         pLista->ExcluirValor(pElem->pValor);
     } /* if */
-
+    
     free(pElem);
 
     pLista->numElem--;
 
 } /* Fim função: LIS  -Liberar elemento da lista */
+ /***********************************************************
+  *
+  *  $FC Função: LIS- Deletar elemento da Lista de Espaços Alocados
+  * 
+  *  $ED Descrição da Função:
+  *    Retira o elemento da lista e libera o mesmo, sem contanto dar free()
+  *    para o conteudo que o mesmo apontava (outro elemneto ou uma cabeça)
+  * 
+  *********************************************************/
+LIS_tpCondRet DeletarElementoLEA(tpElemLista pValor){
+    tpElemLista pElem;
+    int bAchou;
+    if (estaInicializado) {
+        return LIS_CondRetExecucao;
+    } 
+    /* Inicia a busca pelo pElem */
+        IrInicioLista(memAlocada);
+    for (pElem = memAlocada->pElemCorr;
+            pElem != NULL;
+            pElem = pElem->pProx) {
+        if (pElem->pValor == pValor) {
+            memAlocada->pElemCorr = pElem;
+            bAchou =1;
+        }
+    }
+     if (!bAchou){
+         return LIS_CondRetVazamentoMemoria;
+     }
+    
+    /*Inicia a Deletamento*/
+    pElem = memAlocada->pElemCorr;
+
+    /* Desencadeia à esquerda */
+
+    if (pElem->pAnt != NULL) {
+        pElem->pAnt->pProx = pElem->pProx;
+        memAlocada->pElemCorr = pElem->pAnt;
+    } else {
+        memAlocada->pElemCorr = pElem->pProx;
+        memAlocada->pOrigemLista = memAlocada->pElemCorr;
+    } /* if */
+
+    /* Desencadeia à direita */
+
+    if (pElem->pProx != NULL) {
+        pElem->pProx->pAnt = pElem->pAnt;
+    } else {
+        memAlocada->pFimLista = pElem->pAnt;
+    } /* if */
+    
+    return LIS_CondRetOK;
+}/* Fim função: DeletarElemento LEA */
 
 /***********************************************************************
  *
@@ -540,7 +557,7 @@ void LimparCabeca(LIS_tppLista pLista) {
  *  e a memória alocada de uma LISTA
  * 
  ****************************************/
-
+/*
 void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
     
     // LIS_tpCondRet condRet; 
@@ -601,7 +618,7 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
   
     return;
 }
-
+*/
 /*******************************************************
  *
  * $FC Função: LIS - Verifica a integridade de uma LISTA
