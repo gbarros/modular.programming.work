@@ -59,7 +59,9 @@ Data		Horas	Tipo Tarefa				Descrição da Tarefa Realizada
 28/nov/13	6	Codificar módulo			Codificação do módulo Freecell.
 			Estudar					Estudo de Instrumentação.
 
-29/nov/13		Estudar					Estudo teórico de CONTA.
+29/nov/13	12	Estudar					Estudo teórico de CONTA.
 			Projetar				Definição de lista auto-verificável. 
 								Reorganização de arquivos e diretórios.
 			Codificar módulo			Codificação do módulo Freecell.
+
+30/nov/13	5	Codificar módulo			Codificação do módulo Freecell.
