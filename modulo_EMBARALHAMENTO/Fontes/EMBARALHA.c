@@ -133,7 +133,7 @@ EMB_tpCondRet EMB_Embaralha(char bar[QTD][TAMANHO]){
 
 	// Copia o baralho embaralhado para a variavel de saida e verifica
 	//se houve pelo menos uma mudança
-	for (i=0;i<(QTD-1);i++)
+	for (i=0;i<(QTD);i++)
 	{
 		if (strcmp(barAux[i], barRef[i])){
 				embEmbaralhou++;
