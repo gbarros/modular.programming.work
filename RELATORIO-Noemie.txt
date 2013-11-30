@@ -64,4 +64,4 @@ Data		Horas	Tipo Tarefa				Descrição da Tarefa Realizada
 								Reorganização de arquivos e diretórios.
 			Codificar módulo			Codificação do módulo Freecell.
 
-30/nov/13	5	Codificar módulo			Codificação do módulo Freecell.
+30/nov/13	7	Codificar módulo			Codificação do módulo Freecell.
