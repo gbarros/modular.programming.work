@@ -55,3 +55,11 @@ Data		Horas	Tipo Tarefa				Descrição da Tarefa Realizada
 
 27/nov/13	4	Revisar projetos			Reformulação do modelo físico e exemplo do modelo físico.
 								Acréscimo de assertiva estrutural.
+
+28/nov/13	6	Codificar módulo			Codificação do módulo Freecell.
+			Estudar					Estudo de Instrumentação.
+
+29/nov/13		Estudar					Estudo teórico de CONTA.
+			Projetar				Definição de lista auto-verificável. 
+								Reorganização de arquivos e diretórios.
+			Codificar módulo			Codificação do módulo Freecell.

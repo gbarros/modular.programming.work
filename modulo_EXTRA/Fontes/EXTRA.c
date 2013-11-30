@@ -7,7 +7,7 @@
 *	Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
 *	Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
 *
-*	Projeto: [INF 1301] Implementação do Jogo FreCell para fins educacionais
+*	Projeto: [INF 1301] Implementação do Jogo FreeCell para fins educacionais
 *	Gestor:  LES/DI/PUC-Rio
 *	Autores: gb - Gabriel Barros
 *			 lg - Leonardo Giroto 
@@ -31,33 +31,29 @@
 
 static int ObterValor(Carta carta);
 static char ObterNaipe(Carta carta);
-static char REF []= " "; //Referencia para espaço vazio
+static char REF [] = " "; //Referencia para espaço vazio
 
 
 /***************************************************************************
 *  Função: EXT  &Criar Coluna
 ***************************************************************************/
 
-EXT_Coluna EXT_CriarColunaExtra(void)
-{
-	LIS_tppLista extraHead;
-	LIS_tpCondRet retornoCriaLista;
+EXT_Coluna EXT_CriarColunaExtra(void){
 	int i;
+	EXT_Coluna extraHead;
+	LIS_tpCondRet condRet;
 
 	extraHead = LIS_CriarLista(NULL);
 
-	if(extraHead == NULL)
-	{
+	if(extraHead == NULL){
 		return NULL;
 	}
 
-	for(i=0;i<4;i++)
-	{
-		retornoCriaLista = LIS_InserirElementoApos(extraHead,REF);
-		if(retornoCriaLista != LIS_CondRetOK){
+	for(i = 0; i < 4; i++){
+		condRet = LIS_InserirElementoApos(extraHead, REF);
+		if(condRet != LIS_CondRetOK){
 			LIS_DestruirLista(extraHead);
 			return NULL;
-
 		}
 	}
 
@@ -69,10 +65,9 @@ EXT_Coluna EXT_CriarColunaExtra(void)
 *  Função: EXT  &Excluir Coluna
 ***************************************************************************/
 
-EXT_tpCondRet EXT_ExcluirColunaExtra(EXT_Coluna coluna)
-{
+EXT_tpCondRet EXT_ExcluirColunaExtra(EXT_Coluna coluna){
 	if(coluna==NULL)
-		return EXT_CondRetColunaInexistente;
+		return EXT_CondRetColunaNaoExiste;
 
 	LIS_DestruirLista(coluna);
 
@@ -83,27 +78,26 @@ EXT_tpCondRet EXT_ExcluirColunaExtra(EXT_Coluna coluna)
 *  Função: EXT  &Verificar Inserir Carta
 ***************************************************************************/
 
-EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta)
-{
-	int i=4;
-	static int CONTA=0;
+EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta){
+	int i = 4;
 
 	if(destino == NULL)
-		return EXT_CondRetColunaInexistente;
-	// verifica se a carta é válida
-	if(carta == NULL || (ObterValor(carta)== -1)|| (ObterNaipe(carta)=='X') )
-		return EXT_CondRetCartaInvalida;
+		return EXT_CondRetColunaNaoExiste;
+	
+	// Verifica se a carta é válida
+	if(carta == NULL || (ObterValor(carta)== -1)|| (ObterNaipe(carta)=='X'))
+		return EXT_CondRetCartaNaoExiste;
 
 	IrFinalLista(destino);
 
-	while(i)
-	{
-		if(LIS_ObterValor(destino)==REF){ //vê se não há elemento na posição
-			printf("\n ABSSSSSS    |%s|  %d  &   %d \n", LIS_ObterValor(destino),i, CONTA++ );
+	while(i){
+		// Se a posição está vazia, pode inserir
+		if(LIS_ObterValor(destino) == REF)
 			return EXT_CondRetOK;
-		}
+		// Caso contrário, verifica o próximo elemento
 		else
-			LIS_AvancarElementoCorrente(destino,-1); //vê próximo elemento da lista
+			LIS_AvancarElementoCorrente(destino,-1); 
+		
 		i--;
 	}
 
@@ -114,123 +108,80 @@ EXT_tpCondRet EXT_VerificarInserirCarta(EXT_Coluna destino, Carta carta)
 *  Função: EXT  &Verificar Remover Carta
 ***************************************************************************/
 
-EXT_tpCondRet EXT_VerificarRemoverCarta(EXT_Coluna origem, Carta carta)
-{
+EXT_tpCondRet EXT_VerificarRemoverCarta(EXT_Coluna origem, Carta carta){
 	LIS_tpCondRet retornoVerificaRemover;
 
-	if(origem== NULL)
-		return EXT_CondRetColunaInexistente; // verifica se a coluna existe
+	// Verifica se a coluna recebida existe
+	if(origem == NULL)
+		return EXT_CondRetColunaNaoExiste; 
 
-	// verifica se a carta é válida
+	// Verifica se a carta recebida é válida
 	if(carta == NULL || (ObterValor(carta)== -1)|| (ObterNaipe(carta)=='X'))
+		return EXT_CondRetCartaNaoExiste; 
 
-		return EXT_CondRetCartaInvalida; 
+	IrInicioLista(origem);
 
-	  IrInicioLista(origem);
+	// Procura se a carta na existe na coluna
+	retornoVerificaRemover = LIS_ProcurarValor(origem, carta); 
 
-	retornoVerificaRemover = LIS_ProcurarValor(origem,carta); // procura a carta na coluna
-
-	printf("\n\n retornoVerificaRemover: %d  ", retornoVerificaRemover);
-
+	// Se a carta não estiver na coluna, não é possível removê-la
 	if(retornoVerificaRemover == LIS_CondRetNaoAchou)
+		return EXT_CondRetNaoPodeRemover; 
 
-		return EXT_CondRetNaoPodeRemover; // se a carta não estiver na coluna
-
+	// Se a coluna estiver vazia, não é possível removê-la
 	else if(retornoVerificaRemover == LIS_CondRetListaVazia)
-
-		return EXT_CondRetNaoPodeRemover; // se a coluna estiver vazia
-
+		return EXT_CondRetNaoPodeRemover; 
+	
 	else
 		return EXT_CondRetOK;
-
 }
 
 /***************************************************************************
 *  Função: EXT  &Inserir Carta Em Extra
 ***************************************************************************/
 
-EXT_tpCondRet EXT_InserirCartaEmExtra(EXT_Coluna destino, Carta carta)
-{
-	LIS_tpCondRet retornoInserir;
-	EXT_tpCondRet possivelInserir;
-	printf("\n ENDERECO: %x  \n",destino );
-	if(destino == NULL){
-		return EXT_CondRetColunaInexistente; // verifica se a coluna existe
+EXT_tpCondRet EXT_InserirCartaEmExtra(EXT_Coluna destino, Carta carta){
+	LIS_tpCondRet condRet;
+
+	if(EXT_VerificarInserirCarta(destino, carta) != EXT_CondRetOK){
+		return EXT_CondRetErroAoInserir;
 	}
-  else{
-		if(carta == NULL || (ObterValor(carta)== -1)|| (ObterNaipe(carta)=='X')){
 
-			return EXT_CondRetCartaInvalida; // verifica se a carta é válida
-		}
-		else{
-			possivelInserir = EXT_VerificarInserirCarta(destino,carta); // chama função para verificar se a inserção é possível
+	//Torna elemento corrente o último elemento
+	IrFinalLista(destino); 
 
-			printf("\n Possivel? %d \n ", possivelInserir);
+	// Insere carta após o elemento corrente
+	condRet = LIS_InserirElementoApos(destino, carta); 
 
-			if(possivelInserir == EXT_CondRetOK) // se a inserção for possível
-			{
-				IrFinalLista(destino); //torna elemento corrente o ultimo elemento
-				printf ("\n\n\n EU SOU A CARTA DA VEZ: %s \n",carta);
-
-				retornoInserir = LIS_InserirElementoApos(destino,carta); // insere após o elemento corrente
-
-				if(retornoInserir == LIS_CondRetOK)
-					return EXT_CondRetOK;
-				else
-					EXT_CondRetNaoPodeInserir;
-			}
-			else{
-
-				return EXT_CondRetNaoPodeInserir;
-
-			}
-		}
-	}
-	return EXT_CondRetNaoPodeInserir;
+	if(condRet == LIS_CondRetOK)
+		return EXT_CondRetOK;
+	else
+		return EXT_CondRetErroAoInserir;	
 }
 
 /***************************************************************************
 *  Função: EXT  &Remover Carta De Extra
 ***************************************************************************/
 
-EXT_tpCondRet EXT_RemoverCartaDeExtra(EXT_Coluna origem, Carta carta)
-{
-	LIS_tpCondRet retornoRemover,
-				  retornoInserir;
-	EXT_tpCondRet possivelRemover;
-	printf("\n ENDERECO: %x  \n",origem );
-	if(origem== NULL){
-		return EXT_CondRetColunaInexistente; // verifica se a coluna existe
+EXT_tpCondRet EXT_RemoverCartaDeExtra(EXT_Coluna origem, Carta carta){
+	LIS_tpCondRet condRet;
+
+	if(EXT_VerificarRemoverCarta(origem, carta) != EXT_CondRetOK)
+		return EXT_CondRetErroAoRemover;
+
+	condRet = LIS_ExcluirElemento(origem);
+
+	// Após remoção, precisamos inserir vazio de novo
+	if(condRet == LIS_CondRetOK){
+		condRet = LIS_InserirElementoApos(origem, REF);
+		
+		if(condRet == LIS_CondRetOK)
+			return EXT_CondRetOK;
+		else
+			return EXT_CondRetErroAoRemover;
 	}
-	else{
-		if(carta == NULL || (ObterValor(carta)== -1)|| (ObterNaipe(carta)=='X')){
-
-			return EXT_CondRetCartaInvalida; // verifica se a carta é válida
-		}
-		else{
-			//possivelRemover = ; // chama função que vê se é possível remover
-			possivelRemover=EXT_VerificarRemoverCarta(origem,carta);
-			printf("\n\n\n Passei %d\n",possivelRemover);
-			if(possivelRemover == EXT_CondRetOK) {   // se a Remocao for possível
-				retornoRemover = LIS_ExcluirElemento(origem); // se estiver, exclui a carta da coluna
-
-				printf("\n\n\n\n\nAqui deu o erro  %d", retornoRemover);
-
-				if(retornoRemover == LIS_CondRetOK)
-				{
-					retornoInserir = LIS_InserirElementoApos(origem,REF);
-					if(retornoInserir == LIS_CondRetOK)
-						return EXT_CondRetOK;
-					else
-						return EXT_CondRetErroRemocao;
-				}
-				else
-					return EXT_CondRetErroRemocao;
-			}
-			else
-				return EXT_CondRetErroRemocao;
-		}
-	}	
+	else
+		return EXT_CondRetErroAoRemover;
 }
 
 /***************************************************************************
@@ -242,25 +193,26 @@ EXT_tpCondRet EXT_ExibirCartas(EXT_Coluna coluna){
 	LIS_tpCondRet avancarCondRet;
 	char *valor;
 
+	// Verifica se a coluna recebida existe
 	if(coluna == NULL)
-		return EXT_CondRetColunaInexistente; // verifica se a coluna existe
+		return EXT_CondRetColunaNaoExiste;
+	
 	IrFinalLista(coluna); // garantir que pegaremos os valores desde o início
-	printf("\n\nExtra:   \n");
-	for(i=0;i<4;i++)
-	{
-		valor = LIS_ObterValor(coluna);
 
+	for(i = 0; i < 4; i++){
+		valor = LIS_ObterValor(coluna);
+		
 		if(valor == NULL)
 			break;
 		
 		printf("[ %s ]\t", valor);
 
 		avancarCondRet = LIS_AvancarElementoCorrente(coluna,-1);
+		
 		if (avancarCondRet == LIS_CondRetFimLista)
 			break;
 	}
 
-	printf("\n");
 	return EXT_CondRetOK;
 }
 

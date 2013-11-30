@@ -40,7 +40,7 @@
    #define EXTRA_EXT extern
 #endif
 
-#include "LISTA.H"
+#include "lista.h"
 
 /***** Declarações exportadas pelo módulo *****/
 
@@ -50,6 +50,7 @@ typedef char* Carta;
 /* Tipo referência para uma coluna extra */
 typedef LIS_tppLista EXT_Coluna;
 
+
 /***********************************************************************
 *	$TC Tipo de dados: EXT Condições de retorno
 ***********************************************************************/
@@ -57,17 +58,20 @@ typedef LIS_tppLista EXT_Coluna;
 typedef enum {
 	EXT_CondRetOK,
 	// Concluiu corretamente
-	EXT_CondRetColunaInexistente,
+	EXT_CondRetColunaNaoExiste,
 	// Coluna inexistente
+	EXT_CondRetCartaNaoExiste,
+	// Carta inexistente
 	EXT_CondRetNaoPodeInserir,
 	// Movimento de inserção não válido
 	EXT_CondRetNaoPodeRemover,
-	// Movimento de Remocao não válido
-	EXT_CondRetCartaInvalida,
-	// A carta recebida não pertence ao conjunto domínio de um baralho
-	EXT_CondRetErroRemocao
-	// Erro ao remover carta que não pode ser removida da coluna
-
+	// Movimento de remoção não válido
+	EXT_CondRetErroAoInserir,
+	// Erro ao inserir carta na coluna
+	EXT_CondRetErroAoRemover,
+	// Erro ao remover carta da coluna
+	EXT_CondRetErroAoExibir
+	// Erro ao exibir as cartas da coluna
 } EXT_tpCondRet ;
 
 /***********************************************************************

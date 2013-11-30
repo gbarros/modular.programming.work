@@ -26,7 +26,7 @@ PUC-Rio Novembro 2013
 	modulo_NAIPE			Contém os arquivos para execução e teste do módulo naipe.
 	modulo_SEQ_VIS			Contém os arquivos para execução e teste do módulo sequências visíveis.
 
-	Todas as pastas do tipo modulo_X devem conter as seguintes subpastas:
+	Todas as pastas do tipo modulo_X, exceto modulo_FREECELL, devem conter as seguintes subpastas:
 	
 	NOME			DESCRIÇÃO
 	Batches			Contém todos os arquivos .batch necessários para automatizar as execuções
