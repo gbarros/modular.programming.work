@@ -541,10 +541,74 @@ void LimparCabeca(LIS_tppLista pLista) {
  * 
  ****************************************/
 
+// Adicionar 5 tipos de deturpações
+// 
+// Eliminando elemento alocado
+// Modificar o tipo da cabeça
+// Anular ponteiro para a cabeça
+// Fazer raiz apontar para lixo
+// Anular ponteiro para próximo elemento
+
+
 void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
-    LIS_tpCondRet condRet; 
-    condRet= LIS_CondRetOK;
-    return 0;
+    
+    // LIS_tpCondRet condRet; 
+    // condRet= LIS_CondRetOK;
+
+    if ( pLista == NULL )
+    {
+        return;
+    }
+
+    // Modifica o tipo da cabeça
+
+    if( tpModo == DeturpaTipoCabeca )
+    {
+        CED_DefinirTipoEspaco(pLista,CED_ID_TIPO_VALOR_NULO);
+    }
+
+    // Anula o ponteiro para a cabeça
+
+    else if( tpModo == DeturpaAnulaOrigemLista )
+    {
+        pLista->pOrigemLista = NULL;
+    }
+
+    // Faz raíz apontar para lixo
+
+    else if( tpModo == DeturpaLixoOrigemLista )
+    {
+        pLista->pOrigemLista = (LIS_tpLista*)(EspacoLixo);
+    }
+
+    // Anula ponteiro para o próximo elemento
+
+    else if( tpModo == DeturpaAnulaProxElem )
+    {
+        pLista->pProx = NULL;
+    }
+
+    // Anula elemento corrente
+    
+    else if( tpModo == DeturpaAnulaElem )
+    {
+        pLista->pElemCorr = NULL;
+    }
+
+    // Deturpa o espaço da cabeça
+
+    else if( tpModo == )
+    {
+        memcpy( ((char*)(pLista)) - 15 , "????" , 4 ) ;
+
+    }
+    
+    else
+    {
+       return;
+   }
+  
+    return;
 }
 
 /*******************************************************
