@@ -60,8 +60,8 @@ PUC-Rio Novembro 2013
 	NOME				DESCRIÇÃO
 	LEIAME.txt			Versão eletrônica deste documento
 	
-	Espercificação de Requisitos	Apresenta a modelagem do problema, ou seja, a especificação
-	e Arquitetura do Programa.pdf	de requisitos do programa. Inclui uma descrição detalhada do
+	documentacao.pdf		Apresenta a modelagem do problema, ou seja, a especificação
+					de requisitos do programa. Inclui uma descrição detalhada do
 					funcionamento e exemplos. Apresenta modelagem da solução, com 
 					diagrama dos módulos e suas relações, além das interfaces. 
 					Apresenta a modelagem física do programa com suas assertivas
@@ -76,6 +76,8 @@ PUC-Rio Novembro 2013
 					estrutura de dados tipo lista.
 	EMBARALHA.h, EMBARALHA.c	Módulos de implementação e de definição do módulo responsável
 					por embaralhar as cartas do baralho.
+	FREECELL.c			Módulo de implementação do módulo gerenciador responsável pela
+					execução do jogo Freecell.
 	EXTRA.h, EXTRA.c		Módulos de implementação e de definição do módulo que manipula as
 					colunas extra (freecells).
 	NAIPE.h, NAIPE.c		Módulos de implementação e de definição do módulo que manipula as
