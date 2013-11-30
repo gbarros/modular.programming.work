@@ -541,15 +541,6 @@ void LimparCabeca(LIS_tppLista pLista) {
  * 
  ****************************************/
 
-// Adicionar 5 tipos de deturpações
-// 
-// Eliminando elemento alocado
-// Modificar o tipo da cabeça
-// Anular ponteiro para a cabeça
-// Fazer raiz apontar para lixo
-// Anular ponteiro para próximo elemento
-
-
 void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
     
     // LIS_tpCondRet condRet; 
