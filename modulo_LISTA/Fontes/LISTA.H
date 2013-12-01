@@ -137,13 +137,10 @@ typedef enum {
          DeturpaTipoNo            =  6 ,
                /* Modifica tipo nó corrente */
 
-         DeturpaValor             =  7 ,
-               /* Atribui valor de tamanho 1 byte maior do que o alocado */
-
-         DeturparEspacoCabeca     =  8 ,
+         DeturparEspacoCabeca     =  7 ,
                /* Deturpa espaço da cabeca */
 
-         DeturparEspacoNo         =  9
+         DeturparEspacoNo         =  8
                /* Deturpa espaço do nó */
 
    } LIS_tpModosDeturpacao ;
@@ -422,7 +419,7 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo);
  * 
  * 
  **********************************************************************/
-LIS_tpCondRet VerificaLista(void); 
+LIS_tpCondRet VerificaLista(LIS_tppLista  pLista); 
     
 #undef LISTA_EXT
 
