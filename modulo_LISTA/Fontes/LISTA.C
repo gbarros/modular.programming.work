@@ -730,7 +730,7 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
      CED_MarcarEspacoAtivo(elemLista);
 #endif
      if (elemLista==NULL){
-        CNT_CONTAR("ElementoInvalido");
+        CNT_CONTAR("ElementoNULL");
         return LIS_CondRetOK;
      }
      *count++;
