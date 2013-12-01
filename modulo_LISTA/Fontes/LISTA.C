@@ -33,11 +33,12 @@
 #ifdef _DEBUG
 #include "Generico.h"
 #include "CESPDIN.H"
+#include "CONTA.H"
 #endif
 #define LISTA_OWN
 #include "LISTA.h"
 #include "LISTA_INSTR.h"
-#include "TST_Espc.h"
+#include "TST_ESPC.H"
 #undef LISTA_OWN
 
 /***********************************************************************
@@ -110,6 +111,8 @@ static void LiberarElemento(LIS_tppLista pLista,tpElemLista * pElem);
 static tpElemLista * CriarElemento(LIS_tppLista pLista,void * pValor);
 
 static void LimparCabeca(LIS_tppLista pLista);
+
+static LIS_tpCondRet VerificaElementoLista(LIS_tppLista cabecaLista,tpElemLista elemLista, int* count);
 
 static int CED_ID_TIPO_VALOR_NULO = 999;
 
@@ -551,6 +554,8 @@ void LimparCabeca(LIS_tppLista pLista) {
  * 
  ****************************************/
 
+#ifdef _DEBUG
+
 void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
     
     // LIS_tpCondRet condRet; 
@@ -586,7 +591,7 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
 
     else if( tpModo == DeturpaRaizLixo )
     {
-        pLista->pOrigemLista = (LIS_tpLista*)(EspacoLixo);
+        pLista->pOrigemLista = (tpElemLista*)(EspacoLixo);
     }
 
     // Faz elemento corrente apontar para lixo
@@ -626,6 +631,8 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
     return;
 }
 
+#endif
+
 /*******************************************************
  *
  * $FC Função: LIS - Verifica a integridade de uma LISTA
@@ -644,13 +651,12 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
 
  LIS_tpCondRet VerificaLista(LIS_tppLista cabecaLista){
      int qtdElems=0; //Contador de elementos
-     LIS_tpCondRet condRet;
  /*Testa os ponteiros quanto ao tipo apontado*/
 #ifdef _DEBUG
 
     if( cabecaLista==NULL)
     {
-        CNT_CONTAR("CabecaListaInvalida");
+        CNT_Contar("CabecaListaInvalida");
         TST_NotificarFalha( "Tentou verificar cabeça inexistente.");
         return LIS_CondRetParam;
     }
@@ -661,7 +667,7 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
         CED_ObterTipoEspaco(cabecaLista->pElemCorr),
              "Tipo Errado apontado na cabeca" )!=TST_CondRetOK)
     {                
-        CNT_CONTAR("ErroTipoCorrente");
+        CNT_Contar("ErroTipoCorrente");
         return LIS_CondRetEstruturaDados;
     }
 
@@ -669,7 +675,7 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
         CED_ObterTipoEspaco(cabecaLista->pOrigemLista),
        "Tipo Errado apontado na cabeca" )!=TST_CondRetOK)
      { 
-        CNT_CONTAR("ErroTipoCabeca");              
+        CNT_Contar("ErroTipoCabeca");              
         return LIS_CondRetEstruturaDados;
      }
 
@@ -677,23 +683,21 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
         CED_ObterTipoEspaco(cabecaLista->pFimLista),
        "Tipo Errado apontado na cabeca" )!=TST_CondRetOK)
     {  
-       CNT_CONTAR("ErroTipoFinal");             
+       CNT_Contar("ErroTipoFinal");             
         return LIS_CondRetEstruturaDados;
     }
 
 #endif     
-     condRet =VerificaElementoLista(cabecaLista,cabecaLista->pOrigemLista,
-             &qtdElems);
+     // condRet = VerificaElementoLista(cabecaLista,cabecaLista->pOrigemLista,
+    //      &qtdElems);
      if(cabecaLista->numElem!=qtdElems){
 #ifdef _DEBUG
-        CNT_CONTAR("ErroNumElementos");
+        CNT_Contar("ErroNumElementos");
         TST_NotificarFalha("Erro numero de Elementos");
 #endif
          return LIS_CondRetEstruturaDados;
      }  
      
-    CNT_CONTAR("VerificarOK");
-
     return LIS_CondRetOK;
 }
 /*******************************************************
@@ -704,45 +708,48 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
  *    A função executa uma checagem completa de todos os Elementos, recursivamente
  *
  *****************************************************************************/
+ #ifdef _DEBUG
  
  LIS_tpCondRet VerificaElementoLista(LIS_tppLista cabecaLista,tpElemLista elemLista, int* count){
      LIS_tpCondRet condRet;
-#ifdef _DEBUG
+
      CED_MarcarEspacoAtivo(elemLista);
-#endif
-     if (elemLista==NULL){
-        CNT_CONTAR("ElementoNULL");
+
+     if (elemLista.pValor == NULL){
+        CNT_Contar("ElementoNULL");
         return LIS_CondRetOK;
      }
      *count++;
-     condRet= VerificaElementoLista(cabecaLista,elemLista.pProx,count );
+     condRet= VerificaElementoLista(cabecaLista,elemLista,count );
      if (condRet!= LIS_CondRetOK)
      {
-        CNT_CONTAR("ErroComElemento");
+        CNT_Contar("ErroComElemento");
         return LIS_CondRetEstruturaDados;
      }
-    else if ((elemLista.pAnt->pProx) != elemLista)
+    else if ((elemLista.pAnt->pProx) != elemLista.pValor )
     {
-        CNT_CONTAR("ErroPonteiroElemAnterior");
+        CNT_Contar("ErroPonteiroElemAnterior");
         return LIS_CondRetEstruturaDados;
     }
-    else if(elemLista.pProx->pAnt!=elemLista)
+    else if(elemLista.pProx->pAnt != elemLista.pValor )
     {
-        CNT_CONTAR("ErroPonteiroProxElem");
+        CNT_Contar("ErroPonteiroProxElem");
         return LIS_CondRetEstruturaDados;
     }
     else if(elemLista.pCabeca != cabecaLista)
     {
-        CNT_CONTAR("ErroPonteiroCabeca");
+        CNT_Contar("ErroPonteiroCabeca");
         return LIS_CondRetEstruturaDados;
     }
-#ifdef _DEBUG
     else if (TST_CompararInt(LIS_ElemLista,CED_ObterTipoEspaco(elemLista),"Tipo Errado" )=!TST_CondRetOK){
-        CNT_CONTAR("ErroTipoElem");
+        CNT_Contar("ErroTipoElem");
         return LIS_CondRetEstruturaDados;
     }
-#endif
-    CNT_CONTAR("VerificarElemOK");
+
+    CNT_Contar("VerificarElemOK");
     return LIS_CondRetOK;
  }
+
+  #endif
  /********** Fim do módulo de implementação: LIS  Lista duplamente encadeada **********/
+

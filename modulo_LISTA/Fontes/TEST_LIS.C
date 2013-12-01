@@ -28,8 +28,13 @@
 
 #include    "Generico.h"
 #include    "LerParm.h"
+#include    "CESPDIN.H"
 
+#ifdef _DEBUG
+#include    "LISTA_INSTR.h"
+#else
 #include    "Lista.h"
+#endif
 
 
 static const char RESET_LISTA_CMD         [ ] = "=resetteste"     ;
