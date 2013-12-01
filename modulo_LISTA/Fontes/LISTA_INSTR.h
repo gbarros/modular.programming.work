@@ -4,10 +4,11 @@
 *       Gestor:  LES/DI/PUC-Rio
 *       Autores: gb - Gabriel Barros
 *                lg - Leonardo Giroto 
-*		 nk - Noemie Nakamura
+*		             nk - Noemie Nakamura
 *     $HA Histórico de evolução:
 *    Versão  Autor    Data     Observações
-*      1      GB   24/nov/2013 Inicio de desenvolvimento: Assertivas da LISTA
+*      2      gb   24/nov/2013  Finalização do Wrapper 
+*      1      gb   18/nov/2013 Inicio de desenvolvimento: Assertivas da LISTA
  * Created on 17 de Novembro de 2013, 12:04
  */
 
@@ -85,8 +86,7 @@ typedef enum {
                /* Deturpa espaço do nó */
 
    } LIS_tpModosDeturpacao ;
-
-
+   
    LIS_tppLista LIS_CriarListaINSTR(void(*ExcluirValor)( void * pDado));
 
    void LIS_DestruirListaINSTR( LIS_tppLista pLista ) ;

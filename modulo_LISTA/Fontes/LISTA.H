@@ -15,11 +15,13 @@
 *  Autores: avs
 *           gb - Gabriel Barros
 *           lg - Leonardo Giroto 
-*	    nk - Noemie Nakamura
+*	          nk - Noemie Nakamura
 *
 *  $HA Histórico de evolução:
-*     Versão  Autor    Data     Observações
-*     5        GB   24/nov/2013 Inicio de desenvolvimento: Lista Autoverificável 
+*    Versão  Autor    Data      Observações
+*     7        gb   30/nov/2013 Correções e intrumentação CESPEDIN
+*     6        gb   24/nov/2013 Continuação e lista de espaços alocados
+*     5        gb   18/nov/2013 Inicio de desenvolvimento: Lista Autoverificável 
 *     4       avs   01/fev/2006 criar linguagem script simbólica
 *     3       avs   08/dez/2004 uniformização dos exemplos
 *     2       avs   07/jul/2003 unificação de todos os módulos em um só projeto
