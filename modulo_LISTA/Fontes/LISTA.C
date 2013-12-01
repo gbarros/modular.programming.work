@@ -32,7 +32,7 @@
 #include   <assert.h>
 #ifdef _DEBUG
 #include "Generico.h"
-#include "CESPEDIN.H"
+#include "CESPDIN.H"
 #endif
 #define LISTA_OWN
 #include "LISTA.h"
@@ -150,6 +150,11 @@ LIS_tppLista LIS_CriarLista(void ( * ExcluirValor) (void * pDado)) {
 
 void LIS_DestruirLista(LIS_tppLista pLista) {
 
+    LIS_tpCondRet condRetVerifica;
+    condRetVerifica = VerificaLista(pLista);
+    if(condRetVerifica != LIS_CondRetOK)
+        return condRetVerifica;
+
     LIS_EsvaziarLista(pLista);
     // Retira da lista de memória alocada
     LIS_ProcurarValor(memAlocada, pLista);
@@ -164,6 +169,11 @@ void LIS_DestruirLista(LIS_tppLista pLista) {
  ***************************************************************************/
 
 void LIS_EsvaziarLista(LIS_tppLista pLista) {
+
+    LIS_tpCondRet condRetVerifica;
+    condRetVerifica = VerificaLista(pLista);
+    if(condRetVerifica != LIS_CondRetOK)
+        return condRetVerifica;
 
     tpElemLista * pElem;
     tpElemLista * pProx;
@@ -195,6 +205,12 @@ void LIS_EsvaziarLista(LIS_tppLista pLista) {
  *  **********************************************/
 
 LIS_tpCondRet LIS_InserirElementoAntes(LIS_tppLista pLista, void * pValor) {
+    
+    LIS_tpCondRet condRetVerifica;
+    condRetVerifica = VerificaLista(pLista);
+    if(condRetVerifica != LIS_CondRetOK)
+        return condRetVerifica;
+
     tpElemLista * pElem;
     /* Criar elemento a inserir antes */
 
@@ -229,6 +245,11 @@ LIS_tpCondRet LIS_InserirElementoAntes(LIS_tppLista pLista, void * pValor) {
  ****************************************************/
 
 LIS_tpCondRet LIS_InserirElementoApos(LIS_tppLista pLista, void * pValor) {
+
+    LIS_tpCondRet condRetVerifica;
+    condRetVerifica = VerificaLista(pLista);
+    if(condRetVerifica != LIS_CondRetOK)
+        return condRetVerifica;
 
     tpElemLista * pElem;
 
@@ -266,6 +287,11 @@ LIS_tpCondRet LIS_InserirElementoApos(LIS_tppLista pLista, void * pValor) {
  ***************************************************/
 
 LIS_tpCondRet LIS_ExcluirElemento(LIS_tppLista pLista) {
+
+    LIS_tpCondRet condRetVerifica;
+    condRetVerifica = VerificaLista(pLista);
+    if(condRetVerifica != LIS_CondRetOK)
+        return condRetVerifica;
 
     tpElemLista * pElem;
 
@@ -306,6 +332,11 @@ LIS_tpCondRet LIS_ExcluirElemento(LIS_tppLista pLista) {
 
 void * LIS_ObterValor(LIS_tppLista pLista) {
 
+    LIS_tpCondRet condRetVerifica;
+    condRetVerifica = VerificaLista(pLista);
+    if(condRetVerifica != LIS_CondRetOK)
+        return condRetVerifica;
+
     if (pLista->pElemCorr == NULL) {
         return NULL; // Lista Vazia
     } /* if */
@@ -319,6 +350,11 @@ void * LIS_ObterValor(LIS_tppLista pLista) {
  *  ****/
 
 void IrInicioLista(LIS_tppLista pLista) {
+
+    LIS_tpCondRet condRetVerifica;
+    condRetVerifica = VerificaLista(pLista);
+    if(condRetVerifica != LIS_CondRetOK)
+        return condRetVerifica;
 
 #ifdef _DEBUG
     assert(pLista != NULL);
@@ -335,6 +371,11 @@ void IrInicioLista(LIS_tppLista pLista) {
 
 void IrFinalLista(LIS_tppLista pLista) {
 
+    LIS_tpCondRet condRetVerifica;
+    condRetVerifica = VerificaLista(pLista);
+    if(condRetVerifica != LIS_CondRetOK)
+        return condRetVerifica;
+
 #ifdef _DEBUG
     assert(pLista != NULL);
 #endif
@@ -349,6 +390,12 @@ void IrFinalLista(LIS_tppLista pLista) {
  *  ****/
 
 LIS_tpCondRet LIS_AvancarElementoCorrente(LIS_tppLista pLista, int numElem) {
+
+    LIS_tpCondRet condRetVerifica;
+    condRetVerifica = VerificaLista(pLista);
+    if(condRetVerifica != LIS_CondRetOK)
+        return condRetVerifica;
+
     int i;
     tpElemLista * pElem;
 
@@ -407,6 +454,11 @@ LIS_tpCondRet LIS_AvancarElementoCorrente(LIS_tppLista pLista, int numElem) {
 
 LIS_tpCondRet LIS_ProcurarValor(LIS_tppLista pLista, void * pValor) {
 
+    LIS_tpCondRet condRetVerifica;
+    condRetVerifica = VerificaLista(pLista);
+    if(condRetVerifica != LIS_CondRetOK)
+        return condRetVerifica;
+
     tpElemLista * pElem;
 
     IrInicioLista(pLista);
@@ -437,6 +489,12 @@ LIS_tpCondRet LIS_ProcurarValor(LIS_tppLista pLista, void * pValor) {
  ***********************************************************************/
 
 void LiberarElemento(LIS_tppLista pLista, tpElemLista * pElem) {
+
+    LIS_tpCondRet condRetVerifica;
+    condRetVerifica = VerificaLista(pLista);
+    if(condRetVerifica != LIS_CondRetOK)
+        return condRetVerifica;
+
     if ((pLista->ExcluirValor != NULL)
             && (pElem->pValor != NULL)) {
         pLista->ExcluirValor(pElem->pValor);
@@ -454,6 +512,11 @@ void LiberarElemento(LIS_tppLista pLista, tpElemLista * pElem) {
  ***********************************************************************/
 
 tpElemLista * CriarElemento(LIS_tppLista pLista, void * pValor) {
+
+    LIS_tpCondRet condRetVerifica;
+    condRetVerifica = VerificaLista(pLista);
+    if(condRetVerifica != LIS_CondRetOK)
+        return condRetVerifica;
 
     tpElemLista * pElem;
 
@@ -480,6 +543,11 @@ tpElemLista * CriarElemento(LIS_tppLista pLista, void * pValor) {
  ***********************************************************************/
 
 void LimparCabeca(LIS_tppLista pLista) {
+
+    LIS_tpCondRet condRetVerifica;
+    condRetVerifica = VerificaLista(pLista);
+    if(condRetVerifica != LIS_CondRetOK)
+        return condRetVerifica;
 
     pLista->pOrigemLista = NULL;
     pLista->pFimLista = NULL;
@@ -598,34 +666,53 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
      LIS_tpCondRet condRet;
  /*Testa os ponteiros quanto ao tipo apontado*/
 #ifdef _DEBUG
-     if( cabecaLista==NULL)
-         return LIS_CondRetParam;
+
+    if( cabecaLista==NULL)
+    {
+        CNT_CONTAR("CabecaListaInvalida");
+        TST_NotificarFalha( "Tentou verificar cabeça inexistente.");
+        return LIS_CondRetParam;
+    }
+
      CED_MarcarEspacoAtivo(cabecaLista);
      
      if (TST_CompararInt(LIS_CabecaLista,
         CED_ObterTipoEspaco(cabecaLista->pElemCorr),
-             "Tipo Errado apontado na cabeca" )!=TST_CondRetOK){                
-         return LIS_CondRetEstruturaDados;
-     }
+             "Tipo Errado apontado na cabeca" )!=TST_CondRetOK)
+    {                
+        CNT_CONTAR("ErroTipoCorrente");
+        return LIS_CondRetEstruturaDados;
+    }
+
      else if (TST_CompararInt(LIS_CabecaLista,
         CED_ObterTipoEspaco(cabecaLista->pOrigemLista),
-       "Tipo Errado apontado na cabeca" )!=TST_CondRetOK){                
+       "Tipo Errado apontado na cabeca" )!=TST_CondRetOK)
+     { 
+        CNT_CONTAR("ErroTipoCabeca");              
         return LIS_CondRetEstruturaDados;
      }
+
      else if (TST_CompararInt(LIS_CabecaLista,
         CED_ObterTipoEspaco(cabecaLista->pFimLista),
-       "Tipo Errado apontado na cabeca" )!=TST_CondRetOK){                
+       "Tipo Errado apontado na cabeca" )!=TST_CondRetOK)
+    {  
+       CNT_CONTAR("ErroTipoFinal");             
         return LIS_CondRetEstruturaDados;
-     }
+    }
+
 #endif     
      condRet =VerificaElementoLista(cabecaLista,cabecaLista->pOrigemLista,
              &qtdElems);
      if(cabecaLista->numElem!=qtdElems){
 #ifdef _DEBUG
-         TST_NotificarFalha("Erro numero de Elementos");
+        CNT_CONTAR("ErroNumElementos");
+        TST_NotificarFalha("Erro numero de Elementos");
 #endif
          return LIS_CondRetEstruturaDados;
      }  
+     
+    CNT_CONTAR("VerificarOK");
+
     return LIS_CondRetOK;
 }
 /*******************************************************
@@ -643,27 +730,38 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
      CED_MarcarEspacoAtivo(elemLista);
 #endif
      if (elemLista==NULL){
-         return LIS_CondRetOK;
+        CNT_CONTAR("ElementoInvalido");
+        return LIS_CondRetOK;
      }
      *count++;
      condRet= VerificaElementoLista(cabecaLista,elemLista->pProx,count );
-     if (condRet!= LIS_CondRetOK){
-         return LIS_CondRetEstruturaDados;
+     if (condRet!= LIS_CondRetOK)
+     {
+        CNT_CONTAR("ErroComElemento");
+        return LIS_CondRetEstruturaDados;
      }
-    else if (elemLista->pAnt->pProx!=elemLista){
+    else if (elemLista->pAnt->pProx!=elemLista)
+    {
+        CNT_CONTAR("ErroPonteiroElemAnterior");
         return LIS_CondRetEstruturaDados;
     }
-    else if(elemLista->pProx->pAnt!=elemLista){
+    else if(elemLista->pProx->pAnt!=elemLista)
+    {
+        CNT_CONTAR("ErroPonteiroProxElem");
         return LIS_CondRetEstruturaDados;
     }
-    else if(elemLista->pCabeca!= cabecaLista){
+    else if(elemLista->pCabeca!= cabecaLista)
+    {
+        CNT_CONTAR("ErroPonteiroCabeca");
         return LIS_CondRetEstruturaDados;
     }
 #ifdef _DEBUG
     else if (TST_CompararInt(LIS_ElemLista,CED_ObterTipoEspaco(elemLista),"Tipo Errado" )=!TST_CondRetOK){
+        CNT_CONTAR("ErroTipoElem");
         return LIS_CondRetEstruturaDados;
     }
 #endif
-     return LIS_CondRetOK;
+    CNT_CONTAR("VerificarElemOK");
+    return LIS_CondRetOK;
  }
  /********** Fim do módulo de implementação: LIS  Lista duplamente encadeada **********/
