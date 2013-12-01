@@ -30,14 +30,16 @@
 #include   <memory.h>
 #include   <malloc.h>
 #include   <assert.h>
+
 #ifdef _DEBUG
 #include "Generico.h"
 #include "CESPDIN.H"
 #include "CONTA.H"
+#include "LISTA_INSTR.h"
 #endif
+
 #define LISTA_OWN
 #include "LISTA.h"
-#include "LISTA_INSTR.h"
 #include "TST_ESPC.H"
 #undef LISTA_OWN
 
