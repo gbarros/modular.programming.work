@@ -1,0 +1,93 @@
+// Script:    TesteLista.script
+// Autor:     Noemie Nakamura
+// Data:      29/nov/2013
+// Propósito: Testar o módulo lista genérica duplamente encadeada seguindo critério de cobertura de arestas
+
+== Inicializar valores
+=declararparm   lista0  int 0
+=declararparm   lista1  int 1
+=declararparm   lista2  int 2
+
+=declararparm   str0    string  "abcdefg"
+=declararparm   str1    string  "qwerty"
+=declararparm   str2    string  "xxx"
+=declararparm   str3    string  "xpto"
+
+=declararparm   OK             int  0
+=declararparm   ListaVazia     int  1
+=declararparm   FimLista       int  2
+=declararparm   NaoAchou       int  3
+=declararparm   FaltouMemoria  int  4
+
+=declararparm   pNULL          int  0
+=declararparm   pNaoNULL       int  1
+
+== Iniciar contagem
+=inicializarcontadores  ""
+=lercontadores          "..\\scripts\\Lista"
+=iniciarcontagem
+
+== Criar a lista 0
+=criarlista      lista0
+=verificarlista	 lista0		LIS_CondRetOK
+
+== Verificar ObterValor relativo a lista vazia
+=obtervalorelem  lista0   "???"     pNULL
+=zerartodoscontadores
+
+== Inserir elemento em lista vazia
+=inselemantes    lista0   str0   OK
+=obtervalorelem  lista0   str0   pNaoNULL
+=verificarlista	 lista0	  LIS_CondRetOK
+
+== Inserir elemento após primeiro
+=inselemapos     lista0   str1   OK
+=obtervalorelem  lista0   str1   pNaoNULL
+=verificarlista	 lista0	  LIS_CondRetOK
+
+== Inserir elemento antes do último
+=inselemantes    lista0   str2   OK
+=obtervalorelem  lista0   str2   pNaoNULL
+=verificarlista	 lista0	  LIS_CondRetOK
+
+== Excluir elemento do meio
+=obtervalorelem  lista0   str2   pNaoNULL
+=excluirelem     lista0             OK
+=verificarlista	 lista0	  LIS_CondRetOK
+
+== Excluir elemento do início
+=obtervalorelem  lista0   str0   pNaoNULL
+=excluirelem     lista0             OK
+=verificarlista	 lista0	  LIS_CondRetOK
+
+== Excluir elemento final, único 
+=obtervalorelem  lista0   str1   pNaoNULL
+=excluirelem     lista0             OK
+=verificarlista	 lista0	  LIS_CondRetOK
+
+== Esvaziar a lista e ver se ficou vazia
+=esvaziarlista   lista0
+=obtervalorelem  lista0   "???"     pNULL
+=verificarlista	 lista0	  LIS_CondRetOK
+
+== Ver se a lista ficou vazia
+=obtervalorelem  lista0   "???"     pNULL
+=verificarlista	 lista0	  LIS_CondRetOK
+
+== Destruir a lista
+=destruirlista   lista0
+=verificarlista	 lista0	  LIS_CondRetOK
+
+== Deturpar a Lista 
+
+== Destruir a lista
+=destruirlista   lista2
+
+== Terminar controlar contadores
+=pararcontagem
+=verificarcontagens    0
+
+== Terminar contagem
+=terminarcontadores
+
+// fim
