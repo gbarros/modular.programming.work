@@ -44,6 +44,10 @@ static const char IR_INICIO_CMD           [ ] = "=irinicio"       ;
 static const char IR_FIM_CMD              [ ] = "=irfinal"        ;
 static const char AVANCAR_ELEM_CMD        [ ] = "=avancarelem"    ;
 
+// const char VER_CABECA_CMD[ ] = "=verificarcabeca" ;
+// const char VER_LISTA_CMD[ ] = "=verificararvore" ;
+// const char VER_MEMORIA_CMD[ ] = "=verificarmemoria" ;
+const char DETURPAR_CMD[ ]   = "=deturpar" ;
 
 #define TRUE  1
 #define FALSE 0
@@ -108,6 +112,10 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
       int numElem = -1 ;
 
       StringDado[ 0 ] = 0 ;
+
+      #ifdef _DEBUG
+         int  IntEsperado   = -1 ;
+      #endif
 
       /* Efetuar reset de teste de lista */
 
@@ -370,6 +378,53 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
       return TST_CondRetNaoConhec ;
 
    } /* Fim função: TLIS &Testar lista */
+
+
+/* Testar verificador de cabeça */
+
+      /* Testar verificador de árvore */
+      #ifdef _DEBUG
+
+         else if ( strcmp( ComandoTeste , VER_ARVORE_CMD ) == 0 )
+         {
+
+            numLidos = LER_LerParametros( "ii", &inxLista, &CondRetEsp );
+
+            if ( ( numLidos != 3 )
+              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            return TST_CompararInt( CondRetEsp ,
+                             VerificaLista( vtListas[ inxLista ] ) ,
+                             "Retorno incorreto ao verificar Lista." ) ;
+         } /* fim ativa: Testar verificador de árvore */
+
+      #endif
+
+      /* Deturpar uma árvore */
+
+      #ifdef _DEBUG
+
+         else if ( strcmp( ComandoTeste , DETURPAR_CMD ) == 0 )
+         {
+
+            numLidos = LER_LerParametros( "iii" , &inxLista , &IntEsperado ,
+                                &CondRetEsp ) ;
+
+            if ( ( numLidos != 3 )
+              || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
+            {
+               return TST_CondRetParm ;
+            } /* if */
+
+            DeturpaLista( vtListas[ inxLista ] , IntEsperado ) ;
+
+            return TST_CondRetOK;
+         } 
+
+      #endif
 
 
 /*****  Código das funções encapsuladas no módulo  *****/
