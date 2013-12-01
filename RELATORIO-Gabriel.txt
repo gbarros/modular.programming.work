@@ -31,9 +31,9 @@ Data		Horas	Tipo Tarefa					Descrição da Tarefa Realizada
 14/out/13   	10	Revisar projetos /    				Revisão da transação de movimento de carta(s)
 			Projetar/					Apartir da revisão fizemos mudanças nas interfaces
 			Estudar						Analise dos exemplos de Controlador de Teste e o uso de .Scripts
-			Códificar módulo        			Construção de todos os modulos. (.c e .h) (todo o grupo)
+			Codificar módulo        			Construção de todos os modulos. (.c e .h) (todo o grupo)
 
-15/out/13   	10  	Códificar módulo        			Embaralhamento.c e Test_EMB.c 
+15/out/13   	10  	Codificar módulo        			Embaralhamento.c e Test_EMB.c 
 
 16/out/13	18	Codificar módulo				Continuação da codificação de módulos .h e .c
 			Redigir script de teste				Redação do script de teste conforme padrões
@@ -41,3 +41,22 @@ Data		Horas	Tipo Tarefa					Descrição da Tarefa Realizada
 			Diagnosticar e corrigir os problemas		Debugging dos erros dos testes
 
 17/out/13	5	Diagnosticar e corrigir os problemas		Debugging dos erros dos testes, últimas organizações de arquivos e diretórios
+______________________________________________________________________________________________________________________________________________________
+
+15/nov/13	7	Estudar						Revisão da especificação do trabalho 04 de acordo com as últimas aulas
+			Revisar especificações				e dos módulos já feitos quanto a possíveis mudanças que serão necessárias.
+			Especificar módulos				Especificação dos módulos Freecell e Lista quanto à auto-verificação e
+			Especificar as funções				assertivas.
+
+18/nov/13       4       Estudar/Codificar módulos			Inicio da criação dos Wrappers e modicações no Lista.c
+
+24/nov/2013     10      Codifica módulos				Agora com uma ideia melhor do que fazer, prosseguimento da atividade anterior
+									e criação de lista de espaços alocados
+
+27/nov/13	4	Revisar projetos				Reformulação do modelo físico e exemplo do modelo físico.
+									Acréscimo de assertiva estrutural.
+
+30/nov/2013     10      Codificar módulos 				Correções de erros conceituais e instrumentação CESPEDIN
+
+
+
