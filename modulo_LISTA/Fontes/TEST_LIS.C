@@ -44,7 +44,6 @@ static const char IR_INICIO_CMD           [ ] = "=irinicio"       ;
 static const char IR_FIM_CMD              [ ] = "=irfinal"        ;
 static const char AVANCAR_ELEM_CMD        [ ] = "=avancarelem"    ;
 
-
 const char VER_LISTA_CMD[ ] = "=verificarlista" ;
 const char DETURPAR_CMD[ ]   = "=deturpar" ;
 
@@ -379,9 +378,8 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
    } /* Fim função: TLIS &Testar lista */
 
 
-/* Testar verificador de cabeça */
+      /* Testar verificador de lista */
 
-      /* Testar verificador de árvore */
       #ifdef _DEBUG
 
          else if ( strcmp( ComandoTeste , VER_LISTA_CMD ) == 0 )
@@ -389,20 +387,20 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
             numLidos = LER_LerParametros( "ii", &inxLista, &CondRetEsp );
 
-            if ( ( numLidos != 3 )
+            if ( ( numLidos != 2 )
               || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
             {
                return TST_CondRetParm ;
-            } /* if */
+            } 
 
             return TST_CompararInt( CondRetEsp ,
                              VerificaLista( vtListas[ inxLista ] ) ,
                              "Retorno incorreto ao verificar Lista." ) ;
-         } /* fim ativa: Testar verificador de árvore */
+         } 
 
       #endif
 
-      /* Deturpar uma árvore */
+      /* Deturpar a lista */
 
       #ifdef _DEBUG
 
