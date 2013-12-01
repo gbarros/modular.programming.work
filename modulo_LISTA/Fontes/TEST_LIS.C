@@ -44,9 +44,8 @@ static const char IR_INICIO_CMD           [ ] = "=irinicio"       ;
 static const char IR_FIM_CMD              [ ] = "=irfinal"        ;
 static const char AVANCAR_ELEM_CMD        [ ] = "=avancarelem"    ;
 
-// const char VER_CABECA_CMD[ ] = "=verificarcabeca" ;
-// const char VER_LISTA_CMD[ ] = "=verificararvore" ;
-// const char VER_MEMORIA_CMD[ ] = "=verificarmemoria" ;
+
+const char VER_LISTA_CMD[ ] = "=verificarlista" ;
 const char DETURPAR_CMD[ ]   = "=deturpar" ;
 
 #define TRUE  1
@@ -385,7 +384,7 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
       /* Testar verificador de árvore */
       #ifdef _DEBUG
 
-         else if ( strcmp( ComandoTeste , VER_ARVORE_CMD ) == 0 )
+         else if ( strcmp( ComandoTeste , VER_LISTA_CMD ) == 0 )
          {
 
             numLidos = LER_LerParametros( "ii", &inxLista, &CondRetEsp );
