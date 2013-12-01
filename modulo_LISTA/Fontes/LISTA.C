@@ -494,7 +494,7 @@ void LimparCabeca(LIS_tppLista pLista) {
  *  e a memória alocada de uma LISTA
  * 
  ****************************************/
-/*
+
 void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
     
     // LIS_tpCondRet condRet; 
@@ -568,13 +568,6 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
     {
         memcpy( ((char*)(pLista->pElemCorr)) - 15 , "????" , 4 ) ;
     }
-
-    // Atribui valor de tamanho 1 byte maior do que o alocado
-    
-    else if( tpModo == DeturpaValor )
-    {
-        memcpy( &( pLista->pElemCorr->valor ) , "<<<<<" , 5 ) ;
-    }
     
     else
     {
@@ -584,7 +577,6 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
     return;
 }
 
-*/
 /*******************************************************
  *
  * $FC Função: LIS - Verifica a integridade de uma LISTA

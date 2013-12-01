@@ -385,9 +385,9 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
          else if ( strcmp( ComandoTeste , VER_LISTA_CMD ) == 0 )
          {
 
-            numLidos = LER_LerParametros( "ii", &inxLista, &CondRetEsp );
+            numLidos = LER_LerParametros( "i", &inxLista);
 
-            if ( ( numLidos != 2 )
+            if ( ( numLidos != 1 )
               || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
             {
                return TST_CondRetParm ;
