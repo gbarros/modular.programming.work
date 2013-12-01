@@ -14,6 +14,7 @@
  *
  *  $HA Histórico de evolução:
  *  Versão  Autor    Data     Observações
+ *   6       lg   01/dez/2013 Função de deturpação e Verifica Lista
  *   5       gb   24/nov/2013 Inicio da inserção dos códigos de AutoVerificação
  *   4       avs  01/fev/2006 criar linguagem script simbólica
  *   3       avs  08/dez/2004 uniformização dos exemplos
@@ -557,7 +558,7 @@ void LimparCabeca(LIS_tppLista pLista) {
  *  e a memória alocada de uma LISTA
  * 
  ****************************************/
-/*
+
 void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
     
     // LIS_tpCondRet condRet; 
@@ -575,16 +576,23 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
         CED_DefinirTipoEspaco(pLista,CED_ID_TIPO_VALOR_NULO);
     }
 
+    // Modifica o tipo de elemento corrente
+
+    else if( tpModo == DeturpaTipoNo )
+    {
+        CED_DefinirTipoEspaco(pLista->pElemCorr,CED_ID_TIPO_VALOR_NULO);
+    }
+
     // Anula o ponteiro para a cabeça
 
-    else if( tpModo == DeturpaAnulaOrigemLista )
+    else if( tpModo == DeturpaCabecaNula  )
     {
         pLista->pOrigemLista = NULL;
     }
 
     // Faz raíz apontar para lixo
 
-    else if( tpModo == DeturpaLixoOrigemLista )
+    else if( tpModo == DeturpaRaizLixo )
     {
         pLista->pOrigemLista = (LIS_tpLista*)(EspacoLixo);
     }
@@ -596,19 +604,40 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
         pLista->pProx = NULL;
     }
 
+    // Faz elemento corrente apontar para lixo
+
+    else if ( tpModo == DeturpaCorrenteLixo )
+    {
+        pLista->pElemCorr = (LIS_tpLista*)(EspacoLixo);
+    }
+
     // Anula elemento corrente
     
-    else if( tpModo == DeturpaAnulaElem )
+    else if( tpModo == DeturpaCorrenteNulo )
     {
         pLista->pElemCorr = NULL;
     }
 
     // Deturpa o espaço da cabeça
 
-    else if( tpModo == )
+    else if( tpModo == DeturparEspacoCabeca )
     {
         memcpy( ((char*)(pLista)) - 15 , "????" , 4 ) ;
 
+    }
+
+    // Deturpa o espaço de elemento corrente
+
+    else if( tpModo == DeturparEspacoNo )
+    {
+        memcpy( ((char*)(pLista->pElemCorr)) - 15 , "????" , 4 ) ;
+    }
+
+    // Atribui valor de tamanho 1 byte maior do que o alocado
+    
+    else if( tpModo == DeturpaValor )
+    {
+        memcpy( &( pLista->pElemCorr->valor ) , "<<<<<" , 5 ) ;
     }
     
     else
@@ -618,15 +647,56 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
   
     return;
 }
-*/
+
 /*******************************************************
  *
  * $FC Função: LIS - Verifica a integridade de uma LISTA
  * 
  ****************************************************/
 
- LIS_tpCondRet VerificaLista(LIS_tppLista cabecaLista){
-    
+ LIS_tpCondRet VerificaLista(LIS_tppLista cabecaLista)
+{
+    tpElemLista * pElem; 
+    int i;
+
+    if(cabecaLista == NULL)
+    {
+        TST_NotificarFalha( "Tentativa de verificar uma lista nula." );
+        return LIS_CondRetEstruturaDados;
+    } 
+
+    while(i)
+    {
+        LIS_AvancarElementoCorrente(cabecaLista,1);
+        i++;
+    }
+
+    if(i != numElem )
+    {
+        TST_NotificarFalha( "Quantidade de elementos na lista não condiz com a real." );
+        return LIS_CondRetEstruturaDados;
+    }
+
+    pElem = ( tpElemLista * ) malloc( sizeof( tpElemLista )); 
+
+    if ( pElem == NULL ) 
+    { 
+        TST_NotificarFalha( "Vazamento de memória." );
+        return LIS_CondRetEstruturaDados;
+    } 
+
+    if(cabecaLista->pElemCorr != cabecaLista->pFimLista && cabecaLista->pElemCorr == NULL)
+    {
+        TST_NotificarFalha( "Lista possui elemento desencadeado." );
+        return LIS_CondRetEstruturaDados;
+    }
+
+    if ( ! CED_VerificarEspaco(cabecaLista,NULL) )
+    {
+        TST_NotificarFalha( "Controle do espaço acusou erro." ) ;
+        return LLIS_CondRetEstruturaDados;
+    } 
+
     return LIS_CondRetOK;
 }
  

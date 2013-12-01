@@ -60,7 +60,7 @@ typedef enum {
          DeturpaTipoCabeca        =  1 ,
                /* Modifica o tipo da cabeça */
 
-         DeturpaCabecaNula          =  2 ,
+         DeturpaCabecaNula        =  2 ,
                /* Anula ponteiro raiz */
 
          DeturpaCorrenteNulo      =  3 ,
@@ -75,40 +75,17 @@ typedef enum {
          DeturpaTipoNo            =  6 ,
                /* Modifica tipo nó corrente */
 
-         DeturpaPtCabecaNulo      =  7 ,
-               /* Anula ponteiro cabeça */
-
-         DeturpaPtPaiNulo         =  8 ,
-               /* Anula ponteiro pai */
-
-         DeturpaPtEsqNulo         =  9 ,
-               /* Anula ponteiro filho esquerda */
-
-         DeturpaPtDirNulo         = 10 ,
-               /* Anula ponteiro filho direita */
-
-         DeturpaPtCabecaLixo      = 11 ,
-               /* Faz ponteiro cabeça apontar para lixo */
-
-         DeturpaPtPaiLixo         = 12 ,
-               /* Faz ponteiro pai apontar para lixo */
-
-         DeturpaPtEsqLixo         = 13 ,
-               /* Faz ponteiro filho esquerda apontar para lixo */
-
-         DeturpaPtDirLixo         = 14 ,
-               /* Faz ponteiro filho direita apontar para lixo */
-
-         DeturpaValor             = 15 ,
+         DeturpaValor             =  7 ,
                /* Atribui valor de tamanho 1 byte maior do que o alocado */
 
-         DeturparEspacoCabeca     = 16 ,
+         DeturparEspacoCabeca     =  8 ,
                /* Deturpa espaço da cabeca */
 
-         DeturparEspacoNo         = 17
+         DeturparEspacoNo         =  9
                /* Deturpa espaço do nó */
 
    } LIS_tpModosDeturpacao ;
+
 
    LIS_tppLista LIS_CriarListaINSTR(void(*ExcluirValor)( void * pDado));
 
