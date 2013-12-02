@@ -52,6 +52,42 @@
 == Avançar elemento
 =avancarelem     lista0   1     6
 
+== Deturpar Tipo Cabeca
+=deturpar	lista1	DeturpaCabeca
+=verificarlista	 lista1
+
+== Deturpar o tipo de elemento corrente
+=deturpar	lista1	DeturpaTipoNo 
+=verificarlista	 lista1
+
+== Anula o ponteiro para a cabeça
+=deturpar	lista1	DeturpaCabecaNula
+=verificarlista	 lista1
+
+== Faz raíz apontar para lixo
+=deturpar	lista1	DeturpaRaizLixo
+=verificarlista	 lista1
+
+== Anula ponteiro para o próximo elemento
+=deturpar	lista1	DeturpaAnulaProxElem
+=verificarlista	 lista1
+
+== Faz elemento corrente apontar para lixo
+=deturpar	lista1	DeturpaCorrenteLixo
+=verificarlista	 lista1
+
+== Anula elemento corrente
+=deturpar	lista1	DeturpaCorrenteNulo
+=verificarlista	 lista1
+
+== Deturpa o espaço da cabeça
+=deturpar	lista1	DeturparEspacoCabeca
+=verificarlista	 lista1
+
+== Deturpa o espaço de elemento corrente
+=deturpar	lista1	DeturparEspacoNo
+=verificarlista	 lista1
+
 == Excluir elemento do meio
 =excluirelem     lista0   6
 =verificarlista	 lista0	  6
