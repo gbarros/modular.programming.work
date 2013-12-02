@@ -32,4 +32,19 @@ Data		Horas	Tipo Tarefa			Descrição da Tarefa Realizada
 
 17/out/13	1	Realizar Testes			Realizar testes dos módulos
 		3	Diagnosticar e corrigir		Debugar e corrigir os erros de testes
+_______________________________________________________________________________________________________________________________________________________
+
+15/nov/13	4	Estudar						Estudo sobre Instrumentação e de Modelagem Estrutural
+			Revisar Modelagem Estrutural			Revisão os erros da Modelagem EStrutural do T2 e Ajustes
+
+16/nov/13	4	Estudar						Estudo sobre Instrumentação e Testes
+			Codificar Módulos				Codificação do módulo Freecel
+
+24/nov/2013     4       Codificar Módulos				Continuidade na Codificação do módulo Freecel
+			Estudar						Estudo das formas de desenvolver os Scripts necessários ao projeto
+
+30/nov/13	6	Codificar Módulos				Codificações necessárias ao módulo Lista e seus associados, implementando-se deturpações e verificador
+
+01/nov/2013     12      Realizar Testes	 				Realziar os testes dos módulos referentes a Lista
+			Diagnosticar e corrigir				Debugar e corrigir os erros encontrados nos testes
 			
