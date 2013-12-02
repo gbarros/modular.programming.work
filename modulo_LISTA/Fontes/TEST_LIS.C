@@ -30,11 +30,11 @@
 #include    "LerParm.h"
 #include    "CESPDIN.H"
 
-/* #ifdef _DEBUG
+#ifdef _DEBUG
   #include    "LISTA_INSTR.h"
-#else */
+#else
   #include    "Lista.h"
-// #endif
+#endif
 
 
 static const char RESET_LISTA_CMD         [ ] = "=resetteste"     ;
@@ -114,14 +114,12 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
       int numElem = -1 ;
 
-      #ifdef _DEBUG
-         int  IntEsperado   = -1 ;
-      #endif
-
       StringDado[ 0 ] = 0 ;
 
       
-
+       #ifdef _DEBUG
+         int  IntEsperado   = -1 ;
+      #endif
 
       /* Efetuar reset de teste de lista */
 

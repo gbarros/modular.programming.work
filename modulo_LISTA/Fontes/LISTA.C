@@ -36,7 +36,7 @@
 #include "CESPDIN.H"
 #include "CONTA.H"
 #include "LISTA_INSTR.h"
-#include "IdTiposEspaco.def"
+#include #include   "..\\tabelas\\IdTiposEspaco.def"
 #else
 #include "LISTA.h"
 #endif
