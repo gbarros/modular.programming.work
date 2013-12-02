@@ -7,7 +7,7 @@
 *	Nome da base de software:    Jogo FreeCell
 *	Arquivo da base de software: D:\AUTOTEST\PROJETOS\MODULO_NAIPE.BSW
 *
-*	Projeto: [INF 1301] Implementação do Jogo FreCell para fins educacionais
+*	Projeto: [INF 1301] Implementação do Jogo FreeCell para fins educacionais
 *	Gestor:  LES/DI/PUC-Rio
 *	Autores:   gb -	Gabriel Barros
 *			   lg - Leonardo Giroto 
@@ -15,6 +15,7 @@
 *
 *	$HA Histórico de evolução:
 *	Versão	Autor	Data			Observações
+*	5		nk		02/nov/2013		Função de contagem
 *	4		nk		16/out/2013		Correção de assertivas
 *	3		nk		15/out/2013		Finalização do desenvolvimento
 *	2 		lg		13/out/2013		Desenvolvimento
@@ -40,7 +41,7 @@ NPE_Coluna NPE_CriarColunaNaipe(void){
 /***********************************************************************
 *	$FC Função: NPE &Excluir Coluna
 ***********************************************************************/
-NPE_tpCondRet NPE_DestruirColunaNaipe(NPE_Coluna coluna){
+NPE_tpCondRet NPE_ExcluirColunaNaipe(NPE_Coluna coluna){
 	if(coluna == NULL)
 		return NPE_CondRetColunaNaoExiste;
 	
@@ -72,7 +73,7 @@ NPE_tpCondRet NPE_VerificarInserirCarta(NPE_Coluna destino, Carta carta){
 	
 	// Comparar carta a inserir com carta da "base" da coluna (a de cima do bolo)
 	IrFinalLista(destino);
-	cartaBase = LIS_ObterValor(destino);
+	cartaBase =(Carta)LIS_ObterValor(destino);
 	
 	valorCartaBase = ObterValor(cartaBase);
 	naipeCartaBase = ObterNaipe(cartaBase);
@@ -111,7 +112,7 @@ NPE_tpCondRet NPE_VerificarInserirCarta(NPE_Coluna destino, Carta carta){
 *	$FC Função: NPE &Inserir Cartas Em Extra
 ***********************************************************************/
 NPE_tpCondRet NPE_InserirCartaEmNaipe(NPE_Coluna destino, Carta carta){
-	NPE_tpCondRet condRet = NPE_CondRetErroAoInserir;
+	LIS_tpCondRet condRet;
 	
 	if(NPE_VerificarInserirCarta(destino, carta) != NPE_CondRetOK){
 		return NPE_CondRetErroAoInserir;
@@ -120,7 +121,7 @@ NPE_tpCondRet NPE_InserirCartaEmNaipe(NPE_Coluna destino, Carta carta){
 	IrFinalLista(destino);
 	condRet = LIS_InserirElementoApos(destino, carta);
 
-	if(condRet == NPE_CondRetOK){
+	if(condRet == LIS_CondRetOK){
 		return NPE_CondRetOK;
 	}
 	else{
@@ -139,9 +140,28 @@ NPE_tpCondRet NPE_ExibirCarta(NPE_Coluna coluna){
 		return NPE_CondRetColunaNaoExiste;
 
 	IrFinalLista(coluna);
-	carta = LIS_ObterValor(coluna);
+	carta = (Carta) LIS_ObterValor(coluna);
 
-	printf("%s", carta);
+	printf("[ %s ]\t", carta);
+
+	return NPE_CondRetOK;
+}
+
+/***********************************************************************
+*	$FC Função: NPE &Contar Cartas
+***********************************************************************/
+NPE_tpCondRet NPE_ContarCartas(NPE_Coluna coluna, int *numCartas){
+	LIS_tpCondRet condRet;
+
+	if(coluna == NULL)
+		return NPE_CondRetColunaNaoExiste;
+
+	IrInicioLista(coluna);
+	
+	while(condRet != LIS_CondRetFimLista){
+		condRet = LIS_AvancarElementoCorrente(coluna, 1); 
+		(*numCartas)++;
+	}
 
 	return NPE_CondRetOK;
 }

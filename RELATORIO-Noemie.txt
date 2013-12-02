@@ -65,3 +65,9 @@ Data		Horas	Tipo Tarefa				Descrição da Tarefa Realizada
 			Codificar módulo			Codificação do módulo Freecell.
 
 30/nov/13	7	Codificar módulo			Codificação do módulo Freecell.
+
+01/nov/13	8	Codificar módulo			Codificação e ajustes do módulo Freecell.
+
+02/nov/13	6	Codificar módulo			Codificação e ajustes do módulo Freecell.
+			Revisar especificações			Mudanças na especificação.
+								Checagens finais de arquivos e diretórios.

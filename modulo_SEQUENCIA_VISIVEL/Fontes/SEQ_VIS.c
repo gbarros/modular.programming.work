@@ -7,7 +7,7 @@
 *  Nome da base de software:    Arcabouço para a automação de testes de programas redigidos em C
 *  Arquivo da base de software: D:\AUTOTEST\PROJETOS\LISTA.BSW
 *
-*  Projeto: [INF 1301] Implementação do Jogo FreCell para fins educacionais
+*  Projeto: [INF 1301] Implementação do Jogo FreeCell para fins educacionais
 *  Gestor:  LES/DI/PUC-Rio
 *  Autores:    gb -	Gabriel Barros
 *			   lg - Leonardo Giroto 
@@ -23,7 +23,7 @@
 *    
 ***************************************************************************/
 #define SEQ_VIS_OWN
-#include "SEQ_VIS.h"
+#include "seq_vis.h"
 #undef SEQ_VIS_OWN
 
 #include <stdio.h>
@@ -133,12 +133,12 @@ SV_tpCondRet SV_VerificarRemoverCarta(SV_Coluna origem, Carta carta){
  	LIS_AvancarElementoCorrente(origem, -1);//retornando para o elemento correto
 	// Dado que uma carta válida foi encontrada, só é possível removê-la se
 	// todas as cartas debaixo podem também ser removidas
-	cartaCorr = LIS_ObterValor(origem);
+	cartaCorr = (Carta)LIS_ObterValor(origem);
 	while(resAvanco != LIS_CondRetFimLista){
 
 		resAvanco = LIS_AvancarElementoCorrente(origem, 1);
 
-		cartaCopia = LIS_ObterValor(origem);
+		cartaCopia = (Carta)LIS_ObterValor(origem);
 
 
 		if((ObterValor(cartaCopia) == (ObterValor(cartaCorr) - 1)) && (ObterCor(cartaCorr) != ObterCor(cartaCopia)))
@@ -159,15 +159,17 @@ SV_tpCondRet SV_VerificarRemoverCarta(SV_Coluna origem, Carta carta){
 *  Função: SV  &Inserir Carta Em Sequência Visível
 ***************************************************************************/
 SV_tpCondRet SV_InserirCartaEmSeqVis(SV_Coluna destino, Carta carta){
+	int resIns;
 	SV_tpCondRet condRet = SV_CondRetErroAoInserir;
+	
 	if(SV_VerificarInserirCarta(destino, carta) != SV_CondRetOK){
 		return SV_CondRetErroAoInserir;
 	}
 	
 	IrFinalLista(destino);
-	condRet = LIS_InserirElementoApos(destino, carta);
+	resIns = LIS_InserirElementoApos(destino, carta);
 	
-	if(condRet == SV_CondRetOK){
+	if(resIns == SV_CondRetOK){
 		return SV_CondRetOK;
 	}
 	else{
@@ -180,7 +182,7 @@ SV_tpCondRet SV_InserirCartaEmSeqVis(SV_Coluna destino, Carta carta){
 *  Função: SV  &Remover Carta De Sequêncial Visível
 ***************************************************************************/
 SV_tpCondRet SV_RemoverCartaDeSeqVis(SV_Coluna origem, Carta carta){
-	int resAvanco;
+	int resAvanco, resExclusao;
 	SV_tpCondRet condRet = SV_CondRetErroAoRemover;
 	
 	if(SV_VerificarRemoverCarta(origem, carta) != SV_CondRetOK){
@@ -192,9 +194,9 @@ SV_tpCondRet SV_RemoverCartaDeSeqVis(SV_Coluna origem, Carta carta){
 	while(LIS_ObterValor(origem) != carta){
 		resAvanco = LIS_AvancarElementoCorrente(origem, 1);
 	}
-	condRet = LIS_ExcluirElemento(origem);
+	resExclusao = LIS_ExcluirElemento(origem);
 
-	if(condRet == SV_CondRetOK){
+	if(resExclusao == SV_CondRetOK){
 		return SV_CondRetOK;
 	}
 	else
@@ -206,7 +208,8 @@ SV_tpCondRet SV_RemoverCartaDeSeqVis(SV_Coluna origem, Carta carta){
 ***********************************************************************/
 
 SV_tpCondRet SV_PopularSeqVis(SV_Coluna destino, Carta carta){
-	int resIns = SV_CondRetErroAoInserir;
+	int resIns;
+	SV_tpCondRet resPop = SV_CondRetErroAoInserir;
 	
 	// Verifica se a carta recebida existe
 	if(carta == NULL || ObterValor(carta) == -1 || ObterNaipe(carta) == 'X')
@@ -221,7 +224,7 @@ SV_tpCondRet SV_PopularSeqVis(SV_Coluna destino, Carta carta){
 	if(resIns == LIS_CondRetOK)
 		return SV_CondRetOK;
 	else
-		return resIns;
+		return resPop;
 }
 
 /***************************************************************************
@@ -237,12 +240,13 @@ SV_tpCondRet SV_ExibirCartas(SV_Coluna coluna){
 
 	IrInicioLista(coluna);
 	while(resAvanco != LIS_CondRetFimLista){
-		carta = LIS_ObterValor(coluna);
-		printf("%s", carta);
+		carta = (Carta)LIS_ObterValor(coluna);
+		printf("%s\t", carta);
 		resAvanco = LIS_AvancarElementoCorrente(coluna, 1);
 	}
 	return SV_CondRetOK;
 }
+
 
 static int ObterValor(Carta carta){
 	if(carta == NULL)

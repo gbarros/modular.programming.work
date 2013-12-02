@@ -17,6 +17,7 @@
 *
 *	$HA Histórico de evolução:
 *	Versão  Autor   Data			Observações
+*	4		nk		01/nov/2013		Inclusão de nova função
 *	3		nk		14/out/2013		Inclusão de cabeçalhos, assertivas, novas funções
 *	2 		lg		13/out/2013		Desenvolvimento
 *	1		nk		11/out/2013		Criação do módulo com suas definições
@@ -37,12 +38,13 @@
    #define NAIPE_EXT extern
 #endif
 
-#include "LISTA.H"
+#include "lista.h"
 
 /***** Declarações exportadas pelo módulo *****/
 
 /* Tipo referência para uma coluna naipe */
 typedef LIS_tppLista NPE_Coluna;
+
 typedef char* Carta;
 
 /***********************************************************************
@@ -106,7 +108,7 @@ NPE_Coluna NPE_CriarColunaNaipe(void);
 *			Se não, retorna que a coluna não pôde ser destruída.
 ***********************************************************************/
 
-NPE_tpCondRet NPE_DestruirColunaNaipe(NPE_Coluna coluna);
+NPE_tpCondRet NPE_ExcluirColunaNaipe(NPE_Coluna coluna);
 
 /***********************************************************************
 *	$FC Função: NPE &Verificar Inserir Carta
@@ -181,6 +183,28 @@ NPE_tpCondRet NPE_InserirCartaEmNaipe(NPE_Coluna destino, Carta carta);
 ***********************************************************************/
 
 NPE_tpCondRet NPE_ExibirCarta(NPE_Coluna coluna);
+
+/***********************************************************************
+*	$FC Função: NPE &Contar Cartas
+*
+*	$ED Descrição da função
+*	Conta quantas cartas em uma coluna de naipe.
+*
+*	$EP Parâmetros
+*   coluna - Coluna a contar as cartas.
+*	numCartas - ponteiro para número de cartas total.
+*
+*	$FV Valor retornado
+*	NPE_CondRetOK - Conta corretamente.
+*	NPE_CondRetColunaNaoExiste - Recebeu uma coluna que não existe.
+*
+*	Assertivas
+*	Entrada - Deve-se passar uma coluna existente como parâmetro. 
+*
+*	Saída - Se executou corretamente, irá contar o número de cartas
+*	na coluna dada.
+***********************************************************************/
+NPE_tpCondRet NPE_ContarCartas(NPE_Coluna coluna, int *numCartas);
 
 #undef NAIPE_EXT
 

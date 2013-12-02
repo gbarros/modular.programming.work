@@ -200,7 +200,7 @@ EXT_tpCondRet EXT_ExibirCartas(EXT_Coluna coluna){
 	IrFinalLista(coluna); // garantir que pegaremos os valores desde o início
 
 	for(i = 0; i < 4; i++){
-		valor = LIS_ObterValor(coluna);
+		valor = (Carta) LIS_ObterValor(coluna);
 		
 		if(valor == NULL)
 			break;
@@ -215,6 +215,7 @@ EXT_tpCondRet EXT_ExibirCartas(EXT_Coluna coluna){
 
 	return EXT_CondRetOK;
 }
+
 
 static int ObterValor(Carta carta){
 	if(carta == NULL)

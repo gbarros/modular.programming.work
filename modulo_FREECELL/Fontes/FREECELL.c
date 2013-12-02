@@ -19,6 +19,7 @@
 *	3		nk		28/nov/2013		Correções e desenvolvimento
 *	4		nk		29/nov/2013		Desenvolvimento
 *	5		nk		30/nov/2013		Desenvolvimento
+*	6		nk		01/nov/2013		Desenvolvimento
 *    
 ***************************************************************************/
 #include <stdlib.h>
@@ -49,39 +50,38 @@
 typedef char *Carta;
 typedef LIS_tppLista Mesa;
 
-/*---------- Variáveis globais ----------*/
+/*----------- Variáveis globais ----------*/
 char baralho[TOTAL_CARTAS][TAM_CARTA];
-Mesa mesa[13];
+Mesa mesa;
 
 /*---------- Protótipos de funções ----------*/
 int SelecionarMenu(int status);
-int MoverCarta(Carta carta, char tipoOrigem, int numOrigem, char tipoDestino, int numDestino);
-int ContarFreecells();
-int ContarCartas(void * coluna);
+int IniciarNovoJogo();
+int DistribuirCartas();
 int VerificarNaipes();
+int MoverCarta(Carta carta, char tipoOrigem, int numOrigem, char tipoDestino, int numDestino);
+void VerificarMoverCarta(Carta carta, char tipoOrigem, int numOrigem, char tipoDestino, int numDestino, int *validaRemocao, int *validaInsercao);
 void ExibirMesa();
-void IniciarNovoJogo();
-void DistribuirCartas(char baralho[][TAM_CARTA]);
-void VerificarMoverCarta(Carta carta, 
-						 char tipoOrigem, int numOrigem, char tipoDestino, int numDestino, 
-						 int *validaRemocao, int *validaInsercao);
+
+int ObterValor(Carta carta);
+char ObterNaipe(Carta carta);
 
 int main(){
-	/*---------- Declaração de variáveis ----------*/
-	int opcaoDeJogo,		// opção para iniciar ou sair
-		opcaoDeMovimento,	// opção para mover ou desistir
-		status = OFF,		// determina se há um jogo em andamento ou não
-		condRet,			// recebe condições de retorno das funções
-		numOrigem,			// recebe o número da coluna para movimento
-		numDestino,			// recebe o número da coluna para movimento
-		numCelulasLivres,
-		i;
+	//---------- Declaração de variáveis ----------
+	int opcaoDeJogo, // opção para iniciar ou sair
+		opcaoDeMovimento, // opção para mover ou desistir
+		status = OFF, // determina se há um jogo em andamento ou não
+		numOrigem,
+		numDestino,
+		numFaltam,
+		condRet = 0; // recebe as condições de retorno das funções
 	
-	char carta[TAM_CARTA],	// recebe a carta que o jogador deseja mover
-		 tipoOrigem,		// recebe o tipo da coluna para movimento
-		 tipoDestino;		// recebe o tipo da coluna para movimento
-	/*--------------------------------------------------*/
+	char carta[TAM_CARTA], // recebe a carta que o jogador deseja mover
+		 tipoOrigem,
+		 tipoDestino;
+	//--------------------------------------------------
 
+	mesa = LIS_CriarLista(NULL);
 	opcaoDeJogo = SelecionarMenu(status);
 
 	// Se jogador decidiu iniciar novo jogo...
@@ -90,22 +90,52 @@ int main(){
 		status = ON;
 
 		// Cria uma nova mesa
-		IniciarNovoJogo();
+		condRet = IniciarNovoJogo();
+		if(condRet != OK){
+			printf("Ops... Algo deu errado ao criar a mesa!\n");
+			return -1;
+		}
+		/*--/--/--/ ÁREA DE TESTE /--/--/--*/
+		/*if(condRet == 0){
+			printf("SUCESSO!\n");
+		}
+		else{
+			printf("Ops... Algo deu errado ao criar a mesa!\n");
+			return -1;
+		}
+
 		
+		ExibirMesa();*/
+		/*--/--/--/--/--/--/--/--/--/--/--*/
+
 		// Distribui as cartas pelas sequências visíveis
-		DistribuirCartas(baralho);
+		condRet = DistribuirCartas(baralho);
+		if(condRet != OK){
+			printf("Ops... Algo deu errado ao distribuir as cartas!\n");
+			return -1;
+		}
+		/*--/--/--/ ÁREA DE TESTE /--/--/--*/
+		/*if(condRet == 0){
+			printf("SUCESSO!\n");
+		}
+		else{
+			printf("Ops... Algo deu errado ao distribuir as cartas!\n");
+			return -1;
+		}*/
+		/*--/--/--/--/--/--/--/--/--/--/--*/
 
 		// Enquanto o jogador não desistir ou vencer o jogo
 		ExibirMesa();
 		opcaoDeMovimento = SelecionarMenu(status);
+
+		while(opcaoDeMovimento != MOVER && opcaoDeMovimento != DESISTIR)
+			opcaoDeMovimento = SelecionarMenu(status);
 		
-		while(opcaoDeMovimento == MOVER || VerificarNaipes() != 0){
+		while(opcaoDeMovimento == MOVER || VerificarNaipes() == 0){
 			printf("\nIndique a carta que deseja transferir, a coluna fonte e a coluna destino.\n");
-			printf("HINT: E - EXTRA; N  - NAIPE; S - SEQ\n\n");
+			printf("HINT: E - EXTRA ou N - NAIPE ou S - SEQ + numero\n");
 			scanf("%s %c%d %c%d", carta, &tipoOrigem, &numOrigem, &tipoDestino, &numDestino);
 
-			condRet = MoverCarta(carta, tipoOrigem, numOrigem, tipoDestino, numDestino);
-			
 			/*--/--/--/ ÁREA DE TESTE /--/--/--*/
 			/*printf("%s - ", carta);
 			printf("%c", tipoOrigem);
@@ -114,32 +144,28 @@ int main(){
 			printf("%d\n\n", numDestino);*/
 			/*--/--/--/--/--/--/--/--/--/--/--*/
 			
-			if(condRet != 0){
-				// Após mensagem de erro, requer novo movimento
-				printf("Nao pude fazer nada...\n");
+			condRet = MoverCarta(carta, tipoOrigem, numOrigem, tipoDestino, numDestino);
+			
+			if(condRet != OK){
+				printf("Movimento invalido.\n");
 			}
 
+			printf("Faltam %d cartas.\n\n", VerificarNaipes());
+
 			ExibirMesa();
-			printf("Faltam %d cartas.\n", VerificarNaipes());
 			opcaoDeMovimento = SelecionarMenu(status);
 		}
-		for(i = 0; i <= 12; i++){
-			LIS_DestruirLista(mesa[i]);
-		}
-		printf("\nQue pena...\nVolte em breve para um novo jogo!\n\n");
-		exit(EXIT_SUCCESS);
+
+		// Libera a mesa e termina o jogo
+		LIS_DestruirLista(mesa);
 	}	
 
 	// Se jogador decidiu sair...
 	else{
-		printf("\nJa indo?\nVolte em breve para um novo jogo!\n\n");
+		printf("\nJ%c indo?\nVolte em breve para um novo jogo!\n\n", 160);
 		exit(EXIT_SUCCESS);
 	}
 
-	printf("VOCE VENCEU!\n\n");
-	for(i = 0; i <= 12; i++){
-		LIS_DestruirLista(mesa[i]);
-	}
 	return 0;
 }
 
@@ -154,18 +180,17 @@ int SelecionarMenu(int status){
 
 	//Primeiro, o menu verifica se há ou não um jogo em andamento
 	if(status == OFF){
-		printf("");
 		printf("O que deseja fazer?\n\t[1] Iniciar novo jogo\n\t[2] Sair\n\n");
 		scanf("%d", &opcao);
 	}
 	
 	else{
-		printf("O que deseja fazer?\n\t[1] Mover uma carta\n\t[2] Desistir\n\n");
+		printf("\nO que deseja fazer?\n\t[1] Mover uma carta\n\t[2] Desistir\n\n");
 		scanf("%d", &opcao);
 	}
 
 	while(opcao != 1 && opcao != 2){
-		printf("\nOps...Parece que voce digitou errado.\n\n");
+		printf("\nOps...Parece que voc%c digitou errado.\n\n", 136);
 		opcao = SelecionarMenu(status);
 	}
 
@@ -178,22 +203,87 @@ int SelecionarMenu(int status){
 *	$ED Descrição da função
 *	Cria as colunas do jogo e as insere na mesa.
 ***************************************************************************/
-void IniciarNovoJogo(){
-	int i;
-	printf("Nova mesa sendo criada...\n");
+int IniciarNovoJogo(){
+	int condRet = 0;
+	EXT_Coluna extra;
+	NPE_Coluna naipe1, naipe2, naipe3, naipe4;
+	SV_Coluna seq1, seq2, seq3, seq4, seq5, seq6, seq7, seq8;	 
+
+	// printf("Nova mesa sendo criada...\n");
 
 	// Criar uma coluna tipo extra
-	mesa[0] = EXT_CriarColunaExtra();
+	extra = EXT_CriarColunaExtra();
 	
 	// Criar quatro colunas tipo naipe
-	for(i = 1; i <= 4; i++){
-		mesa[i] = NPE_CriarColunaNaipe();
-	}
+	naipe1 = NPE_CriarColunaNaipe();
+	naipe2 = NPE_CriarColunaNaipe();
+	naipe3 = NPE_CriarColunaNaipe();
+	naipe4 = NPE_CriarColunaNaipe();
 	
 	// Criar oito colunas tipo sequência visível
-	for(i = 5; i <= 12; i++){
-		mesa[i] = SV_CriarColunaSeqVis();
+	seq1 = SV_CriarColunaSeqVis();
+	seq2 = SV_CriarColunaSeqVis();
+	seq3 = SV_CriarColunaSeqVis();
+	seq4 = SV_CriarColunaSeqVis();
+	seq5 = SV_CriarColunaSeqVis();
+	seq6 = SV_CriarColunaSeqVis();
+	seq7 = SV_CriarColunaSeqVis();
+	seq8 = SV_CriarColunaSeqVis();
+	
+	// Inserir estas colunas na mesa
+	condRet = LIS_InserirElementoApos(mesa, extra);
+	if(condRet == LIS_CondRetFaltouMemoria){
+		return -1;
 	}
+	condRet = LIS_InserirElementoApos(mesa, naipe1);
+	if(condRet == LIS_CondRetFaltouMemoria){
+		return -1;
+	}
+	condRet = LIS_InserirElementoApos(mesa, naipe2);
+	if(condRet == LIS_CondRetFaltouMemoria){
+		return -1;
+	}
+	condRet = LIS_InserirElementoApos(mesa, naipe3);
+	if(condRet == LIS_CondRetFaltouMemoria){
+		return -1;
+	}
+	condRet = LIS_InserirElementoApos(mesa, naipe4);
+	if(condRet == LIS_CondRetFaltouMemoria){
+		return -1;
+	}
+	condRet = LIS_InserirElementoApos(mesa, seq1);
+	if(condRet == LIS_CondRetFaltouMemoria){
+		return -1;
+	}
+	condRet = LIS_InserirElementoApos(mesa, seq2);
+	if(condRet == LIS_CondRetFaltouMemoria){
+		return -1;
+	}
+	condRet = LIS_InserirElementoApos(mesa, seq3);
+	if(condRet == LIS_CondRetFaltouMemoria){
+		return -1;
+	}
+	condRet = LIS_InserirElementoApos(mesa, seq4);
+	if(condRet == LIS_CondRetFaltouMemoria){
+		return -1;
+	}
+	condRet = LIS_InserirElementoApos(mesa, seq5);
+	if(condRet == LIS_CondRetFaltouMemoria){
+		return -1;
+	}
+	condRet = LIS_InserirElementoApos(mesa, seq6);
+	if(condRet == LIS_CondRetFaltouMemoria){
+		return -1;
+	}
+	condRet = LIS_InserirElementoApos(mesa, seq7);
+	if(condRet == LIS_CondRetFaltouMemoria){
+		return -1;
+	}
+	condRet = LIS_InserirElementoApos(mesa, seq8);
+	if(condRet == LIS_CondRetFaltouMemoria){
+		return -1;
+	}
+	return 0;
 }
 
 /***************************************************************************
@@ -202,13 +292,14 @@ void IniciarNovoJogo(){
 *	$ED Descrição da função
 *	Embaralha as cartas e distribui pelas sequências visíveis.
 ***************************************************************************/
-void DistribuirCartas(char baralho[][TAM_CARTA]){
-	int i, j, k = 0, condRet;
+int DistribuirCartas(char baralho[][TAM_CARTA]){
+	int n, i, j, condRet;
 	char copiaSet[TAM_SET];
 	Carta carta;
+	SV_Coluna coluna;
 	FILE *set = fopen("BarRef.txt", "r");
 
-	printf("Distribuindo as cartas...\n");
+	// printf("Distribuindo as cartas...\n");
 	
 	// Recebimento do baralho
 	if(set == NULL){ 
@@ -217,6 +308,7 @@ void DistribuirCartas(char baralho[][TAM_CARTA]){
 	    set = fopen ("..\\Fontes\\BarRef.txt" , "r");
         if (set == NULL)
 			printf("Nao achei o set!\n");
+			return -1;
     }
 
 	// Copia o set do arquivo TXT para vetor local como string
@@ -230,13 +322,15 @@ void DistribuirCartas(char baralho[][TAM_CARTA]){
 		}
 		fclose(set);
     }
+	else
+		return -1;
 
 	/*--/--/--/ ÁREA DE TESTE /--/--/--*/
-	printf("ORIGINAL\n");
+	/*printf("ORIGINAL:\n");
 	for(i = 0; i < 52; i++){
 		printf("%s\t", baralho[i]);
 	}
-	printf("\n\n");
+	printf("\n\n");*/
 	/*--/--/--/--/--/--/--/--/--/--/--*/
 
 	// Embaralhamento das cartas
@@ -245,65 +339,94 @@ void DistribuirCartas(char baralho[][TAM_CARTA]){
 		printf("Nao consegui embaralhar!\n");
 
 		/*--/--/--/ ÁREA DE TESTE /--/--/--*/
-		/*if(condRet == EMB_CondRetBaralhoInvalido)
+		if(condRet == EMB_CondRetBaralhoInvalido)
 			printf("ERRO: Baralho invalido.\n");
 		if(condRet == EMB_CondRetErroNoEmbaralhamento)
 			printf("ERRO: Erro no embaralhamento.\n");
 		if(condRet == EMB_CondRetErroNaReferencia)
-			printf("ERRO: Erro na referencia.\n");*/
+			printf("ERRO: Erro na referencia.\n");
 		/*--/--/--/--/--/--/--/--/--/--/--*/
+		return -1;
 	}
 
 	/*--/--/--/ ÁREA DE TESTE /--/--/--*/
-	printf("EMBARALHADO\n");
+	/*printf("EMBARALHADO:\n");
 	for(i = 0; i < 52; i++){
 		printf("%s\t", baralho[i]);
 	}
-	printf("\n\n");
+	printf("\n\n");*/
 	/*--/--/--/--/--/--/--/--/--/--/--*/
 
 	// Distribui as cartas embaralhadas pelas colunas de sequências visíveis
-	for(i = 5; i <= 12; i++){
-		// Colunas 1 a 4 são populadas com 7 cartas
-		if(i <= 8){
-			for(j = 0; j < 7; j++){				
-				condRet = SV_PopularSeqVis(mesa[i], baralho[k]);
-				k++;
+	
+	n = 5;
+	i = 0;
+	
+	while(i < 52){
+		IrInicioLista(mesa);
+
+		condRet = LIS_AvancarElementoCorrente(mesa, n);
+		//printf("Verificar avanco...\n");
+		if(condRet != LIS_CondRetOK){
+			return -1;
+		}
+		
+		coluna = (SV_Coluna)LIS_ObterValor(mesa);
+		j = i;
+		
+		// Elementos 5 a 8 tem 7 cartas
+		if(n >= 5 && n <= 8){
+			for(i = j; i < j + 7; i++){
+				condRet = SV_PopularSeqVis(coluna, baralho[i]);
+				//printf("Verificar %d...\n", n);
+				if(condRet != SV_CondRetOK){
+					return -1;
+				}
 			}
 		}
-		// Colunas 5 a 8 são populadas com 6 cartas
+
 		else{
-			for(j = 0; j < 6; j++){				
-				condRet = SV_PopularSeqVis(mesa[i], baralho[k]);
-				k++;
+			for(i = j; i < j + 6; i++){
+				condRet = SV_PopularSeqVis(coluna, baralho[i]);
+				//printf("Verificar %d...\n", n);
+				if(condRet != SV_CondRetOK){
+					return -1;
+				}
 			}
-		}	
+		}
+		n++;
 	}
+
+	return 0;
 }
 
 /***************************************************************************
 *	$FC Função: &Mover Carta
 *	
 *	$ED Descrição da função
+
 *   Movimento de uma carta (ou um bloco de cartas) de uma coluna para outra.
 ***************************************************************************/
 int MoverCarta(Carta carta, char tipoOrigem, int numOrigem, char tipoDestino, int numDestino){
 	int validaRemocao, 
-		validaInsercao, 
-		numCelulasLivres = 0,
-		numCartasMovidas = 0,
+		validaInsercao,
 		condRet = 0;
-	Carta cartaAux;
-	LIS_tppLista listaAux = LIS_CriarLista(NULL);
+	EXT_Coluna extra = EXT_CriarColunaExtra();
+	NPE_Coluna naipe = NPE_CriarColunaNaipe();
+	SV_Coluna seq = SV_CriarColunaSeqVis(); 
 
 	// Checagem das entradas
+	if(carta == NULL || ObterValor(carta) == -1 || ObterNaipe(carta) == 'X')
+		printf("\nOps...Esta carta nao existe!\n\n", 136);
+		return FAIL;
+
 	if(tipoOrigem != 'E' && tipoOrigem != 'N' && tipoOrigem != 'S'){
-		printf("\nOps...Parece que voce digitou origem errado.\n\n");
+		printf("\nOps...Parece que voc%c digitou errado.\n\n", 136);
 		return FAIL;
 	}
 
 	if(tipoDestino != 'E' && tipoDestino != 'N' && tipoDestino != 'S'){
-		printf("\nOps...Parece que voce digitou destino errado.\n\n");
+		printf("\nOps...Parece que voc%c digitou errado.\n\n", 136);
 		return FAIL;
 	}
 
@@ -313,68 +436,68 @@ int MoverCarta(Carta carta, char tipoOrigem, int numOrigem, char tipoDestino, in
 		return FAIL;
 	}
 
-	// Caso contrário...
-	// Captar número de freecells
-	numCelulasLivres = ContarFreecells();
-
 	// Efetuar remoção
 	if(tipoOrigem == 'E'){
-		condRet = EXT_RemoverCartaDeExtra(mesa[0], carta);
+		IrInicioLista(mesa);
+		extra = (EXT_Coluna) LIS_ObterValor(mesa);
+
+		condRet = EXT_RemoverCartaDeExtra(extra, carta);
 		// Se der erro, abortar missão...
 		if(condRet != EXT_CondRetOK)
 			return FAIL;			
 	}
 	else if(tipoOrigem == 'S'){
-		// Fazer movimento em loop (até que não tenha mais cartas debaixo daquela)
-		while(condRet != LIS_CondRetFimLista){
-			condRet = SV_RemoverCartaDeSeqVis(mesa[numOrigem + 4], carta);
+		IrInicioLista(mesa);
+
+		condRet = LIS_AvancarElementoCorrente(mesa, numOrigem + 4);
+		if(condRet != LIS_CondRetOK)
+			return FAIL;	
+
+		seq = (SV_Coluna) LIS_ObterValor(mesa);
+		condRet = SV_RemoverCartaDeSeqVis(seq, carta);
 			// Se der erro, abortar missão...
 			if(condRet != EXT_CondRetOK)
 				return FAIL;
-
-			LIS_InserirElementoApos(listaAux, carta);
-			LIS_AvancarElementoCorrente(mesa[numOrigem + 4], 1);
-		}
-	}
-
-	// Controle do número de cartas que podem ser movidas
-	numCartasMovidas = ContarCartas(listaAux);
-	if(numCartasMovidas > numCelulasLivres){
-		printf("\nOps...Voce so pode mover %d cartas!\n\n", numCelulasLivres);
-		return FAIL;
 	}
 
 	// Efetuar inserção
 	else{
 		if(tipoDestino == 'E'){
-			condRet = EXT_InserirCartaEmExtra(mesa[0], carta);
+			extra = (EXT_Coluna) LIS_ObterValor(mesa);
+			condRet = EXT_InserirCartaEmExtra(extra, carta);
 			//Se der erro, abortar missão...
 			if(condRet != EXT_CondRetOK)
 				return FAIL;
 		}
 		else if(tipoDestino == 'N'){
-			condRet = NPE_InserirCartaEmNaipe(mesa[numDestino], carta);
+			IrInicioLista(mesa);
+
+			condRet = LIS_AvancarElementoCorrente(mesa, numOrigem + 1);
+			if(condRet != LIS_CondRetOK)
+				return FAIL;
+
+			naipe = (NPE_Coluna) LIS_ObterValor(mesa);
+			condRet = NPE_InserirCartaEmNaipe(naipe, carta);
 			//Se der erro, abortar missão...
 			if(condRet != NPE_CondRetOK)
 				return FAIL;
 		}
 		else{
-			// Fazer movimento em loop (até que não tenha mais cartas debaixo daquela)
-			IrInicioLista(listaAux);
-			while(condRet != LIS_CondRetFimLista){
-				cartaAux = LIS_ObterValor(listaAux);
-				condRet = SV_InserirCartaEmSeqVis(mesa[numDestino + 4], cartaAux);
+			IrInicioLista(mesa);
+
+			condRet = LIS_AvancarElementoCorrente(mesa, numOrigem + 4);
+			if(condRet != LIS_CondRetOK)
+				return FAIL;
+
+			seq = (SV_Coluna) LIS_ObterValor(mesa);
+			condRet = SV_InserirCartaEmSeqVis(seq, carta);
 				// Se der erro, abortar missão...
 				if(condRet != EXT_CondRetOK)
 					return FAIL;
-			
-			LIS_AvancarElementoCorrente(mesa[numOrigem + 4], 1);
-			}
 		}
 	}
 		
-	LIS_DestruirLista(listaAux);	
-	return OK;
+	return 0;
 }
 
 /***************************************************************************
@@ -386,12 +509,17 @@ int MoverCarta(Carta carta, char tipoOrigem, int numOrigem, char tipoDestino, in
 void VerificarMoverCarta(Carta carta, char tipoOrigem, int numOrigem, 
 						char tipoDestino, int numDestino,
 						int *validaRemocao, int *validaInsercao){
-	int condRet;
+	int condRet = 0;
+	EXT_Coluna extra = EXT_CriarColunaExtra();
+	NPE_Coluna naipe = NPE_CriarColunaNaipe();
+	SV_Coluna seq = SV_CriarColunaSeqVis(); 
 	
+	IrInicioLista(mesa);
+
 	// Verificar possibilidade de remoção
-	
 	if(tipoOrigem == 'E'){
-		condRet = EXT_VerificarRemoverCarta(mesa[0], carta);
+		extra = (EXT_Coluna) LIS_ObterValor(mesa);
+		condRet = EXT_VerificarRemoverCarta(extra, carta);
 		if(condRet == EXT_CondRetCartaNaoExiste){
 			printf("\nOps... A carta que voce escolheu nao existe aqui!\n\n");
 			*validaRemocao = FAIL;
@@ -416,7 +544,9 @@ void VerificarMoverCarta(Carta carta, char tipoOrigem, int numOrigem,
 			*validaRemocao = FAIL;
 		}
 		else{
-			condRet = SV_VerificarRemoverCarta(mesa[numOrigem + 4], carta);
+			LIS_AvancarElementoCorrente(seq, numOrigem + 4);	
+			seq = (SV_Coluna) LIS_ObterValor(mesa);
+			condRet = SV_VerificarRemoverCarta(seq, carta);
 			if(condRet == SV_CondRetCartaNaoExiste){
 				printf("\nOps... A carta que voce escolheu nao existe aqui!\n\n");
 				*validaRemocao = FAIL;
@@ -432,9 +562,9 @@ void VerificarMoverCarta(Carta carta, char tipoOrigem, int numOrigem,
 	}
 
 	// Verificar possibilidade de inserção
-	
 	if(tipoDestino == 'E'){
-		condRet = EXT_VerificarInserirCarta(mesa[0], carta);
+		extra = (EXT_Coluna) LIS_ObterValor(mesa);
+		condRet = EXT_VerificarInserirCarta(extra, carta);
 		if(condRet == EXT_CondRetCartaNaoExiste){
 			printf("\nOps... A carta que voce escolheu nao existe aqui!\n\n");
 			*validaInsercao = FAIL;
@@ -449,12 +579,14 @@ void VerificarMoverCarta(Carta carta, char tipoOrigem, int numOrigem,
 	}
 
 	else if(tipoDestino == 'N'){
-		if(numDestino < 1 || numDestino > 4){
+		if(numOrigem < 1 || numOrigem > 4){
 			printf("\nOps... O numero desta coluna nao existe!\n\n");
 			*validaInsercao = FAIL;
 		}
 		else{
-			condRet = NPE_VerificarInserirCarta(mesa[numDestino], carta);
+			LIS_AvancarElementoCorrente(mesa, numOrigem + 1);	
+			naipe = (NPE_Coluna) LIS_ObterValor(mesa);
+			condRet = NPE_VerificarInserirCarta(naipe, carta);
 			if(condRet == NPE_CondRetCartaNaoExiste){
 				printf("\nOps... A carta que voce escolheu nao existe aqui!\n\n");
 				*validaInsercao = FAIL;
@@ -470,12 +602,14 @@ void VerificarMoverCarta(Carta carta, char tipoOrigem, int numOrigem,
 	}
 
 	else{
-		if(numDestino < 1 || numDestino > 8){
+		if(numOrigem < 1 || numOrigem > 8){
 			printf("\nOps... O numero desta coluna nao existe!\n\n");
 			*validaInsercao = FAIL;
 		}
 		else{
-			condRet = SV_VerificarInserirCarta(mesa[numDestino + 4], carta);
+			LIS_AvancarElementoCorrente(mesa, numOrigem + 4);
+			seq = (SV_Coluna) LIS_ObterValor(mesa);
+			condRet = SV_VerificarInserirCarta(seq, carta);
 			if(condRet == SV_CondRetCartaNaoExiste){
 				printf("\nOps... A carta que voce escolheu nao existe aqui!\n\n");
 				*validaInsercao = FAIL;
@@ -492,70 +626,33 @@ void VerificarMoverCarta(Carta carta, char tipoOrigem, int numOrigem,
 }
 
 /***************************************************************************
-*	$FC Função: &Contar Freecells
-*	
-*	$ED Descrição da função
-*   Conta o número de células livres para controle do movimento.
-***************************************************************************/
-int ContarFreecells(){
-	int numFreecell = 0, i, condRet = 0;
-
-	// Verificar número de espaços vazios em extra
-	IrInicioLista(mesa[0]);
-	while(condRet != LIS_CondRetFimLista){
-		condRet = LIS_AvancarElementoCorrente(mesa[0], 1);
-		numFreecell++;
-	}
-
-	// Verificar número de espaços vazios em sequência visível
-	for(i = 5; i <= 12; i++){
-		IrInicioLista(mesa[i]);
-		while(condRet != LIS_CondRetFimLista){
-			condRet = LIS_AvancarElementoCorrente(mesa[i], 1);
-			numFreecell++;
-		}
-	}
-	return numFreecell;
-}
-
-/***************************************************************************
-*	$FC Função: &Contar Cartas
-*	
-*	$ED Descrição da função
-*   Conta o número de cartas em uma coluna.
-***************************************************************************/
-int ContarCartas(void * coluna){
-	int numCartas = 0, condRet = 0;
-
-	IrInicioLista(coluna);
-	while(condRet != LIS_CondRetFimLista){
-		condRet = LIS_AvancarElementoCorrente(coluna, 1);
-		numCartas++;
-	}
-
-	return numCartas;
-}
-
-/***************************************************************************
 *	$FC Função: &Exibir Mesa
 *	
 *	$ED Descrição da função
 *   Exibe todas as cartas da mesa em suas colunas.
 ***************************************************************************/
 void ExibirMesa(){
-	int n, condRet;
+	int n;
+	EXT_Coluna extra;
+	NPE_Coluna naipe;
+	SV_Coluna seq;
 
-	//system("cls");
-
+	IrInicioLista(mesa);
+	
 	// Exibir as cartas da coluna extra
-	printf("EXTRA:\t");
-	condRet = EXT_ExibirCartas(mesa[0]);
+	printf("\nEXTRA:\t");
+	extra = (EXT_Coluna) LIS_ObterValor(mesa);
+	EXT_ExibirCartas(extra);
 	printf("\n\n");
-
+	
 	// Exibir as cartas (do topo) das 4 colunas de naipe
 	for(n = 1; n <= 4; n++){
+		IrInicioLista(mesa);
+		LIS_AvancarElementoCorrente(mesa, n);
+		naipe = (NPE_Coluna) LIS_ObterValor(mesa);
+		
 		printf("NAIPE #%d: ", n);
-		condRet = NPE_ExibirCarta(mesa[n]);
+		NPE_ExibirCarta(naipe);
 		printf("\n");
 	}
 
@@ -563,29 +660,119 @@ void ExibirMesa(){
 
 	// Exibir (todas) as cartas das 8 colunas de naipe
 	for(n = 5; n <= 12; n++){
+		IrInicioLista(mesa);
+		LIS_AvancarElementoCorrente(mesa, n);
+		seq = (SV_Coluna) LIS_ObterValor(mesa);
+		
 		printf("SEQ #%d: ", n - 4);
-		condRet = SV_ExibirCartas(mesa[n]);
+		SV_ExibirCartas(seq);
 		printf("\n");
 	}
 
 	printf("\n");
+
 }
 
 /***************************************************************************
 *	$FC Função: &Verificar Naipes
 *	
 *	$ED Descrição da função
-*   Verifica se o jogador já preencheu todas as colunas de naipes.
+*   Verifica quantas cartas já estão nas colunas de naipes, portanto
+*	quantas cartas ainda faltam no jogo.
 ***************************************************************************/
 int VerificarNaipes(){
-	int naipe1, naipe2, naipe3, naipe4, faltam;
+	int n, condRet = 0, 
+		numCartas = 0,
+		total = 0;
+	NPE_Coluna naipe;
 
-	naipe1 = ContarCartas(mesa[1]);
-	naipe2 = ContarCartas(mesa[2]);
-	naipe3 = ContarCartas(mesa[3]);
-	naipe4 = ContarCartas(mesa[4]);
+	for(n = 1; n <= 4; n++){
+		IrInicioLista(mesa);
+		condRet = LIS_AvancarElementoCorrente(mesa, n);
+		if(condRet != LIS_CondRetOK)
+			return -1;
 
-	faltam = 52 - (naipe1 + naipe2 + naipe3 + naipe4);
+		naipe = LIS_ObterValor(mesa);
+		NPE_ContarCartas(naipe, &numCartas);
+		total += numCartas;
+	}
 
-	return faltam;
+	return (52 - total);
+}
+
+/***************************************************************************
+*	$FC Função: &Obter Valor
+*	
+*	$ED Descrição da função
+*	Indica o valor de uma carta, retornando seu inteiro.
+*	Se for inválido, retorna -1;
+***************************************************************************/
+int ObterValor(Carta carta){
+	if(carta == NULL)
+		return -1;
+	
+	if(carta[0] == 'A')
+		return 1;
+	else if(carta[0] == '2')
+		return 2;
+	else if(carta[0] == '3')
+		return 3;
+	else if(carta[0] == '4')
+		return 4;
+	else if(carta[0] == '5')
+		return 5;
+	else if(carta[0] == '6')
+		return 6;
+	else if(carta[0] == '7')
+		return 7;
+	else if(carta[0] == '8')
+		return 8;
+	else if(carta[0] == '9')
+		return 9;
+	else if(carta[0] == '1')
+		return 10;
+	else if(carta[0] == 'J')
+		return 11;
+	else if(carta[0] == 'Q')
+		return 12;
+	else if(carta[0] == 'K')
+		return 13;
+	else
+		return -1;
+}
+
+/***************************************************************************
+*	$FC Função: &Obter Naipe
+*	
+*	$ED Descrição da função
+*   Indica o naipe de uma carta, retornando seu carater.
+*	Se for inválido, retona 'X'.
+***************************************************************************/
+char ObterNaipe(Carta carta){
+	int val = ObterValor(carta);
+	
+	if(val == -1)
+		return 'X';
+
+	if(val == 10){
+		if(carta[2] == 'P')
+			return 'P';
+		else if(carta[2] == 'C')
+			return 'C';
+		else if(carta[2] == 'E')
+			return 'E';
+		else if(carta[2] == 'O')
+			return 'O';
+	}
+	else{
+		if(carta[1] == 'P')
+			return 'P';
+		else if(carta[1] == 'C')
+			return 'C';
+		else if(carta[1] == 'E')
+			return 'E';
+		else if(carta[1] == 'O')
+			return 'O';
+	}
+	return 'X';
 }
