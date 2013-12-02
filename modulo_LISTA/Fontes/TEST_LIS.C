@@ -30,11 +30,11 @@
 #include    "LerParm.h"
 #include    "CESPDIN.H"
 
-#ifdef _DEBUG
-#include    "LISTA_INSTR.h"
-#else
-#include    "Lista.h"
-#endif
+/* #ifdef _DEBUG
+  #include    "LISTA_INSTR.h"
+#else */
+  #include    "Lista.h"
+// #endif
 
 
 static const char RESET_LISTA_CMD         [ ] = "=resetteste"     ;
@@ -49,8 +49,8 @@ static const char IR_INICIO_CMD           [ ] = "=irinicio"       ;
 static const char IR_FIM_CMD              [ ] = "=irfinal"        ;
 static const char AVANCAR_ELEM_CMD        [ ] = "=avancarelem"    ;
 
-const char VER_LISTA_CMD[ ] = "=verificarlista" ;
-const char DETURPAR_CMD[ ]   = "=deturpar" ;
+static const char VER_LISTA_CMD[ ] = "=verificarlista" ;
+static const char DETURPAR_CMD[ ]   = "=deturpar" ;
 
 #define TRUE  1
 #define FALSE 0
@@ -114,11 +114,14 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
       int numElem = -1 ;
 
-      StringDado[ 0 ] = 0 ;
-
       #ifdef _DEBUG
          int  IntEsperado   = -1 ;
       #endif
+
+      StringDado[ 0 ] = 0 ;
+
+      
+
 
       /* Efetuar reset de teste de lista */
 
@@ -378,32 +381,27 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
 
          } /* fim ativa: LIS  &Avançar elemento */
 
-      return TST_CondRetNaoConhec ;
-
-   } /* Fim função: TLIS &Testar lista */
+         /* Fim função: TLIS &Testar lista */
 
 
       /* Testar verificador de lista */
 
-      #ifdef _DEBUG
-
          else if ( strcmp( ComandoTeste , VER_LISTA_CMD ) == 0 )
          {
 
-            numLidos = LER_LerParametros( "i", &inxLista);
+            numLidos = LER_LerParametros( "ii", &inxLista, &CondRetEsp );
 
-            if ( ( numLidos != 1 )
+            if ( ( numLidos != 2 )
               || ( ! ValidarInxLista( inxLista , NAO_VAZIO )) )
             {
                return TST_CondRetParm ;
             } 
 
             return TST_CompararInt( CondRetEsp ,
-                             VerificaLista( vtListas[ inxLista ] ) ,
+                             VerificaLista( vtListas[ inxLista ] ) , 
                              "Retorno incorreto ao verificar Lista." ) ;
          } 
 
-      #endif
 
       /* Deturpar a lista */
 
@@ -426,6 +424,9 @@ LIS_tppLista   vtListas[ DIM_VT_LISTA ] ;
          } 
 
       #endif
+
+         return TST_CondRetNaoConhec ;
+       }
 
 
 /*****  Código das funções encapsuladas no módulo  *****/

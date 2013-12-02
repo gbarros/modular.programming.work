@@ -36,10 +36,13 @@
 #include "CESPDIN.H"
 #include "CONTA.H"
 #include "LISTA_INSTR.h"
+#include "IdTiposEspaco.def"
+#else
+#include "LISTA.h"
 #endif
 
 #define LISTA_OWN
-#include "LISTA.h"
+
 #include "TST_ESPC.H"
 #undef LISTA_OWN
 
@@ -116,9 +119,9 @@ static void LimparCabeca(LIS_tppLista pLista);
 
 static LIS_tpCondRet VerificaElementoLista(LIS_tppLista cabecaLista,tpElemLista elemLista, int* count);
 
-static int CED_ID_TIPO_VALOR_NULO = 999;
-
 /*****  Código das funções exportadas pelo módulo  *****/
+
+LIS_tpCondRet VerificaLista(LIS_tppLista cabecaLista);
 
 /***************************************************************************
  *
@@ -133,7 +136,7 @@ LIS_tppLista LIS_CriarLista(void ( * ExcluirValor) (void * pDado)) {
         return NULL;
     } /* if */
 #ifdef _DEBUG
-   CED_DefinirTipoEspaco( pLista , LIS_tpLista ) ;
+   CED_DefinirTipoEspaco( pLista , LIS_TipoEspacoCabeca) ;
 #endif
     LimparCabeca(pLista); 
 
@@ -518,7 +521,7 @@ tpElemLista * CriarElemento(LIS_tppLista pLista, void * pValor) {
     assert(pElem!=NULL);
 #else
     TST_ASSERT(pElem!=NULL);
-    CED_DefinirTipoEspaco( pElem , tpElemLista ) ;
+    CED_DefinirTipoEspaco( pElem , LIS_TipoEspacoNo ) ;
 #endif
     pElem->pValor = pValor;
     pElem->pAnt = NULL;
@@ -658,7 +661,7 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
 
     if( cabecaLista==NULL)
     {
-        CNT_Contar("CabecaListaInvalida");
+        CNT_Contar("CabecaListaInvalida",663);
         TST_NotificarFalha( "Tentou verificar cabeça inexistente.");
         return LIS_CondRetParam;
     }
@@ -669,7 +672,7 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
         CED_ObterTipoEspaco(cabecaLista->pElemCorr),
              "Tipo Errado apontado na cabeca" )!=TST_CondRetOK)
     {                
-        CNT_Contar("ErroTipoCorrente");
+        CNT_Contar("ErroTipoCorrente",674);
         return LIS_CondRetEstruturaDados;
     }
 
@@ -677,7 +680,7 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
         CED_ObterTipoEspaco(cabecaLista->pOrigemLista),
        "Tipo Errado apontado na cabeca" )!=TST_CondRetOK)
      { 
-        CNT_Contar("ErroTipoCabeca");              
+        CNT_Contar("ErroTipoCabeca",682);              
         return LIS_CondRetEstruturaDados;
      }
 
@@ -685,7 +688,7 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
         CED_ObterTipoEspaco(cabecaLista->pFimLista),
        "Tipo Errado apontado na cabeca" )!=TST_CondRetOK)
     {  
-       CNT_Contar("ErroTipoFinal");             
+       CNT_Contar("ErroTipoFinal",690);             
         return LIS_CondRetEstruturaDados;
     }
 
@@ -694,7 +697,7 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
     //      &qtdElems);
      if(cabecaLista->numElem!=qtdElems){
 #ifdef _DEBUG
-        CNT_Contar("ErroNumElementos");
+        CNT_Contar("ErroNumElementos",699);
         TST_NotificarFalha("Erro numero de Elementos");
 #endif
          return LIS_CondRetEstruturaDados;
@@ -715,40 +718,40 @@ void DeturpaLista( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo){
  LIS_tpCondRet VerificaElementoLista(LIS_tppLista cabecaLista,tpElemLista elemLista, int* count){
      LIS_tpCondRet condRet;
 
-     CED_MarcarEspacoAtivo(elemLista);
+     CED_MarcarEspacoAtivo(elemLista.pValor);
 
      if (elemLista.pValor == NULL){
-        CNT_Contar("ElementoNULL");
+        CNT_Contar("ElementoNULL",723);
         return LIS_CondRetOK;
      }
      *count++;
      condRet= VerificaElementoLista(cabecaLista,elemLista,count );
      if (condRet!= LIS_CondRetOK)
      {
-        CNT_Contar("ErroComElemento");
+        CNT_Contar("ErroComElemento",730);
         return LIS_CondRetEstruturaDados;
      }
     else if ((elemLista.pAnt->pProx) != elemLista.pValor )
     {
-        CNT_Contar("ErroPonteiroElemAnterior");
+        CNT_Contar("ErroPonteiroElemAnterior",735);
         return LIS_CondRetEstruturaDados;
     }
     else if(elemLista.pProx->pAnt != elemLista.pValor )
     {
-        CNT_Contar("ErroPonteiroProxElem");
+        CNT_Contar("ErroPonteiroProxElem",740);
         return LIS_CondRetEstruturaDados;
     }
     else if(elemLista.pCabeca != cabecaLista)
     {
-        CNT_Contar("ErroPonteiroCabeca");
+        CNT_Contar("ErroPonteiroCabeca",745);
         return LIS_CondRetEstruturaDados;
     }
-    else if (TST_CompararInt(LIS_ElemLista,CED_ObterTipoEspaco(elemLista),"Tipo Errado" )=!TST_CondRetOK){
-        CNT_Contar("ErroTipoElem");
+    else if (TST_CompararInt(LIS_ElemLista,CED_ObterTipoEspaco(elemLista.pValor),"Tipo Errado" ) != TST_CondRetOK){
+        CNT_Contar("ErroTipoElem",749);
         return LIS_CondRetEstruturaDados;
     }
 
-    CNT_Contar("VerificarElemOK");
+    CNT_Contar("VerificarElemOK",753);
     return LIS_CondRetOK;
  }
 

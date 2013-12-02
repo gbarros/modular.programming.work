@@ -45,30 +45,30 @@ typedef struct LIS_tagLista * LIS_tppLista;
 
 
 typedef enum {
-    LIS_CondRetOKINSTR,
+    LIS_CondRetOKRET,
     /* Concluiu corretamente */
 
-    LIS_CondRetListaVaziaINSTR,
+    LIS_CondRetListaVaziaRET,
     /* A lista não contém elementos */
 
-    LIS_CondRetFimListaINSTR,
+    LIS_CondRetFimListaRET,
     /* Foi atingido o fim de lista */
 
-    LIS_CondRetNaoAchouINSTR,
+    LIS_CondRetNaoAchouRET,
     /* Não encontrou o valor procurado */
 
-    LIS_CondRetFaltouMemoriaINSTR,
+    LIS_CondRetFaltouMemoriaRET,
     /* Faltou memória ao tentar criar um elemento de lista */
             
-    LIS_CondRetParamINSTR,
+    LIS_CondRetParamRET,
     /* Parametro de entrada errado ou NULL*/
             
-    LIS_CondRetEstruturaDadosINSTR,
+    LIS_CondRetEstruturaDadosRET,
     /* Os dados estão corrompidos*/
-   LIS_CondRetVazamentoMemoriaINSTR,
+   LIS_CondRetVazamentoMemoriaRET,
    /*Erro identificado quando há inconsistências no pareamento de dados com
      a lista de memória alocada*/
-    LIS_CondRetExecucaoINSTR
+    LIS_CondRetExecucaoRET
     /*Erros associados a execução, possivelmente são erros 
      * de memória não identificáveis como tal*/
 } LIS_tpCondRet;
@@ -120,7 +120,13 @@ typedef enum {
 
    void IrFinalListaINSTR( LIS_tppLista pLista );
 
+   LIS_tpCondRet LIS_AvancarElementoCorrenteINSTR(LIS_tppLista pLista, int numElem);
+
    LIS_tpCondRet LIS_ProcurarValorINSTR( LIS_tppLista pLista , void * pValor);
+
+   LIS_tpCondRet VerificaListaINSTR(LIS_tppLista cabecaLista);
+
+   void DeturpaListaINSTR( LIS_tppLista  pLista, LIS_tpModosDeturpacao tpModo);
 
 
 #if ! defined( LISTA_INSTR_OWN )
@@ -133,7 +139,10 @@ typedef enum {
    #define  LIS_ObterValor              LIS_ObterValorINSTR
    #define  IrInicioLista               IrInicioListaINSTR
    #define  IrFinalLista                IrFinalListaINSTR
+   #define  LIS_AvancarElementoCorrente LIS_AvancarElementoCorrenteINSTR
    #define  LIS_ProcurarValor           LIS_ProcurarValorINSTR
+   #define  VerificaLista               VerificaListaINSTR
+   #define  DeturpaLista                DeturpaListaINSTR
 #endif
 
 #if ! defined( LISTA_DET_OWN )
@@ -148,15 +157,15 @@ typedef enum {
 #endif
 
 #if ! defined( LISTA_RET_OWN )
-   #define  LIS_CondRetOK               LIS_CondRetOKINSTR
-   #define  LIS_CondRetListaVazia       LIS_CondRetListaVaziaINSTR
-   #define  LIS_CondRetFimLista         LIS_CondRetFimListaINSTR
-   #define  LIS_CondRetNaoAchou         LIS_CondRetNaoAchouINSTR 
-   #define  LIS_CondRetFaltouMemoria    LIS_CondRetFaltouMemoriaINSTR
-   #define  LIS_CondRetParam            LIS_CondRetParamINSTR
-   #define  LIS_CondRetEstruturaDados   LIS_CondRetEstruturaDadosINSTR
-   #define  LIS_CondRetVazamentoMemoria LIS_CondRetVazamentoMemoriaINSTR
-   #define  LIS_CondRetExecucao         LIS_CondRetExecucaoINSTR
+   #define  LIS_CondRetOK               LIS_CondRetOKRET
+   #define  LIS_CondRetListaVazia       LIS_CondRetListaVaziaRET
+   #define  LIS_CondRetFimLista         LIS_CondRetFimListaRET
+   #define  LIS_CondRetNaoAchou         LIS_CondRetNaoAchouRET 
+   #define  LIS_CondRetFaltouMemoria    LIS_CondRetFaltouMemoriaRET
+   #define  LIS_CondRetParam            LIS_CondRetParamRET
+   #define  LIS_CondRetEstruturaDados   LIS_CondRetEstruturaDadosRET
+   #define  LIS_CondRetVazamentoMemoria LIS_CondRetVazamentoMemoriaRET
+   #define  LIS_CondRetExecucao         LIS_CondRetExecucaoRET
 #endif
 
 #undef LISTA_INSTR_EXT
