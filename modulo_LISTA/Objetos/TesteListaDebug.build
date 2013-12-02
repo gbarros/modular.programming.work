@@ -1,0 +1,6 @@
+/OUT:..\Produto\TesteListaDebug.exe
+/INCREMENTAL:NO
+/MACHINE:IX86
+lista.obj  test_lis.obj  
+ArcaboucoTeste.lib
+

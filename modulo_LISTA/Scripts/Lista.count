@@ -1,3 +1,15 @@
 // Referência de nomes de contadores do módulo Lista
     
-    
+	CabecaListaInvalida
+	ErroTipoCorrente
+	ErroTipoCabeca
+	ErroTipoFinal
+	ErroNumElementos
+	ElementoNULL
+	ErroComElemento
+	ErroPonteiroElemAnterior
+	ErroPonteiroProxElem
+	ErroPonteiroCabeca
+	ErroTipoElem
+	VerificarElemOK
+
