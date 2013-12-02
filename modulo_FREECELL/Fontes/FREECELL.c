@@ -59,8 +59,8 @@ int SelecionarMenu(int status);
 int IniciarNovoJogo();
 int DistribuirCartas();
 int VerificarNaipes();
-int MoverCarta(Carta carta, char tipoOrigem, int numOrigem, char tipoDestino, int numDestino);
-void VerificarMoverCarta(Carta carta, char tipoOrigem, int numOrigem, char tipoDestino, int numDestino, int *validaRemocao, int *validaInsercao);
+int MoverCarta(Carta carta, int numOrigem, int numDestino);
+void VerificarMoverCarta(Carta carta, int numOrigem, int numDestino, int *validaRemocao, int *validaInsercao);
 void ExibirMesa();
 
 int ObterValor(Carta carta);
@@ -73,12 +73,12 @@ int main(){
 		status = OFF, // determina se há um jogo em andamento ou não
 		numOrigem,
 		numDestino,
-		numFaltam,
 		condRet = 0; // recebe as condições de retorno das funções
 	
-	char carta[TAM_CARTA], // recebe a carta que o jogador deseja mover
-		 tipoOrigem,
-		 tipoDestino;
+	char carta[TAM_CARTA]; // recebe a carta que o jogador deseja mover
+
+	SV_Coluna seqTemp = SV_CriarColunaSeqVis();
+	LIS_tpCondRet cond = LIS_CondRetOK;
 	//--------------------------------------------------
 
 	mesa = LIS_CriarLista(NULL);
@@ -95,18 +95,6 @@ int main(){
 			printf("Ops... Algo deu errado ao criar a mesa!\n");
 			return -1;
 		}
-		/*--/--/--/ ÁREA DE TESTE /--/--/--*/
-		/*if(condRet == 0){
-			printf("SUCESSO!\n");
-		}
-		else{
-			printf("Ops... Algo deu errado ao criar a mesa!\n");
-			return -1;
-		}
-
-		
-		ExibirMesa();*/
-		/*--/--/--/--/--/--/--/--/--/--/--*/
 
 		// Distribui as cartas pelas sequências visíveis
 		condRet = DistribuirCartas(baralho);
@@ -114,43 +102,26 @@ int main(){
 			printf("Ops... Algo deu errado ao distribuir as cartas!\n");
 			return -1;
 		}
-		/*--/--/--/ ÁREA DE TESTE /--/--/--*/
-		/*if(condRet == 0){
-			printf("SUCESSO!\n");
-		}
-		else{
-			printf("Ops... Algo deu errado ao distribuir as cartas!\n");
-			return -1;
-		}*/
-		/*--/--/--/--/--/--/--/--/--/--/--*/
 
 		// Enquanto o jogador não desistir ou vencer o jogo
 		ExibirMesa();
 		opcaoDeMovimento = SelecionarMenu(status);
 
-		while(opcaoDeMovimento != MOVER && opcaoDeMovimento != DESISTIR)
-			opcaoDeMovimento = SelecionarMenu(status);
-		
-		while(opcaoDeMovimento == MOVER || VerificarNaipes() == 0){
-			printf("\nIndique a carta que deseja transferir, a coluna fonte e a coluna destino.\n");
-			printf("HINT: E - EXTRA ou N - NAIPE ou S - SEQ + numero\n");
-			scanf("%s %c%d %c%d", carta, &tipoOrigem, &numOrigem, &tipoDestino, &numDestino);
+		while(opcaoDeMovimento == MOVER){
+			printf("\nIndique a carta que deseja transferir: ");
+			scanf("%s", carta);
+			printf("Indique o numero da coluna de origem: ");
+			scanf("%d", &numOrigem);
+			printf("Indique o numero da coluna de destino: ");
+			scanf("%d", &numDestino);
 
-			/*--/--/--/ ÁREA DE TESTE /--/--/--*/
-			/*printf("%s - ", carta);
-			printf("%c", tipoOrigem);
-			printf("%d - ", numOrigem);
-			printf("%c", tipoDestino);
-			printf("%d\n\n", numDestino);*/
-			/*--/--/--/--/--/--/--/--/--/--/--*/
-			
-			condRet = MoverCarta(carta, tipoOrigem, numOrigem, tipoDestino, numDestino);
+			condRet = MoverCarta(carta, numOrigem, numDestino);
 			
 			if(condRet != OK){
 				printf("Movimento invalido.\n");
 			}
 
-			printf("Faltam %d cartas.\n\n", VerificarNaipes());
+			//printf("Faltam %d cartas.\n\n", VerificarNaipes());
 
 			ExibirMesa();
 			opcaoDeMovimento = SelecionarMenu(status);
@@ -158,6 +129,8 @@ int main(){
 
 		// Libera a mesa e termina o jogo
 		LIS_DestruirLista(mesa);
+		printf("\nJ%c indo?\nVolte em breve para um novo jogo!\n\n", 160);
+		exit(EXIT_SUCCESS);
 	}	
 
 	// Se jogador decidiu sair...
@@ -325,37 +298,12 @@ int DistribuirCartas(char baralho[][TAM_CARTA]){
 	else
 		return -1;
 
-	/*--/--/--/ ÁREA DE TESTE /--/--/--*/
-	/*printf("ORIGINAL:\n");
-	for(i = 0; i < 52; i++){
-		printf("%s\t", baralho[i]);
-	}
-	printf("\n\n");*/
-	/*--/--/--/--/--/--/--/--/--/--/--*/
-
 	// Embaralhamento das cartas
 	condRet = EMB_Embaralha(baralho);
 	if(condRet != EMB_CondRetOK){
 		printf("Nao consegui embaralhar!\n");
-
-		/*--/--/--/ ÁREA DE TESTE /--/--/--*/
-		if(condRet == EMB_CondRetBaralhoInvalido)
-			printf("ERRO: Baralho invalido.\n");
-		if(condRet == EMB_CondRetErroNoEmbaralhamento)
-			printf("ERRO: Erro no embaralhamento.\n");
-		if(condRet == EMB_CondRetErroNaReferencia)
-			printf("ERRO: Erro na referencia.\n");
-		/*--/--/--/--/--/--/--/--/--/--/--*/
 		return -1;
 	}
-
-	/*--/--/--/ ÁREA DE TESTE /--/--/--*/
-	/*printf("EMBARALHADO:\n");
-	for(i = 0; i < 52; i++){
-		printf("%s\t", baralho[i]);
-	}
-	printf("\n\n");*/
-	/*--/--/--/--/--/--/--/--/--/--/--*/
 
 	// Distribui as cartas embaralhadas pelas colunas de sequências visíveis
 	
@@ -366,7 +314,6 @@ int DistribuirCartas(char baralho[][TAM_CARTA]){
 		IrInicioLista(mesa);
 
 		condRet = LIS_AvancarElementoCorrente(mesa, n);
-		//printf("Verificar avanco...\n");
 		if(condRet != LIS_CondRetOK){
 			return -1;
 		}
@@ -378,7 +325,6 @@ int DistribuirCartas(char baralho[][TAM_CARTA]){
 		if(n >= 5 && n <= 8){
 			for(i = j; i < j + 7; i++){
 				condRet = SV_PopularSeqVis(coluna, baralho[i]);
-				//printf("Verificar %d...\n", n);
 				if(condRet != SV_CondRetOK){
 					return -1;
 				}
@@ -388,7 +334,6 @@ int DistribuirCartas(char baralho[][TAM_CARTA]){
 		else{
 			for(i = j; i < j + 6; i++){
 				condRet = SV_PopularSeqVis(coluna, baralho[i]);
-				//printf("Verificar %d...\n", n);
 				if(condRet != SV_CondRetOK){
 					return -1;
 				}
@@ -407,94 +352,81 @@ int DistribuirCartas(char baralho[][TAM_CARTA]){
 
 *   Movimento de uma carta (ou um bloco de cartas) de uma coluna para outra.
 ***************************************************************************/
-int MoverCarta(Carta carta, char tipoOrigem, int numOrigem, char tipoDestino, int numDestino){
-	int validaRemocao, 
-		validaInsercao,
-		condRet = 0;
+int MoverCarta(Carta carta, int numOrigem, int numDestino){
+	int validaRemocao, validaInsercao;
+	
 	EXT_Coluna extra = EXT_CriarColunaExtra();
 	NPE_Coluna naipe = NPE_CriarColunaNaipe();
-	SV_Coluna seq = SV_CriarColunaSeqVis(); 
+	SV_Coluna seq = SV_CriarColunaSeqVis();
 
-	// Checagem das entradas
-	if(carta == NULL || ObterValor(carta) == -1 || ObterNaipe(carta) == 'X')
-		printf("\nOps...Esta carta nao existe!\n\n", 136);
-		return FAIL;
+	EXT_tpCondRet condRetExtra = EXT_CondRetOK;
+	NPE_tpCondRet condRetNaipe = NPE_CondRetOK;
+	SV_tpCondRet condRetSeq = SV_CondRetOK;
+	LIS_tpCondRet condRetLista = LIS_CondRetOK;
 
-	if(tipoOrigem != 'E' && tipoOrigem != 'N' && tipoOrigem != 'S'){
-		printf("\nOps...Parece que voc%c digitou errado.\n\n", 136);
-		return FAIL;
-	}
-
-	if(tipoDestino != 'E' && tipoDestino != 'N' && tipoDestino != 'S'){
-		printf("\nOps...Parece que voc%c digitou errado.\n\n", 136);
-		return FAIL;
-	}
-
-	VerificarMoverCarta(carta, tipoOrigem, numOrigem, tipoDestino, numDestino, &validaRemocao, &validaInsercao);
+	VerificarMoverCarta(carta, numOrigem, numDestino, &validaRemocao, &validaInsercao);
 	// Se o movimento não for válido, não efetua nada
 	if(validaRemocao == FAIL || validaInsercao == FAIL){
 		return FAIL;
 	}
 
 	// Efetuar remoção
-	if(tipoOrigem == 'E'){
+	if(numOrigem == 0){
 		IrInicioLista(mesa);
 		extra = (EXT_Coluna) LIS_ObterValor(mesa);
 
-		condRet = EXT_RemoverCartaDeExtra(extra, carta);
+		condRetExtra = EXT_RemoverCartaDeExtra(extra, carta);
 		// Se der erro, abortar missão...
-		if(condRet != EXT_CondRetOK)
+		if(condRetExtra != EXT_CondRetOK)
 			return FAIL;			
 	}
-	else if(tipoOrigem == 'S'){
+	else{
 		IrInicioLista(mesa);
-
-		condRet = LIS_AvancarElementoCorrente(mesa, numOrigem + 4);
-		if(condRet != LIS_CondRetOK)
+		condRetLista = LIS_AvancarElementoCorrente(mesa, numOrigem);
+		if(condRetLista != LIS_CondRetOK)
 			return FAIL;	
 
 		seq = (SV_Coluna) LIS_ObterValor(mesa);
-		condRet = SV_RemoverCartaDeSeqVis(seq, carta);
+		condRetSeq = SV_RemoverCartaDeSeqVis(seq, carta);
 			// Se der erro, abortar missão...
-			if(condRet != EXT_CondRetOK)
+			if(condRetSeq != SV_CondRetOK)
 				return FAIL;
 	}
 
 	// Efetuar inserção
+	if(numDestino == 0){
+		IrInicioLista(mesa);
+		extra = (EXT_Coluna) LIS_ObterValor(mesa);
+		condRetExtra = EXT_InserirCartaEmExtra(extra, carta);
+		//Se der erro, abortar missão...
+		if(condRetExtra != EXT_CondRetOK)
+			return FAIL;
+	}
+	else if(numDestino > 0 && numDestino < 5){
+		IrInicioLista(mesa);
+
+		condRetLista = LIS_AvancarElementoCorrente(mesa, numOrigem);
+		if(condRetLista != LIS_CondRetOK)
+			return FAIL;
+
+		naipe = (NPE_Coluna) LIS_ObterValor(mesa);
+		condRetNaipe = NPE_InserirCartaEmNaipe(naipe, carta);
+		//Se der erro, abortar missão...
+		if(condRetNaipe != NPE_CondRetOK)
+			return FAIL;
+	}
 	else{
-		if(tipoDestino == 'E'){
-			extra = (EXT_Coluna) LIS_ObterValor(mesa);
-			condRet = EXT_InserirCartaEmExtra(extra, carta);
-			//Se der erro, abortar missão...
-			if(condRet != EXT_CondRetOK)
-				return FAIL;
-		}
-		else if(tipoDestino == 'N'){
-			IrInicioLista(mesa);
+		IrInicioLista(mesa);
 
-			condRet = LIS_AvancarElementoCorrente(mesa, numOrigem + 1);
-			if(condRet != LIS_CondRetOK)
-				return FAIL;
+		condRetLista = LIS_AvancarElementoCorrente(mesa, numOrigem);
+		if(condRetLista != LIS_CondRetOK)
+			return FAIL;
 
-			naipe = (NPE_Coluna) LIS_ObterValor(mesa);
-			condRet = NPE_InserirCartaEmNaipe(naipe, carta);
-			//Se der erro, abortar missão...
-			if(condRet != NPE_CondRetOK)
+		seq = (SV_Coluna) LIS_ObterValor(mesa);
+		condRetSeq = SV_InserirCartaEmSeqVis(seq, carta);
+			// Se der erro, abortar missão...
+			if(condRetSeq != SV_CondRetOK)
 				return FAIL;
-		}
-		else{
-			IrInicioLista(mesa);
-
-			condRet = LIS_AvancarElementoCorrente(mesa, numOrigem + 4);
-			if(condRet != LIS_CondRetOK)
-				return FAIL;
-
-			seq = (SV_Coluna) LIS_ObterValor(mesa);
-			condRet = SV_InserirCartaEmSeqVis(seq, carta);
-				// Se der erro, abortar missão...
-				if(condRet != EXT_CondRetOK)
-					return FAIL;
-		}
 	}
 		
 	return 0;
@@ -506,25 +438,43 @@ int MoverCarta(Carta carta, char tipoOrigem, int numOrigem, char tipoDestino, in
 *	$ED Descrição da função
 *   Valida ou não um movimento de carta dado pelo jogador.
 ***************************************************************************/
-void VerificarMoverCarta(Carta carta, char tipoOrigem, int numOrigem, 
-						char tipoDestino, int numDestino,
+void VerificarMoverCarta(Carta carta, int numOrigem, int numDestino,
 						int *validaRemocao, int *validaInsercao){
-	int condRet = 0;
 	EXT_Coluna extra = EXT_CriarColunaExtra();
+	EXT_tpCondRet resRemocaoExtra = EXT_CondRetOK, resInsercaoExtra = EXT_CondRetOK;
 	NPE_Coluna naipe = NPE_CriarColunaNaipe();
-	SV_Coluna seq = SV_CriarColunaSeqVis(); 
+	NPE_tpCondRet resInsercaoNaipe = NPE_CondRetOK;
+	SV_Coluna seq = SV_CriarColunaSeqVis();
+	SV_tpCondRet resRemocaoSeq = SV_CondRetOK, resInsercaoSeq = SV_CondRetOK;
+	LIS_tpCondRet resAvanco = LIS_CondRetOK;
 	
-	IrInicioLista(mesa);
+	// Checagem das entradas
+	if(carta == NULL || ObterValor(carta) == -1 || ObterNaipe(carta) == 'X'){
+		printf("\nOps...Esta carta nao existe!\n\n", 136);
+		*validaRemocao FAIL;
+	}
 
+	if(numOrigem < 0 || numOrigem > 12){
+		printf("\nOps... O numero desta coluna nao existe!\n\n");
+		*validaRemocao = FAIL;
+	}
+
+	if(numDestino < 0 || numDestino > 12){
+		printf("\nOps... O numero desta coluna nao existe!\n\n");
+		*validaInsercao = FAIL;
+	}
+
+	
 	// Verificar possibilidade de remoção
-	if(tipoOrigem == 'E'){
+	if(numOrigem == 0){
+		IrInicioLista(mesa);
 		extra = (EXT_Coluna) LIS_ObterValor(mesa);
-		condRet = EXT_VerificarRemoverCarta(extra, carta);
-		if(condRet == EXT_CondRetCartaNaoExiste){
+		resRemocaoExtra = EXT_VerificarRemoverCarta(extra, carta);
+		if(resRemocaoExtra == EXT_CondRetCartaNaoExiste){
 			printf("\nOps... A carta que voce escolheu nao existe aqui!\n\n");
 			*validaRemocao = FAIL;
 		}
-		else if(condRet == EXT_CondRetNaoPodeRemover){
+		else if(resRemocaoExtra == EXT_CondRetNaoPodeRemover){
 			printf("\nNao e possivel remover esta carta desta coluna.\n\n");
 			*validaRemocao = FAIL;
 		}
@@ -533,43 +483,43 @@ void VerificarMoverCarta(Carta carta, char tipoOrigem, int numOrigem,
 		}
 	}
 
-	else if(tipoOrigem == 'N'){
+	else if(numOrigem > 0 && numOrigem < 5){
 		printf("\nNao e possivel remover cartas de naipe.\n\n");
 		*validaRemocao = FAIL;
 	}
 	
 	else{
-		if(numOrigem < 1 || numOrigem > 8){
-			printf("\nOps... O numero desta coluna nao existe!\n\n");
+		IrInicioLista(mesa);
+		resAvanco = LIS_AvancarElementoCorrente(mesa, numOrigem);	
+		if(resAvanco != LIS_CondRetOK)
+			*validaRemocao = FAIL;
+		
+		seq = (SV_Coluna) LIS_ObterValor(mesa);
+		resRemocaoSeq = SV_VerificarRemoverCarta(seq, carta);
+		if(resRemocaoSeq == SV_CondRetCartaNaoExiste){
+			printf("\nOps... A carta que voce escolheu nao existe aqui!\n\n");
+			*validaRemocao = FAIL;
+		}
+		else if(resRemocaoSeq == SV_CondRetNaoPodeRemover){
+			printf("\nNao e possivel remover esta carta desta coluna.\n\n");
 			*validaRemocao = FAIL;
 		}
 		else{
-			LIS_AvancarElementoCorrente(seq, numOrigem + 4);	
-			seq = (SV_Coluna) LIS_ObterValor(mesa);
-			condRet = SV_VerificarRemoverCarta(seq, carta);
-			if(condRet == SV_CondRetCartaNaoExiste){
-				printf("\nOps... A carta que voce escolheu nao existe aqui!\n\n");
-				*validaRemocao = FAIL;
-			}
-			else if(condRet == SV_CondRetNaoPodeRemover){
-				printf("\nNao e possivel remover esta carta desta coluna.\n\n");
-				*validaRemocao = FAIL;
-			}
-			else{
-				*validaRemocao = OK;
-			}
+			*validaRemocao = OK;
 		}
 	}
 
+
 	// Verificar possibilidade de inserção
-	if(tipoDestino == 'E'){
+	if(numDestino == 0){
+		IrInicioLista(mesa);
 		extra = (EXT_Coluna) LIS_ObterValor(mesa);
-		condRet = EXT_VerificarInserirCarta(extra, carta);
-		if(condRet == EXT_CondRetCartaNaoExiste){
+		resInsercaoExtra = EXT_VerificarInserirCarta(extra, carta);
+		if(resInsercaoExtra == EXT_CondRetCartaNaoExiste){
 			printf("\nOps... A carta que voce escolheu nao existe aqui!\n\n");
 			*validaInsercao = FAIL;
 		}
-		else if(condRet == EXT_CondRetNaoPodeInserir){
+		else if(resInsercaoExtra == EXT_CondRetNaoPodeInserir){
 			printf("\nNao e possivel inserir esta carta nesta coluna.\n\n");
 			*validaInsercao = FAIL;
 		}
@@ -578,51 +528,48 @@ void VerificarMoverCarta(Carta carta, char tipoOrigem, int numOrigem,
 		}	
 	}
 
-	else if(tipoDestino == 'N'){
-		if(numOrigem < 1 || numOrigem > 4){
-			printf("\nOps... O numero desta coluna nao existe!\n\n");
+	else if(numDestino > 0 && numDestino < 5){
+		IrInicioLista(mesa);
+		resAvanco = LIS_AvancarElementoCorrente(mesa, numOrigem);
+		if(resAvanco != LIS_CondRetOK)
+			*validaInsercao = FAIL;
+
+		naipe = (NPE_Coluna) LIS_ObterValor(mesa);
+		resInsercaoNaipe = NPE_VerificarInserirCarta(naipe, carta);
+		if(resInsercaoNaipe == NPE_CondRetCartaNaoExiste){
+			printf("\nOps... A carta que voce escolheu nao existe aqui!\n\n");
+			*validaInsercao = FAIL;
+		}
+		else if(resInsercaoNaipe  == NPE_CondRetNaoPodeInserir){
+			printf("\nNao e possivel inserir esta carta nesta coluna.\n\n");
 			*validaInsercao = FAIL;
 		}
 		else{
-			LIS_AvancarElementoCorrente(mesa, numOrigem + 1);	
-			naipe = (NPE_Coluna) LIS_ObterValor(mesa);
-			condRet = NPE_VerificarInserirCarta(naipe, carta);
-			if(condRet == NPE_CondRetCartaNaoExiste){
-				printf("\nOps... A carta que voce escolheu nao existe aqui!\n\n");
-				*validaInsercao = FAIL;
-			}
-			else if(condRet == NPE_CondRetNaoPodeInserir){
-				printf("\nNao e possivel inserir esta carta nesta coluna.\n\n");
-				*validaInsercao = FAIL;
-			}
-			else{
-				*validaInsercao = OK;
-			}	
-		}
+			*validaInsercao = OK;
+		}	
 	}
 
 	else{
-		if(numOrigem < 1 || numOrigem > 8){
-			printf("\nOps... O numero desta coluna nao existe!\n\n");
+		IrInicioLista(mesa);
+		resAvanco = LIS_AvancarElementoCorrente(mesa, numOrigem);
+		if(resAvanco != LIS_CondRetOK)
+			*validaInsercao = FAIL;
+
+		seq = (SV_Coluna) LIS_ObterValor(mesa);
+		resInsercaoSeq = SV_VerificarInserirCarta(seq, carta);
+		if(resInsercaoSeq == SV_CondRetCartaNaoExiste){
+			printf("\nOps... A carta que voce escolheu nao existe aqui!\n\n");
+			*validaInsercao = FAIL;
+		}
+		else if(resInsercaoSeq == SV_CondRetNaoPodeRemover){
+			printf("\nNao e possivel inserir esta carta desta coluna.\n\n");
 			*validaInsercao = FAIL;
 		}
 		else{
-			LIS_AvancarElementoCorrente(mesa, numOrigem + 4);
-			seq = (SV_Coluna) LIS_ObterValor(mesa);
-			condRet = SV_VerificarInserirCarta(seq, carta);
-			if(condRet == SV_CondRetCartaNaoExiste){
-				printf("\nOps... A carta que voce escolheu nao existe aqui!\n\n");
-				*validaInsercao = FAIL;
-			}
-			else if(condRet == SV_CondRetNaoPodeRemover){
-				printf("\nNao e possivel inserir esta carta desta coluna.\n\n");
-				*validaInsercao = FAIL;
-			}
-			else{
-				*validaInsercao = OK;
-			}
+			*validaInsercao = OK;
 		}
 	}
+
 }
 
 /***************************************************************************
@@ -640,7 +587,7 @@ void ExibirMesa(){
 	IrInicioLista(mesa);
 	
 	// Exibir as cartas da coluna extra
-	printf("\nEXTRA:\t");
+	printf("\n[0] EXTRA:\t");
 	extra = (EXT_Coluna) LIS_ObterValor(mesa);
 	EXT_ExibirCartas(extra);
 	printf("\n\n");
@@ -651,7 +598,7 @@ void ExibirMesa(){
 		LIS_AvancarElementoCorrente(mesa, n);
 		naipe = (NPE_Coluna) LIS_ObterValor(mesa);
 		
-		printf("NAIPE #%d: ", n);
+		printf("[%d] NAIPE #%d: ", n, n);
 		NPE_ExibirCarta(naipe);
 		printf("\n");
 	}
@@ -664,7 +611,7 @@ void ExibirMesa(){
 		LIS_AvancarElementoCorrente(mesa, n);
 		seq = (SV_Coluna) LIS_ObterValor(mesa);
 		
-		printf("SEQ #%d: ", n - 4);
+		printf("[%d] SEQ #%d: ", n, n - 4);
 		SV_ExibirCartas(seq);
 		printf("\n");
 	}
@@ -684,7 +631,7 @@ int VerificarNaipes(){
 	int n, condRet = 0, 
 		numCartas = 0,
 		total = 0;
-	NPE_Coluna naipe;
+	NPE_Coluna naipe = NPE_CriarColunaNaipe();
 
 	for(n = 1; n <= 4; n++){
 		IrInicioLista(mesa);
