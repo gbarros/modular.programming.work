@@ -62,7 +62,7 @@ PUC-Rio Novembro 2013
 	
 	LinguagemTeste.txt		Documentação da linguagem script de teste.
 
-	Descricao_comandos.pdf		Documento descrevendo cada comando de teste  disponibilizado
+	Fluxogramas_Verificador.pdf	Documento descrevendo cada comando de teste  disponibilizado
 					para testar o verificador.	
 
 	Documentacao.pdf		Apresenta a modelagem do problema, ou seja, a especificação

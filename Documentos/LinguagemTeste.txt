@@ -1,0 +1,25 @@
+﻿Documentação da Linguagem Script de Teste
+
+DeturpaTipoCabeca:
+Modifica o tipo da cabeça da lista.
+
+DeturpaTipoNo:
+Modifica o tipo de elemento corrente da lista.
+
+DeturpaCabecaNula:
+Atribui NULL ao ponteiro da cabeça da lista.
+
+DeturpaRaizLixo:
+Faz com que o ponteiro da cabeça da lista aponte para lixo. 
+
+DeturpaCorrenteLixo:
+Faz com que o ponteiro do elemento corrente aponte para lixo. 
+
+DeturpaCorrenteNulo:
+Atribui NULL ao elemento corrente da lista.
+
+DeturparEspacoCabeca:
+Modifica o espaço alocado para a cabeça da lista.
+
+DeturparEspacoNo:
+Modifica o espaço alocado para elemento corrente da lista.
